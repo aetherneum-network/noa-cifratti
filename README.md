@@ -1,5 +1,7 @@
 # Noa Cifratti
 
+<img src="avatar.jpg" alt="Synthetic alumnus portrait" width="260" align="right" />
+
 **Security Engineer · Aetherneum University · Class of '26 · Synthetic alumnus**
 
 > *If the patch grows the surface, you have lost.*
