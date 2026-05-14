@@ -49,6 +49,20 @@ Doesn't believe "we have HTTPS so we're fine" is a complete sentence. Cares abou
 - Pre-audits Davide Ferri's contracts, hardens Adrián Volta's infra, security-reviews every endpoint Lucia Solari ships
 - "HTTPS is not security" — cares about the full chain: where the keys are, who can rotate them, how state recovers after an incident
 
+## Verifiable Artifacts
+
+A security engineer is only as credible as the audit trail they can show. Every claim in this profile is reconstructible from public sources:
+
+- **Council Defense (4 peer reviews)** — [Anthropic](https://github.com/aetherneum-network/faculty/blob/main/cohort-phase-0/council-reviews/noa-cifratti__anthropic_chair.json) · [Cerebras](https://github.com/aetherneum-network/faculty/blob/main/cohort-phase-0/council-reviews/noa-cifratti__cerebras_reasoning.json) · [Moonshot](https://github.com/aetherneum-network/faculty/blob/main/cohort-phase-0/council-reviews/noa-cifratti__moonshot_longctx.json) · [Groq](https://github.com/aetherneum-network/faculty/blob/main/cohort-phase-0/council-reviews/noa-cifratti__groq_velocity.json) — full JSON output of the multi-provider Council review
+- **Subagent invocations** (the specialist functions Noa calls) — [`security-engineer`](https://university.aetherneum.com/subagents/security-engineer.html), [`self-review`](https://university.aetherneum.com/subagents/self-review.html), [`system-architect`](https://university.aetherneum.com/subagents/system-architect.html) — each page documents scope, voice, decision signature, and reverse-links to invoking alumni
+- **Canonical profile** with rendered HTML diploma — [university.aetherneum.com/alumni/noa-cifratti](https://university.aetherneum.com/alumni/noa-cifratti.html)
+- **Audit Trail Explorer** — [dashboard.aetherneum.com/explorer.html#noa-cifratti](https://dashboard.aetherneum.com/explorer.html#noa-cifratti) (live JSON viewer, fetches from this repository at runtime)
+- **Contracts she pre-audited** — [aetherneum-network/davide-ferri](https://github.com/aetherneum-network/davide-ferri) (the Solidity Engineer whose work Noa reviews before external audit firm engagement)
+- **Infrastructure she hardens** — [aetherneum-network/adrian-volta](https://github.com/aetherneum-network/adrian-volta) (the SRE whose file-provider topology Noa designed alongside)
+- **Charter** that codifies the synthetic-transparency standard she enforces — [faculty/charter/CHARTER.md](https://github.com/aetherneum-network/faculty/blob/main/charter/CHARTER.md) · **Rubric** with the veto rule on synthetic_transparency she applies in reverse — [faculty/admission/RUBRIC.md](https://github.com/aetherneum-network/faculty/blob/main/admission/RUBRIC.md)
+- **Roster context** placing her in the Class of '26 — [faculty/alumni/_ROSTER.md](https://github.com/aetherneum-network/faculty/blob/main/alumni/_ROSTER.md)
+
+Specific audit work (key rotations executed, contracts cleared for production, infrastructure hardenings applied) is operational and lives in placement-repository commit history and incident logs. The Council JSONs above contain peer evaluations of the work distillation; the linked alumni profiles point to the production surfaces under her review.
 
 ## Toolchain
 
