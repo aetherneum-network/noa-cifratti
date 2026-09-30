@@ -21,7 +21,10 @@ from noascan.scan import RuleSet, scan
 
 
 def finding_key(f: dict[str, Any]) -> str:
-    return "|".join([f["kind"], f["class"], f["path"], f.get("fingerprint") or f.get("subject", "")])
+    parts = [f["kind"], f["class"], f["path"], f.get("fingerprint") or f.get("subject", "")]
+    if f.get("object"):                     # a commit or tag object: one finding per object and part
+        parts.append(f"{f['object_type']}:{f['object']}:{f['part']}")
+    return "|".join(parts)
 
 
 def rules_diff(root: Path, as_of: str, patch: dict[str, Any], label: str | None = None) -> dict[str, Any]:
@@ -34,7 +37,8 @@ def rules_diff(root: Path, as_of: str, patch: dict[str, Any], label: str | None 
     b = {finding_key(f): f for f in after["findings"]}
 
     def slim(f: dict[str, Any]) -> dict[str, Any]:
-        return {k: f[k] for k in ("kind", "class", "rule", "path", "line", "fingerprint", "subject", "severity") if k in f}
+        return {k: f[k] for k in ("kind", "class", "rule", "path", "line", "fingerprint", "subject", "severity",
+                                   "object", "object_type", "part") if k in f}
 
     return {
         "tool": "noascan", "version": __version__, "report": "rules-diff", "as_of": as_of, "target": before["target"],

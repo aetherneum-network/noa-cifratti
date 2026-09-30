@@ -4,8 +4,10 @@ What is read, stated in full:
 
 * every file of the working tree (symbolic links are not followed), and its name;
 * every file under ``.git`` that is not an object or the index (a remote URL with a credential
-  in ``.git/config`` is a leak like any other);
-* every blob in the git object database, reachable or not, through two read-only git commands.
+  in ``.git/config`` is a leak like any other; the reflog, ``COMMIT_EDITMSG`` and the like are files);
+* every blob in the git object database, reachable or not, through two read-only git commands;
+* the full text of every commit and annotated-tag object in the database, reachable or not, in two
+  parts, header and message, each read like a file with no path (so that every rule applies).
 
 What could not be read in full as UTF-8 text is listed as NOT_COVERED with a reason, and a
 repository with one such entry cannot be CLEAN.
@@ -136,6 +138,19 @@ def scan(root: Path, as_of: str, *, label: str | None = None, read_history: bool
             rec.update(commit=intro.commit or "", author=safe(intro.author), date=intro.date, blob=intro.blob,
                        reachable=intro.reachable)
 
+    def add_text_hit(hit: Hit, obj: history.ObjectText) -> None:
+        """A finding in the header or the message of a commit or tag object: located by object id and part."""
+        kind = "secret" if hit.action == "report" else "suspect"
+        key = (kind, hit.cls, hit.fingerprint, None, obj.oid, obj.part)
+        if key in records:
+            return
+        radius, severity, _ = gate.grade(kind, hit.cls, blast)
+        records[key] = {"kind": kind, "class": hit.cls, "rule": hit.rule, "severity": severity, "radius": radius,
+                        "path": "", "line": hit.line, "fingerprint": hit.fingerprint, "length": hit.length,
+                        "via": hit.via, "in_worktree": False, "commit": obj.oid if obj.kind == "commit" else "",
+                        "author": safe(obj.author), "date": obj.date, "blob": "", "reachable": obj.reachable,
+                        "object": obj.oid, "object_type": obj.kind, "part": obj.part, "raw_path": None}
+
     named: set[tuple[str, bool]] = set()
 
     def add_name(path: str | None, intro: history.Introduction | None) -> None:
@@ -170,7 +185,7 @@ def scan(root: Path, as_of: str, *, label: str | None = None, read_history: bool
             add_hit(hit, path, None)
 
     # 2. history ----------------------------------------------------------------------------------------------
-    hist_state, blobs_read, commits_read = "skipped", 0, 0
+    hist_state, blobs_read, commits_read, tags_read = "skipped", 0, 0, 0
     git_entry = root / ".git"
     if not read_history:
         if os.path.lexists(git_entry) and ".git" not in exclude:
@@ -186,7 +201,7 @@ def scan(root: Path, as_of: str, *, label: str | None = None, read_history: bool
                 hist_state = "unreadable"
                 add_gap(".git", "history_unreadable", "SCAN-HISTORY-UNREADABLE", "history", str(exc)[:80])
             else:
-                hist_state, blobs_read, commits_read = "read", len(hist.blobs), len(hist.commits)
+                hist_state, blobs_read, commits_read, tags_read = "read", len(hist.blobs), len(hist.commits), hist.tags_read
                 for note in hist.notes:
                     add_gap(note["detail"], note["reason"], "SCAN-HISTORY-" + note["reason"].upper().replace("_", "-"),
                             "history", note["detail"])
@@ -200,6 +215,14 @@ def scan(root: Path, as_of: str, *, label: str | None = None, read_history: bool
                         add_gap(intro.path or f"(blob {intro.blob[:12]} in no tree)", reason, rule or "", "history", _sha(data))
                     for hit in hits:
                         add_hit(hit, intro.path, intro)
+                # the header and the message of each commit and tag object, with the same rules and the same
+                # coverage decision as a file; no path, so that no rule is skipped for want of one
+                for obj in hist.texts:
+                    reason, rule, hits, _ = blobs.look(None, obj.data)
+                    if reason is not None:
+                        add_gap(f"({obj.kind} {obj.oid[:12]} {obj.part})", reason, rule or "", "history", _sha(obj.data))
+                    for hit in hits:
+                        add_text_hit(hit, obj)
 
     # 3. configuration and Python source (working tree, covered files only) ----------------------------------------
     model = config.parse(covered_text, rs.raw["config"])
@@ -252,7 +275,7 @@ def scan(root: Path, as_of: str, *, label: str | None = None, read_history: bool
     for rec in findings + gaps:
         rec.pop("raw_path", None)
     findings.sort(key=lambda f: (-f["radius"], f["path"], f["line"], f["kind"], f["class"],
-                                 f.get("fingerprint", ""), f.get("subject", "")))
+                                 f.get("fingerprint", ""), f.get("subject", ""), f.get("object", ""), f.get("part", "")))
     for i, rec in enumerate(findings, 1):
         rec["id"] = f"F{i:03d}"
     gaps.sort(key=lambda g: (g["path"], g["where"], g["reason"], g["sha256"]))
@@ -264,7 +287,9 @@ def scan(root: Path, as_of: str, *, label: str | None = None, read_history: bool
         "tool": "noascan", "version": __version__, "report": "scan", "as_of": as_of,
         "target": safe(label if label is not None else root.name),
         "scope": {"worktree_files": len(files), "history": hist_state, "commits_read": commits_read,
-                  "blobs_read": blobs_read, "config_and_code": "working tree only",
+                  "tags_read": tags_read, "blobs_read": blobs_read,
+                  "object_texts": "header and message of every commit and annotated tag" if hist_state == "read" else "not read",
+                  "config_and_code": "working tree only",
                   "statement": "internal consistency on synthetic data; no claim about any real system"},
         "rules": rs.stamp(("secrets", "coverage", "gate", "blast_radius", "config", "pycode")),
         "coverage": {"secret_classes": rs.secrets.covered_classes, "not_covered": gaps},

@@ -15,7 +15,7 @@ no model is called when the pack runs.
 
 | Sentence of the profile | Scenario | In one line |
 |---|---|---|
-| Secrets hygiene, accidental-commit detection | `S01` `S02` `S03` `S10` | a planted value of a covered class is found in the working tree and anywhere in the git object database; the report shows a fingerprint, never the value; outside coverage the scanner says `NOT_COVERED`, never `CLEAN` |
+| Secrets hygiene, accidental-commit detection | `S01` `S02` `S03` `S10` | a planted value of a covered class is found in the working tree, anywhere in the git object database, and in the messages and headers of commits and tags; the report shows a fingerprint, never the value; outside coverage the scanner says `NOT_COVERED`, never `CLEAN` |
 | "If the patch grows the surface, you have lost." | `S04` | a "fix" that opens a debug route and adds a credential is `BLOCKED` on the difference of surface |
 | Threat modeling prioritized by blast radius | `S05` | a threat model that a program checks against the target's configuration (`SECURITY.md`) |
 | Incident response playbooks; revocation | `S06` `S07` `S08` | a judge fails a scripted exercise that rotates without revoking, restarts before preserving evidence, or transposes an identifier |
@@ -25,6 +25,7 @@ The never-event of this pack is **a `CLEAN` verdict on a repository that holds a
 a covered class**. `tests/test_never_clean.py` tries to cause it in every way the author could
 think of (history only, other branch, unreachable commit, file name, encoded, archive, broken
 repository, exception, exclusion) and checks that the scanner reports, or abstains, and never clears.
+`tests/test_object_texts.py` does the same for a value only in a commit or tag message (2.0.2).
 
 Full map of sentences to evidence, with what is *not* shown: `CLAIMS.md`. What "covered" means:
 `COVERAGE.md`. How the fake values are made and why they are inert: `SYNTHETIC.md`.
@@ -44,7 +45,8 @@ python eval/score.py --suite dev              # the measurement on the dev seed
 
 Measured by the author on 2026-09-30 (`eval/history.json`, runs 6 to 8), on corpora of 200
 repositories, 150 tabletop transcripts and 120 patch pairs generated from each seed, reference
-date of the corpora 2026-10-21T09:40:00+02:00.
+date of the corpora 2026-10-21T09:40:00+02:00. Re-run with version 2.0.2 the same day (runs 12 to
+14): byte-identical result files.
 
 | Seed | Role | Covered secrets found | False reports | `CLEAN` with a covered secret | Surface pairs exact | Transcripts judged as labelled |
 |---|---|---|---|---|---|---|
@@ -60,7 +62,11 @@ repositories on dev go to `NEEDS_REVIEW` instead of `CLEAN`, and 4 perturbed rep
 `CLEAN` while holding a secret in a form outside coverage.
 
 A blind evaluation, on a seed the author has never generated and with values hidden by a different
-hand, is prepared and **not yet run**: `eval/BLIND_PROTOCOL.md`.
+hand, was run once by the evaluator on `v2.0.1-freeze` (2026-09-30, runs 9 to 11). No value was
+printed and no repository with a covered value was called `CLEAN`, but a value written only in a
+commit message showed that the scanner did not read commit or tag messages and did not say so
+(finding T19). Version 2.0.2 reads them (`CHANGELOG.md`). On 2.0.2 the blind run is
+**not yet run**: `eval/BLIND_PROTOCOL.md`.
 
 ## Reproducibility
 
@@ -80,7 +86,7 @@ operating systems is not claimed.
 - A mapping to external standards. Rule lists here are the pack's own `[TO CONFIRM with legal]`.
 - History rewriting ("scrubbing"): the scanner detects and locates, it never rewrites.
 - Rotation cadence, session management, mobile surfaces, VPN scope.
-- Tabletops played by a model; agreement with third-party scanners; the blind run.
+- Tabletops played by a model; agreement with third-party scanners; the blind run on 2.0.2.
 - Behaviour of any hosting platform's push protection on the planted values: checked locally only.
 - The CI workflow running remotely: nothing was pushed.
 

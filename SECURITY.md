@@ -106,7 +106,7 @@ test that checks it:
 | The scan never walks up into an enclosing repository | `tests/test_history.py` |
 | A symbolic link is never followed: it is reported as a gap | `tests/test_never_clean.py` (this one test is skipped on a machine that cannot create symbolic links, the author's included) |
 | No network: no module of the pack imports a network library, and the tests run with sockets blocked | `tests/test_offline.py` |
-| A report holds a fingerprint of a finding, never its value, also when the value sits in a file name, a commit message or an author name | `tests/test_report_safety.py`, scenario `S03` |
+| A report holds a fingerprint of a finding, never its value, also when the value sits in a file name, a commit message or an author name | `tests/test_report_safety.py`, `tests/test_object_texts.py`, scenario `S03` |
 | A target that cannot be read is an error (exit 64), never an empty and therefore "clean" scan | `tests/test_cli.py` |
 | The tabletop log is append-only and hash-chained; a rewritten line is detected | `tests/test_tabletop.py` |
 | No model is called; the optional hook is disabled and nothing imports it | `tests/test_tabletop.py`, `MODEL.md` |

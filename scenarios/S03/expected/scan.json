@@ -226,11 +226,13 @@
     "commits_read": 2,
     "config_and_code": "working tree only",
     "history": "read",
+    "object_texts": "header and message of every commit and annotated tag",
     "statement": "internal consistency on synthetic data; no claim about any real system",
+    "tags_read": 0,
     "worktree_files": 10
   },
   "target": "yarn-inventory",
   "tool": "noascan",
   "verdict": "BLOCKED",
-  "version": "2.0.0"
+  "version": "2.0.2"
 }

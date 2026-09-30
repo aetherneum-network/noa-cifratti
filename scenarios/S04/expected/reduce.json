@@ -54,6 +54,6 @@
   "tool": "noascan",
   "unreadable_added": [],
   "verdict": "PASS",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "weakened": []
 }

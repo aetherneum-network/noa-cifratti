@@ -23,7 +23,7 @@
     "subject": "CT-3906",
     "tool": "noascan",
     "verdict": "PASSED",
-    "version": "2.0.0",
+    "version": "2.0.2",
     "violations": []
   },
   "run": {

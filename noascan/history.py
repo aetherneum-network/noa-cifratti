@@ -1,7 +1,12 @@
-"""Git history, read-only: every blob in the object database, with the commit and path that introduced it.
+"""Git history, read-only: every blob in the object database, with the commit and path that introduced it,
+and the full text of every commit and annotated-tag object.
 
 Coverage, stated: all objects present in the object database are read - commits reachable from any
 ref, commits no ref reaches any more, and blobs no tree points to (staged once, never committed).
+The text of each commit and annotated-tag object is kept in two parts, ``header`` (author, committer,
+tagger, tag name, an embedded signed tag, a signature) and ``message``, so that the scan reads
+them like files (``History.texts``); before 2.0.2 they were parsed for dates and targets only and a
+value written in a message was never read (finding T19 of the blind run of 2026-09-30).
 What is *not* in the database (shallow history, submodules, LFS content) is reported as NOT_COVERED.
 """
 from __future__ import annotations
@@ -34,6 +39,18 @@ class Introduction:
     in_head: bool
 
 
+@dataclass(frozen=True)
+class ObjectText:
+    """One part of the text of a commit or annotated-tag object, read like a file by the scan."""
+    oid: str
+    kind: str            # "commit" | "tag"
+    part: str            # "header" | "message"
+    data: bytes          # the raw bytes of that part, undecoded
+    author: str          # the author of a commit, the tagger of a tag
+    date: str
+    reachable: bool      # a ref reaches the commit, or points (through tags) to the tag
+
+
 @dataclass
 class History:
     head: str | None
@@ -42,6 +59,8 @@ class History:
     blobs: dict[str, bytes]
     introductions: list[Introduction] = field(default_factory=list)
     notes: list[dict[str, str]] = field(default_factory=list)   # reasons why part of the history is NOT_COVERED
+    texts: list[ObjectText] = field(default_factory=list)       # headers and messages of commits and annotated tags
+    tags_read: int = 0
 
 
 def _iso(ts: int, tz: str) -> str:
@@ -50,8 +69,24 @@ def _iso(ts: int, tz: str) -> str:
     return datetime.fromtimestamp(ts, timezone(offset)).isoformat()
 
 
+def _identity(rest: str) -> tuple[str, int, str]:
+    """(name, timestamp, ISO date) of an ``author``/``committer``/``tagger`` header value."""
+    name, _, tail = rest.rpartition("> ")
+    try:
+        when, tz = tail.split()
+        return name.split(" <")[0], int(when), _iso(int(when), tz)
+    except ValueError:
+        return name.split(" <")[0], 0, ""
+
+
+def _split(data: bytes) -> tuple[bytes, bytes]:
+    """(header, message) of a commit or tag object: the header ends at the first empty line."""
+    header, _, message = data.partition(b"\n\n")
+    return header, message
+
+
 def _parse_commit(oid: str, data: bytes) -> Commit:
-    header, _, _ = data.partition(b"\n\n")
+    header, _ = _split(data)
     tree, parents, author, date, ts = "", [], "", "", 0
     for line in header.decode("utf-8", "replace").split("\n"):
         key, _, rest = line.partition(" ")
@@ -60,14 +95,18 @@ def _parse_commit(oid: str, data: bytes) -> Commit:
         elif key == "parent":
             parents.append(rest)
         elif key == "author":
-            name, _, tail = rest.rpartition("> ")
-            author = name.split(" <")[0]
-            try:
-                when, tz = tail.split()
-                ts, date = int(when), _iso(int(when), tz)
-            except ValueError:
-                ts, date = 0, ""
+            author, ts, date = _identity(rest)
     return Commit(oid, tree, tuple(parents), author, date, ts)
+
+
+def _tagger(data: bytes) -> tuple[str, str]:
+    """(tagger name, ISO date) of a tag object; empty strings when it has no tagger line."""
+    for line in _split(data)[0].decode("utf-8", "replace").split("\n"):
+        key, _, rest = line.partition(" ")
+        if key == "tagger":
+            name, _, date = _identity(rest)
+            return name, date
+    return "", ""
 
 
 def _parse_tree(data: bytes) -> list[tuple[str, str, str]]:
@@ -162,6 +201,27 @@ def read(root: Path) -> History:
                                                     commit.oid in reachable, (path, blob) in head_pairs))
     for blob in sorted(set(h.blobs) - seen_blobs):   # in no commit's tree: staged once, or left by a rewrite
         h.introductions.append(Introduction(blob, None, None, "", "", False, False))
+
+    # the text of every commit and annotated-tag object, reachable or not: header and message
+    reachable_tags: set[str] = set()
+    for oid in [head, *refs.values()]:
+        seen = 0
+        while oid in tags and oid not in reachable_tags and seen < 10:
+            reachable_tags.add(oid)
+            oid, seen = tags[oid], seen + 1
+    for commit in sorted(h.commits.values(), key=lambda c: (c.ts, c.oid)):
+        header, message = _split(objects[commit.oid][1])
+        for part, data in (("header", header), ("message", message)):
+            if data:
+                h.texts.append(ObjectText(commit.oid, "commit", part, data, commit.author, commit.date,
+                                          commit.oid in reachable))
+    for oid in sorted(tags):
+        header, message = _split(objects[oid][1])
+        tagger, date = _tagger(objects[oid][1])
+        for part, data in (("header", header), ("message", message)):
+            if data:
+                h.texts.append(ObjectText(oid, "tag", part, data, tagger, date, oid in reachable_tags))
+    h.tags_read = len(tags)
     unique = {(n["reason"], n["detail"]) for n in h.notes}
     h.notes = [{"reason": r, "detail": d} for r, d in sorted(unique)]
     return h

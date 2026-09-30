@@ -36,6 +36,11 @@ reviewer, whose name goes into `eval/history.json` as `runner`. The commands are
 `eval/BLIND_PROTOCOL.md`. The blind run calls no model either: the different hand only chooses the
 seed, hides the values and starts the program.
 
+One blind run was made, on `v2.0.1-freeze` (seed 20261011, `eval/history.json` runs 9 to 11). To fix
+what it found (version 2.0.2, `CHANGELOG.md`), the author read its results and the repository in
+which the values were hidden, and did not generate that seed. The seed is now listed in
+`eval/seeds.json` as seen, and the harness refuses it for a later blind run.
+
 ## Third-party tools
 
 | Tool | Version used here | Role |

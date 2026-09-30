@@ -23,7 +23,7 @@ as internal consistency** (see `SYNTHETIC.md`). It never means that a real syste
 | # | Sentence of the profile | Shown by | What exactly is shown |
 |---|---|---|---|
 | A1 | "Threat modeling — STRIDE-light for solo-founder context, prioritized by blast radius" | scenario `S05`; `tests/test_threatmodel.py`; `SECURITY.md`; `threatmodel/model.json` | A threat model of one synthetic target, sorted by blast radius, that a program checks against the target's configuration: a new entry point without a threat makes the check fail. The category names follow the STRIDE mnemonic `[TO CONFIRM with legal]`; no conformance is claimed. |
-| A2 | "Secrets hygiene — `.env` audits, git history scrubbing, accidental-commit detection" | scenarios `S01`, `S02`, `S03`, `S10`, `S09`; `tests/test_never_clean.py`, `tests/test_history.py`, `tests/test_report_safety.py`, `tests/test_rules.py`; `COVERAGE.md` | Detection only: a planted value of a covered class is found in the working tree and anywhere in the object database (removed by a later commit, on another branch, unreachable), with the introducing commit. The report never shows the value. Outside coverage the scanner abstains. **Scrubbing is not performed:** the scanner never rewrites a history; it reports where the value entered. |
+| A2 | "Secrets hygiene — `.env` audits, git history scrubbing, accidental-commit detection" | scenarios `S01`, `S02`, `S03`, `S10`, `S09`; `tests/test_never_clean.py`, `tests/test_history.py`, `tests/test_object_texts.py`, `tests/test_report_safety.py`, `tests/test_rules.py`; `COVERAGE.md` | Detection only: a planted value of a covered class is found in the working tree and anywhere in the object database (removed by a later commit, on another branch, unreachable), with the introducing commit, and, since 2.0.2, in the message and header of every commit and annotated tag (finding T19 of the blind run on `v2.0.1-freeze`). The report never shows the value. Outside coverage the scanner abstains. **Scrubbing is not performed:** the scanner never rewrites a history; it reports where the value entered. |
 | A3 | "Incident response — playbook for compromised key, leaked endpoint, rogue container" | scenarios `S06`, `S07`, `S08`; `tests/test_tabletop.py`; `playbooks/` | Three written playbooks and a judge that fails a scripted exercise which skips a step, destroys evidence before preserving it, or transposes an identifier in a hand-off. Exercises are scripted; no live incident, no real system. |
 | A4 | "Key management — rotation cadence, revocation playbooks" | scenario `S06`; `playbooks/compromised_key.json` | The revocation procedure only: a rotation that is not followed by revocation and by a check that the old key is rejected fails. **Rotation cadence is not demonstrated:** no schedule is computed or checked. |
 | A5 | "If the patch grows the surface, you have lost." | scenario `S04`; `tests/test_config_pycode_surface.py`; `rules/surface.json` | A gate on the difference of exposed surface between two trees: a "fix" that opens a debug route and adds a credential is `BLOCKED`. |
@@ -33,6 +33,7 @@ as internal consistency** (see `SYNTHETIC.md`). It never means that a real syste
 
 Source: `eval/history.json`, runs 6 to 8, run on 2026-09-30 by the author; reference date of the
 corpora 2026-10-21T09:40:00+02:00; 200 repositories, 150 transcripts and 120 patch pairs per seed.
+Re-run with 2.0.2 on the same day (runs 12 to 14): the result files are byte-identical.
 Full results in `eval/results-dev.json`, `eval/results-holdout.json`, `eval/results-stress.json`.
 
 | Seed | Role | Covered secrets found | False reports | `CLEAN` with a covered secret | Surface pairs exact | Transcripts judged as labelled |
@@ -63,7 +64,7 @@ precision 0.8438) and the first stress run did not either (6 false reports, 7 re
 | "Council Defense (4 peer reviews)", "Canonical profile", "Subagent invocations", "Audit Trail Explorer" links | not demonstrated: out of v2.0. External links; this pack runs offline and did not open them. |
 | Tabletops played by a model | not demonstrated: out of v2.0. The hook is disabled (`MODEL.md`). |
 | Agreement with third-party scanners | not demonstrated: out of v2.0. No third-party tool was run. |
-| A blind evaluation by a different hand | not demonstrated at the freeze: the protocol is written (`eval/BLIND_PROTOCOL.md`), the run has not happened. |
+| A blind evaluation by a different hand | not demonstrated at the freeze: the protocol is written (`eval/BLIND_PROTOCOL.md`), the run has not happened. Since then it was run once, on `v2.0.1-freeze` (2026-09-30, runs 9 to 11), and found a defect (finding T19) fixed in 2.0.2; on 2.0.2 it has not been run. |
 
 ## Awaiting legal review — not touched
 
@@ -108,18 +109,24 @@ One token of the profile text was changed after the tag `v2.0.0-freeze`, in the 
   holds two hashes: the text as it is now, and the original text, which it obtains from the current
   one by putting the underscore back.
 - No file that decides a result changed with it: scanner, rules, playbooks, tabletop, threat model,
-  corpus generator, scorers and seeds are identical in the two tags (`MANIFEST.sha256` says so in
-  its header, and a test compares the two tags).
+  corpus generator, scorers and seeds are identical in the two tags (the manifest of `v2.0.1-freeze`
+  says so in its header, and a test compared the two tags). Version 2.0.2 is a separate change of
+  the scanner and the harness (`CHANGELOG.md`); it does not touch the profile text.
 
 ## Known limits
 
 1. **One author for generator, labels and scanner.** Every number is internal consistency on
-   synthetic data. The blind protocol is the first step beyond it and has not been run.
+   synthetic data. The blind protocol is the first step beyond it. It was run once, on
+   `v2.0.1-freeze` (runs 9 to 11), and found the defect fixed in 2.0.2 (finding T19,
+   `CHANGELOG.md`); it has not been run on 2.0.2.
 2. **Narrow coverage.** Seven secret classes in invented formats, two invented configuration
    schemas, seven Python rules. `COVERAGE.md` lists what is outside.
 3. **Secrets outside the covered forms can end in `CLEAN`.** On the perturbed corpus, 4 of the 200
    repositories were called `CLEAN` while holding a secret hidden in a form outside coverage
-   (run 8; they are named in `eval/results-stress.json`).
+   (run 8; they are named in `eval/results-stress.json`). On the blind perturbed corpus of
+   `v2.0.1-freeze`, 5 of 200 (run 11). In the hand-planted step (run 10), 3 of the 10 values hidden
+   outside the covered forms were missed outright: not found, not sent to review, and not in a
+   file listed as not covered (`COVERAGE.md`, Known limits).
 4. **Clean repositories sent to review.** A word-like value under a secret-looking key is a suspect
    by rule: 8 of 40 secret-free repositories on dev and 6 of 43 on holdout were `NEEDS_REVIEW`
    instead of `CLEAN` (runs 6 and 7).

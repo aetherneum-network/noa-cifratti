@@ -47,7 +47,10 @@ class Freeze(unittest.TestCase):
         self.assertRegex(MANIFEST_TAG, r"^v2\.0\.\d+-freeze$")
         head = [ln for ln in MANIFEST_TEXT.splitlines() if ln.startswith("#")]
         self.assertEqual(len(head), 4)
-        self.assertIn(f"identical to {score.FREEZE_TAG} (commit {score.frozen_state()[1]})", head[3])
+        if MANIFEST_TAG == score.FREEZE_TAG:       # a new code freeze (2.0.2): the manifest cannot name its own commit
+            self.assertIn(f"{MANIFEST_TAG} is itself the tag the blind harness checks", head[3])
+        else:
+            self.assertIn(f"identical to {score.FREEZE_TAG} (commit {score.frozen_state()[1]})", head[3])
         for path in score.FROZEN_PATHS:
             self.assertIn(path, head[3])
         listed = [ln.split("  ", 1)[1] for ln in MANIFEST_TEXT.splitlines() if ln and not ln.startswith("#")]
@@ -80,7 +83,14 @@ class Freeze(unittest.TestCase):
         if not tag_present(tag):
             self.skipTest("the tag the protocol names is not in this clone")
         self.assertEqual(git("rev-parse", f"{tag}^{{commit}}").stdout.strip(), commit)
-        self.assertEqual(git("diff", "--quiet", score.FREEZE_TAG, tag, "--", *score.FROZEN_PATHS).returncode, 0)
+        if git("diff", "--quiet", score.FREEZE_TAG, tag, "--", *score.FROZEN_PATHS).returncode != 0:
+            # A new code freeze (2.0.2): the protocol names a tag and its commit, so it can name the new tag
+            # only in the commit after it (MANIFEST.sha256 leaves it out for that reason). Allowed at the
+            # tagged commit itself, or before the tag exists, and only if the protocol says it is not valid yet.
+            frozen = git("rev-parse", "--verify", "--quiet", f"{score.FREEZE_TAG}^{{commit}}").stdout.strip()
+            self.assertIn(frozen, ("", git("rev-parse", "HEAD").stdout.strip()),
+                          "after the freeze tag, the protocol must name the tag the harness checks")
+            self.assertIn(f"`{score.FREEZE_TAG}`: this file is not yet valid for a blind run", PROTOCOL)
 
     def test_the_protocol_names_the_command_and_the_refusals(self):
         text = (u.ROOT / "eval" / "BLIND_PROTOCOL.md").read_text(encoding="utf-8")

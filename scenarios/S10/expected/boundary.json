@@ -69,11 +69,13 @@
     "commits_read": 0,
     "config_and_code": "working tree only",
     "history": "absent",
+    "object_texts": "not read",
     "statement": "internal consistency on synthetic data; no claim about any real system",
+    "tags_read": 0,
     "worktree_files": 5
   },
   "target": "workshop-orders",
   "tool": "noascan",
   "verdict": "NOT_COVERED",
-  "version": "2.0.0"
+  "version": "2.0.2"
 }

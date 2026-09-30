@@ -4,6 +4,13 @@
 > still measures a generator and a scanner written by the same author: it is a step beyond the
 > author's own seeds, not a validation on real systems.
 
+**At the tag `v2.0.2-freeze`: this file is not yet valid for a blind run.** The text below was
+written for `v2.0.1-freeze` and is unchanged. It was run once on that tag, on 2026-09-30
+(`eval/history.json`, runs 9 to 11), and the defect that run found (finding T19) is fixed by
+version 2.0.2, which changes frozen paths: the harness now checks `v2.0.2-freeze`, and refuses the
+seed of that run. This file names a tag and its commit, so it names `v2.0.2-freeze` only in the
+commit that follows the tag (a commit cannot contain its own id).
+
 **State at the time of writing: not run.** This file was written by the author after the tag
 `v2.0.0-freeze` and pointed to `v2.0.1-freeze` in the commit that follows that second tag. No blind
 seed has been generated or looked at by the author.

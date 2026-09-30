@@ -10,8 +10,10 @@ fills the form: for each value ``hidden`` (true/false), ``form`` and ``where`` (
 
 ``form`` is ``plain`` when the value sits, contiguous and unmodified, in the way COVERAGE.md
 declares as covered (for a password: assigned to a key that names a secret; for a connection URI: the
-URI as printed), in a text file of the working tree or of the history. Anything else - split,
-encoded, reversed, inside an archive - is ``other``: outside the promise, and reported as such.
+URI as printed), in a text file of the working tree or of the history, or (since 2.0.2) in the text of a
+commit or annotated-tag object: its message, or its header (author, committer, tagger). Anything
+else - split, encoded, reversed, inside an archive - is ``other``: outside the promise, and reported
+as such.
 
 ``score`` scans the repository and answers three questions: were the ``plain`` values found (by
 exact fingerprint), was the repository ever called CLEAN with a ``plain`` value in it (the
@@ -111,8 +113,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--run-date")
     ap.add_argument("--note", default="")
     args = ap.parse_args(argv)
-    if args.seed in harness.SEEDS["author_seeds"].values():
-        print("error: this seed was used by the author during development; choose another one", file=sys.stderr)
+    if harness.refusal(args.seed):
+        print(f"error: {harness.refusal(args.seed)}", file=sys.stderr)
         return 64
     ok, freeze = harness.frozen_state()
     if not ok:

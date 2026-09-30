@@ -11,5 +11,12 @@
     "dev": "rules were written and fixed against it",
     "holdout": "measured after the rules were fixed on dev; not used to change a rule",
     "stress": "perturbed corpus (secrets split, encoded, reversed, in unseen file formats); used for diagnosis and declared as such, not as an independent test"
-  }
+  },
+  "seen_seeds": [
+    {
+      "seed": 20261011,
+      "run": "blind run of 2026-09-30 by the evaluator on v2.0.1-freeze (eval/history.json, runs 9 to 11)",
+      "why": "its results and its hand-planted repository were read to fix finding T19 in 2.0.2; eval/score.py and eval/manual.py refuse it for a blind run"
+    }
+  ]
 }

@@ -29,7 +29,7 @@
     "subject": "CT-3906",
     "tool": "noascan",
     "verdict": "FAILED",
-    "version": "2.0.0",
+    "version": "2.0.2",
     "violations": [
       {
         "code": "STEP_SKIPPED",

@@ -45,9 +45,34 @@ Where the scanner looks:
 - every file of the working tree, **and its path** (a secret used as a file or folder name is found);
 - every blob in the git object database, reachable or not: removed by a later commit, on a branch
   that is not checked out, under a tag, in a commit no ref reaches, in a blob no tree points to;
+- (since 2.0.2) the text of every commit and annotated-tag object in the database, reachable or
+  not, in two parts: the **message**, and the **header** (author, committer and tagger names and
+  addresses; a tag embedded in a merge commit). Each part is read with the same classes, forms and
+  coverage decision as a file whose name is not known, so no rule is skipped for want of a path
+  (the assignment rule applies as in an environment-like file); a part that is not valid UTF-8 is
+  listed `not_covered` like a file. A finding there is located by the object, never by its value:
+  `(commit <id> message)`, `(tag <id> header)`;
 - the remote URLs of the repository's git configuration;
 - for each finding in history: the first commit that introduced it, its author and date, and
   whether it is still in the checked-out tree.
+
+Up to 2.0.1 the messages and headers of commits and tags were **not read, and this file did not
+say so**: a covered value written only in a commit or tag message left the repository `CLEAN`.
+The blind run of 2026-09-30 on `v2.0.1-freeze` found it (finding T19; `CHANGELOG.md`, 2.0.2).
+The rest of git's metadata, declared one by one:
+
+| Where | Read | How |
+|---|---|---|
+| commit and annotated-tag messages | yes, since 2.0.2 | object text, as above |
+| author, committer and tagger fields | yes, since 2.0.2 | object header, as above; a name that is itself a finding is masked in the report |
+| notes (`git notes`) | yes | a note is a blob (read, at a path named after the annotated commit); the notes history is made of commits, whose messages are read |
+| stashes | yes | a stash is a set of commits: their trees, blobs and messages are read |
+| unreachable objects (no ref, dropped stash, rewritten history) | yes | every object in the local database, reachable or not, until git prunes it |
+| reflog (`.git/logs/`), `COMMIT_EDITMSG`, hooks, `packed-refs` and the other files under `.git` | yes | read as files: everything under `.git` except `objects/` and `index` |
+| staged content | yes | a staged file is a blob in the database, read as a blob in no tree |
+| the index file (`.git/index`) | no | it holds paths and object ids; a staged file's name is read only if the file is also in the working tree or in a tree |
+| objects not in the local database | no | a shallow clone is listed `shallow_history`; an object a tree names but the database lacks is listed `missing_object`; submodules and large-file content are listed as such |
+| other clones, remotes, and what a hosting service keeps (pull requests, issues, releases, CI logs) | no | outside the repository |
 
 ## Suspects (review, not a block and not a pass)
 
@@ -111,7 +136,13 @@ ranges are treated as public (the stricter reading).
 - **Secrets outside the covered forms are missed, and the repository can then be `CLEAN`.** Examples
   measured on the perturbed corpus: a value split across two lines, a value inside a file format the
   generator never used. `eval/history.json` records how many such repositories were called `CLEAN`
-  (key `clean_with_only_out_of_coverage_secret`).
+  (key `clean_with_only_out_of_coverage_secret`). The blind run of 2026-09-30 (`eval/history.json`,
+  run 10) missed three hand-planted values this way, each outside the covered forms: a connection
+  URI split into two adjacent string literals on two lines (M14; joining literals is followed only
+  with `+` on one line, and only as a suspect), a password under a key with an unrelated name (M13,
+  next point), and a password written as a bare word in a commit message, with no key before it
+  (M20). Since 2.0.2 that message is read, but a bare password is not a covered form, in a message
+  or in a file: M20 is still missed.
 - **Quoted values that contain an escaped quote** are not matched by the assignment rule.
 - **A password of fewer than 8 characters**, or one assigned to a key with an unrelated name, is not
   reported.
@@ -125,4 +156,5 @@ ranges are treated as public (the stricter reading).
 - **Configuration and code are reviewed in the working tree only**, not in history.
 - **The gold labels, the generator and the scanner have one author.** Agreement between them is
   internal consistency, not independent validation. The blind protocol (`eval/BLIND_PROTOCOL.md`)
-  is the first step beyond that, and at the freeze it has not been run.
+  is the first step beyond that. It was run once, on `v2.0.1-freeze` (runs 9 to 11), and found the
+  defect fixed in 2.0.2; on 2.0.2 it has not been run.

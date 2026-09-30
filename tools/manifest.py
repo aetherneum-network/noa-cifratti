@@ -1,6 +1,6 @@
 """Hash manifest of the proof pack (``MANIFEST.sha256``).
 
-    python tools/manifest.py --write --tag v2.0.1-freeze --rev TREE   # list the files of that tree, with their SHA-256
+    python tools/manifest.py --write --tag v2.0.2-freeze --rev TREE   # list the files of that tree, with their SHA-256
     python tools/manifest.py --check                                   # re-hash the listed files in the working tree
 
 The manifest travels inside the commit that carries the freeze tag. A commit cannot contain its own
@@ -13,7 +13,10 @@ same bytes.
 The list of files and their content come from git (``ls-tree``, ``cat-file``: read-only), so the
 hashes are those of the committed bytes whatever the line-ending settings of the machine. The
 manifest is refused if a frozen path (``eval/score.py``) differs from the tag the blind harness
-checks: a new freeze tag may change documents, never what decides a result.
+checks: a new freeze tag may change documents, never what decides a result. The one exception is
+a new code freeze, where the tag written is the harness's tag itself (``eval/score.py`` FREEZE_TAG,
+as in 2.0.2): then there is nothing to compare with, and the header says so instead of naming a
+commit (the manifest travels inside that commit, so it cannot hold its id).
 
 ``--check`` re-hashes the listed files in the working tree and, when the tag named in the header is
 in the clone, also compares the list with the tagged commit.
@@ -76,15 +79,21 @@ def bundle(lines: list[str]) -> str:
 
 def render(tag: str, rev: str) -> str:
     """The text of the manifest for ``tag``, from the files of ``rev``."""
-    if _run("diff", "--quiet", score.FREEZE_TAG, rev, "--", *score.FROZEN_PATHS).returncode != 0:
-        raise SystemExit(f"error: a frozen path differs from {score.FREEZE_TAG} (or that tag is missing): no manifest written")
-    first = git("rev-parse", f"{score.FREEZE_TAG}^{{commit}}").decode("ascii").strip()
+    if tag == score.FREEZE_TAG:
+        frozen = (f"# {tag} is itself the tag the blind harness checks (eval/score.py FREEZE_TAG), "
+                  "over these paths: " + ", ".join(score.FROZEN_PATHS))
+    else:
+        if _run("diff", "--quiet", score.FREEZE_TAG, rev, "--", *score.FROZEN_PATHS).returncode != 0:
+            raise SystemExit(f"error: a frozen path differs from {score.FREEZE_TAG} (or that tag is missing): no manifest written")
+        first = git("rev-parse", f"{score.FREEZE_TAG}^{{commit}}").decode("ascii").strip()
+        frozen = (f"# identical to {score.FREEZE_TAG} (commit {first}), the tag the blind harness checks: "
+                  + ", ".join(score.FROZEN_PATHS))
     lines = lines_at(rev)
     head = [
         f"# proof pack manifest - tag {tag} - every file of the tagged commit except the ones named below",
         f"# files: {len(lines)} - bundle sha256 (of the lines below): {bundle(lines)}",
         "# not listed: " + "; ".join(f"{name} ({why})" for name, why in NOT_LISTED),
-        f"# identical to {score.FREEZE_TAG} (commit {first}), the tag the blind harness checks: " + ", ".join(score.FROZEN_PATHS),
+        frozen,
     ]
     return "\n".join(head + lines) + "\n"
 

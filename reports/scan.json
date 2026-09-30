@@ -139,11 +139,13 @@
     "commits_read": 0,
     "config_and_code": "working tree only",
     "history": "skipped",
+    "object_texts": "not read",
     "statement": "internal consistency on synthetic data; no claim about any real system",
-    "worktree_files": 196
+    "tags_read": 0,
+    "worktree_files": 200
   },
   "target": "noa-cifratti",
   "tool": "noascan",
   "verdict": "EXCEPTIONS_ONLY",
-  "version": "2.0.0"
+  "version": "2.0.2"
 }

@@ -32,6 +32,15 @@ class BlindProtocol(unittest.TestCase):
                 self.assertEqual(code, 64)
                 self.assertIn("used by the author", err)
 
+    def test_a_seed_of_an_earlier_blind_run_is_refused(self):
+        """A blind run whose results were read to fix the pack makes its seed a seen one (BLIND_PROTOCOL.md)."""
+        self.assertTrue(SEEDS["seen_seeds"])
+        for entry in SEEDS["seen_seeds"]:
+            with self.subTest(seed=entry["seed"]):
+                code, err = call("--suite", "blind", "--seed", entry["seed"], "--runner", "someone-else")
+                self.assertEqual(code, 64)
+                self.assertIn("earlier blind run", err)
+
     def test_a_blind_run_needs_a_seed_and_a_runner(self):
         self.assertEqual(call("--suite", "blind", "--seed", NOT_AN_AUTHOR_SEED)[0], 64)
         self.assertEqual(call("--suite", "blind", "--runner", "someone-else")[0], 64)
@@ -49,7 +58,7 @@ class BlindProtocol(unittest.TestCase):
         self.assertIn("--run-date", err)
 
     def test_the_frozen_paths_cover_everything_that_decides_a_result(self):
-        self.assertEqual(score.FREEZE_TAG, "v2.0.0-freeze")
+        self.assertEqual(score.FREEZE_TAG, "v2.0.2-freeze")
         for path in ("noascan", "rules", "playbooks", "tabletop", "threatmodel", "corpus", "eval/score.py", "eval/manual.py",
                      "eval/seeds.json"):
             self.assertIn(path, score.FROZEN_PATHS)

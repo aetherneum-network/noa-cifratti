@@ -22,7 +22,7 @@
   "subject": "EP-4172",
   "tool": "noascan",
   "verdict": "FAILED",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "violations": [
     {
       "code": "IDENTIFIER_MISMATCH",

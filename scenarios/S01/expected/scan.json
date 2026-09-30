@@ -74,11 +74,13 @@
     "commits_read": 3,
     "config_and_code": "working tree only",
     "history": "read",
+    "object_texts": "header and message of every commit and annotated tag",
     "statement": "internal consistency on synthetic data; no claim about any real system",
+    "tags_read": 0,
     "worktree_files": 6
   },
   "target": "workshop-orders",
   "tool": "noascan",
   "verdict": "BLOCKED",
-  "version": "2.0.0"
+  "version": "2.0.2"
 }

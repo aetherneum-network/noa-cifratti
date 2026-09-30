@@ -114,6 +114,13 @@ class CommandLine(unittest.TestCase):
             self.assertEqual((code, out), (64, ""))
             self.assertIn("used by the author", err)
 
+    def test_a_seed_of_an_earlier_blind_run_is_refused_before_any_value_is_drawn(self):
+        for entry in harness.SEEDS["seen_seeds"]:
+            with mock.patch.object(manual, "plants", side_effect=AssertionError("a refused run must not draw values")):
+                code, out, err = call("values", "--seed", entry["seed"], "--runner", "someone-else")
+            self.assertEqual((code, out), (64, ""))
+            self.assertIn("earlier blind run", err)
+
     def test_without_the_freeze_tag_nothing_is_printed(self):
         with mock.patch.object(harness, "FREEZE_TAG", "v0.0.0-no-such-tag"), \
                 mock.patch.object(manual, "plants", side_effect=AssertionError("a refused run must not draw values")):

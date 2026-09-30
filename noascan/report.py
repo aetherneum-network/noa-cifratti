@@ -55,9 +55,12 @@ def summary(report: dict[str, Any]) -> str:
     scope = report.get("scope", {})
     if scope:
         lines.append(f"read: {scope['worktree_files']} files, history {scope['history']} "
-                     f"({scope['commits_read']} commits, {scope['blobs_read']} blobs)")
+                     f"({scope['commits_read']} commits, {scope.get('tags_read', 0)} annotated tags, {scope['blobs_read']} blobs)")
     for f in report.get("findings", []):
-        where = f["path"] or "(object not in any tree)"
+        if f.get("object"):
+            where = f"({f['object_type']} {f['object'][:12]} {f['part']})"   # a commit or tag object, not a file
+        else:
+            where = f["path"] or "(object not in any tree)"
         extra = f" commit={f['commit'][:12]}" if f.get("commit") else ""
         state = "" if f.get("in_worktree", True) else " [history only]"
         mark = f" fp={f['fingerprint']}" if f.get("fingerprint") else f" subject={f.get('subject', '')}"

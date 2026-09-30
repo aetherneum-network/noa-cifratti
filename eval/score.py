@@ -30,9 +30,20 @@ from noascan.scan import RuleSet, scan  # noqa: E402
 from tabletop import judge as tjudge, log as tlog  # noqa: E402
 
 SEEDS = json.loads((ROOT / "eval" / "seeds.json").read_text(encoding="utf-8"))
-FREEZE_TAG = "v2.0.0-freeze"
+# The tag whose frozen paths a blind run must match. Up to 2.0.1 it named v2.0.0-freeze; 2.0.2 changes the
+# scanner (commit and tag messages are read, finding T19), so a blind run of 2.0.2 compares with its own tag.
+FREEZE_TAG = "v2.0.2-freeze"
 FROZEN_PATHS = ["noascan", "rules", "playbooks", "tabletop", "threatmodel", "corpus", "eval/score.py", "eval/manual.py",
                 "eval/seeds.json"]
+
+
+def refusal(seed: int) -> str | None:
+    """Why ``seed`` may not be used for a blind run, or None. Read at call time (the tests patch SEEDS)."""
+    if seed in SEEDS["author_seeds"].values():
+        return "this seed was used by the author during development; choose another one"
+    if seed in [s["seed"] for s in SEEDS.get("seen_seeds", [])]:
+        return "this seed was used by an earlier blind run, whose results were read to fix the pack; choose another one"
+    return None
 
 
 def ratio(num: int, den: int) -> float | None:
@@ -248,8 +259,8 @@ def main(argv: list[str] | None = None) -> int:
         if args.seed is None or not args.runner:
             print("error: a blind run needs --seed and --runner", file=sys.stderr)
             return 64
-        if args.seed in SEEDS["author_seeds"].values():
-            print("error: this seed was used by the author during development; choose another one", file=sys.stderr)
+        if refusal(args.seed):
+            print(f"error: {refusal(args.seed)}", file=sys.stderr)
             return 64
         ok, freeze = frozen_state()
         if not ok:

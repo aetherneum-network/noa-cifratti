@@ -53,8 +53,13 @@ class Outputs(unittest.TestCase):
         text = report.dumps(out) + report.summary(out)
         needles = [token] + [ln for _, _, v in values.values() for ln in v.split("\n") if not ln.startswith("-----")]
         self.assertEqual([n for n in needles if n in text], [])
-        self.assertEqual(len([f for f in out["findings"] if f["kind"] == "secret"]), len(values))
-        self.assertTrue(all(f["author"].startswith("[masked:") for f in out["findings"] if f["kind"] == "secret"))
+        secrets = [f for f in out["findings"] if f["kind"] == "secret"]
+        self.assertEqual(len([f for f in secrets if not f.get("object")]), len(values))
+        # since 2.0.2 (T19) the token is also found where it sits in the commit object: its message
+        # (the subject) and its header (the author name); located by object id and part, never by value
+        self.assertEqual(sorted((f["object_type"], f["object"], f["part"], f["class"]) for f in secrets if f.get("object")),
+                         [("commit", first, "header", "vendor_api_token"), ("commit", first, "message", "vendor_api_token")])
+        self.assertTrue(all(f["author"].startswith("[masked:") for f in secrets))
 
     def test_report_is_deterministic_ascii_and_carries_date_rules_and_scope(self):
         path, text, _ = u.carrier("vendor_payment_key")
