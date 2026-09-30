@@ -1,0 +1,15 @@
+{
+  "author": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+  "as_of": "2026-09-30",
+  "note": "Seeds the author generated and inspected while building v2.0. A blind run must use any other seed, chosen by a different hand; eval/score.py refuses these.",
+  "author_seeds": {
+    "dev": 20260930,
+    "holdout": 20261001,
+    "stress": 20261002
+  },
+  "roles": {
+    "dev": "rules were written and fixed against it",
+    "holdout": "measured after the rules were fixed on dev; not used to change a rule",
+    "stress": "perturbed corpus (secrets split, encoded, reversed, in unseen file formats); used for diagnosis and declared as such, not as an independent test"
+  }
+}
