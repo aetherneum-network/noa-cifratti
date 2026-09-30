@@ -1,0 +1,41 @@
+# Offline checks of the proof pack. Nothing is installed: the pack uses the Python standard library only.
+# This workflow has never been executed remotely at the time of writing (nothing was pushed): [TO CONFIRM] at the first run.
+# Runner image digest: [TO CONFIRM] at the first run (the hosted images are not pinned by digest here).
+name: proof-pack
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  offline:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # the freeze tag is part of what the tests read
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tests (sockets blocked by the tests themselves)
+        run: python -m unittest discover -s tests -t .
+      - name: Ten scenarios
+        run: python scenarios/run_all.py
+      - name: Committed corpus is what the seed generates
+        run: python corpus/generate.py --check
+      - name: Two rebuilds in two folders, byte for byte
+        run: python tools/rebuild.py
+      - name: Scan of this repository
+        run: python tools/selfscan.py --check
