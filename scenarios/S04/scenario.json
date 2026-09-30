@@ -1,0 +1,10 @@
+{
+  "id": "S04",
+  "title": "Officina Brennero - a 'fix' opens a debug route and adds a credential",
+  "kind": "demonstration",
+  "run": [
+    "python",
+    "check.py"
+  ],
+  "timeout_s": 120
+}

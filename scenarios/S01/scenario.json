@@ -1,0 +1,10 @@
+{
+  "id": "S01",
+  "title": "Officina Brennero - a secret is committed and removed by a later commit",
+  "kind": "demonstration",
+  "run": [
+    "python",
+    "check.py"
+  ],
+  "timeout_s": 120
+}

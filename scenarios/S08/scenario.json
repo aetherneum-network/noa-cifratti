@@ -1,0 +1,10 @@
+{
+  "id": "S08",
+  "title": "Studio Cartografico Lunaria - tabletop 'leaked endpoint': identifier transposed in the hand-off",
+  "kind": "demonstration",
+  "run": [
+    "python",
+    "check.py"
+  ],
+  "timeout_s": 120
+}

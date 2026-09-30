@@ -1,0 +1,37 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "closing_step": "close_incident",
+  "closure": "BLOCKED",
+  "events": 6,
+  "exit_code": 1,
+  "playbook": "compromised_key",
+  "playbook_version": "2.0.0",
+  "refused": [],
+  "report": "tabletop-judgement",
+  "rules": {
+    "judge": {
+      "sha256": "412168236d6d9d0580cec20631068df1f8047916765558f81249d2c85ab3b18b",
+      "version": "2.0.0"
+    },
+    "playbook": {
+      "sha256": "583027012d7317534b9e119cc09a5409e87a8f80128611d60c6e237ec70f1fcd",
+      "version": "2.0.0"
+    }
+  },
+  "statement": "a paper exercise: it shows the playbook is coherent and departures are seen, not that a real incident would be handled",
+  "subject": "K-4172",
+  "tool": "noascan",
+  "verdict": "FAILED",
+  "version": "2.0.0",
+  "violations": [
+    {
+      "code": "ROTATED_NOT_REVOKED",
+      "details": [
+        "rotate_key ran and this step never did"
+      ],
+      "rule": "J-PAIRED-MISSING",
+      "seq": null,
+      "step": "revoke_old_key"
+    }
+  ]
+}

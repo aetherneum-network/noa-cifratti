@@ -1,0 +1,99 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "seed": 20260930,
+  "secrets": [
+    {
+      "path": "deploy/prod.env",
+      "line": 4,
+      "class": "vendor_api_token",
+      "fingerprint": "5a28aa18917a5055"
+    },
+    {
+      "path": "config/integrations.json",
+      "line": 4,
+      "class": "vendor_webhook_secret",
+      "fingerprint": "b11eca194d675a8e"
+    },
+    {
+      "path": "src/settings.py",
+      "line": 5,
+      "class": "assigned_password",
+      "fingerprint": "4e621f580061c5c8"
+    },
+    {
+      "path": "deploy/values.yml",
+      "line": 5,
+      "class": "connection_uri_password",
+      "fingerprint": "317d96b57afb3de0"
+    },
+    {
+      "path": "keys/deploy_key.txt",
+      "line": 1,
+      "class": "armored_key_block",
+      "fingerprint": "96875de413c077c0"
+    }
+  ],
+  "decoys": [
+    {
+      "path": "src/settings.py",
+      "line": 6,
+      "kind": "reference_py"
+    },
+    {
+      "path": "src/settings.py",
+      "line": 7,
+      "kind": "public_id"
+    },
+    {
+      "path": "src/settings.py",
+      "line": 8,
+      "kind": "wordlike"
+    },
+    {
+      "path": "deploy/values.yml",
+      "line": 4,
+      "kind": "uuid_config"
+    },
+    {
+      "path": "requirements.lock",
+      "line": 2,
+      "kind": "sha256_lock"
+    },
+    {
+      "path": "requirements.lock",
+      "line": 3,
+      "kind": "integrity_hash"
+    },
+    {
+      "path": "docs/runbook.md",
+      "line": 5,
+      "kind": "sha1_doc"
+    },
+    {
+      "path": "docs/runbook.md",
+      "line": 6,
+      "kind": "base64_text"
+    },
+    {
+      "path": ".env.example",
+      "line": 3,
+      "kind": "placeholder_env"
+    },
+    {
+      "path": ".env.example",
+      "line": 4,
+      "kind": "nonsecret_key"
+    },
+    {
+      "path": ".env.example",
+      "line": 5,
+      "kind": "uri_placeholder"
+    },
+    {
+      "path": "assets/logo.txt",
+      "line": 1,
+      "kind": "data_uri"
+    }
+  ],
+  "max_false_positives": 1
+}

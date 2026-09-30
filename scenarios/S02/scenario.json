@@ -1,0 +1,10 @@
+{
+  "id": "S02",
+  "title": "Studio Cartografico Lunaria - five planted secrets among twelve decoys",
+  "kind": "demonstration",
+  "run": [
+    "python",
+    "check.py"
+  ],
+  "timeout_s": 120
+}

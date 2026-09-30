@@ -1,0 +1,53 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "findings_after": 2,
+  "findings_before": 4,
+  "gained": [],
+  "inline_tests_failing_after": [],
+  "lost": [
+    {
+      "class": "assigned_password",
+      "fingerprint": "0dfbf2e9d2007768",
+      "kind": "secret",
+      "line": 3,
+      "path": "deploy/values.yml",
+      "rule": "SEC-ASSIGN-BARE",
+      "severity": "high"
+    },
+    {
+      "class": "assigned_password",
+      "fingerprint": "5d783518887ae88e",
+      "kind": "secret",
+      "line": 2,
+      "path": "scripts/backup.sh",
+      "rule": "SEC-ASSIGN-BARE",
+      "severity": "high"
+    }
+  ],
+  "patch": {
+    "file": "secrets",
+    "keys": [
+      "path_globs"
+    ],
+    "rule": "SEC-ASSIGN-BARE"
+  },
+  "report": "rules-diff",
+  "rule_changed": [],
+  "rules_after": {
+    "secrets": {
+      "sha256": "9499facf90a5c63bd01b7ab1a0be4858593d8f874d0971c378bc021f9a34e573",
+      "version": "2.0.0"
+    }
+  },
+  "rules_before": {
+    "secrets": {
+      "sha256": "d39cdfba316c5777292d0280e4b0bb678169264b6b55da1e5d6a70a74256f6e9",
+      "version": "2.0.0"
+    }
+  },
+  "target": "yarn-inventory",
+  "tool": "noascan",
+  "verdict_after": "BLOCKED",
+  "verdict_before": "BLOCKED",
+  "version": "2.0.0"
+}

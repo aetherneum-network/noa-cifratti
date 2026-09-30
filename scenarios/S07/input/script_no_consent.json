@@ -1,0 +1,65 @@
+{
+  "playbook": "rogue_container",
+  "subject": "CT-3906",
+  "company_domain": "officina-brennero.example",
+  "actions": [
+    {
+      "actor": "incident_lead@officina-brennero.example",
+      "step": "declare_incident",
+      "at": "2026-10-17T08:05:00+02:00",
+      "evidence": [
+        "alert_reference"
+      ]
+    },
+    {
+      "actor": "operator@officina-brennero.example",
+      "step": "isolate_network",
+      "at": "2026-10-17T08:12:00+02:00",
+      "evidence": [
+        "network_detach_receipt"
+      ]
+    },
+    {
+      "actor": "operator@officina-brennero.example",
+      "step": "preserve_evidence",
+      "at": "2026-10-17T08:19:00+02:00",
+      "evidence": [
+        "memory_snapshot",
+        "filesystem_snapshot",
+        "log_export"
+      ]
+    },
+    {
+      "actor": "operator@officina-brennero.example",
+      "step": "restart_container",
+      "at": "2026-10-17T08:26:00+02:00",
+      "evidence": [
+        "restart_receipt"
+      ]
+    },
+    {
+      "actor": "operator@officina-brennero.example",
+      "step": "rebuild_from_known_image",
+      "at": "2026-10-17T08:33:00+02:00",
+      "evidence": [
+        "image_digest"
+      ]
+    },
+    {
+      "actor": "operator@officina-brennero.example",
+      "step": "verify_clean",
+      "at": "2026-10-17T08:40:00+02:00",
+      "evidence": [
+        "process_list"
+      ]
+    },
+    {
+      "actor": "incident_lead@officina-brennero.example",
+      "step": "close_incident",
+      "at": "2026-10-17T08:47:00+02:00",
+      "evidence": [
+        "summary"
+      ]
+    }
+  ]
+}

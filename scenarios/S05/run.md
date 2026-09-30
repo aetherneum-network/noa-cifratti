@@ -1,0 +1,3 @@
+# S05 - a new entry point without a threat
+
+*Company (synthetic): Studio Cartografico Lunaria. Lessons covered: L3.* **Failure reproduced.** The topology gains a public route (`/upload`) that the threat model was never told about. **Pass criterion.** `threatmodel/check.py` on the changed topology is FAILED with the single code `ENTRY_POINT_NOT_IN_MODEL` naming the new route; the report carries the date of the model (`model_as_of`) and the reference date. The same model passes on the topology it was written for. The changed topology is committed under `input/target/`. Run `python scenarios/S05/check.py` from the repository root (or `python check.py` in this folder): it compares the output with `expected/` byte for byte and then asserts the criterion in code.

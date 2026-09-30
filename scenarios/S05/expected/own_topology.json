@@ -1,0 +1,154 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "entry_points_in_topology": [
+    "port:admin:10.77.0.1:8443",
+    "port:gateway:0.0.0.0:443",
+    "route:admin:admin.lunaria-carto.example/",
+    "route:public:api.lunaria-carto.example/v1",
+    "route:public:app.lunaria-carto.example/"
+  ],
+  "exit_code": 0,
+  "failures": [],
+  "model_as_of": "2026-10-21T09:40:00+02:00",
+  "model_version": "2.0.0",
+  "report": "threatmodel",
+  "rules": {
+    "blast_radius": {
+      "sha256": "a5e00250dde81e067cfa7fef3439bf4b32df3a9bc00e8d63668493306625fa5f",
+      "version": "2.0.0"
+    },
+    "config": {
+      "sha256": "eb9fcb4f0672e41d55ec5901304b3ade1ac0d6dbb2e57cf521b435f2d002a074",
+      "version": "2.0.0"
+    },
+    "surface": {
+      "sha256": "b47840c8ec108ef2ef6409a5c9ef949f1bebd1914897c4320c55f6d29d4ed620",
+      "version": "2.0.0"
+    }
+  },
+  "threats": [
+    {
+      "asset": "A-KEY",
+      "blast_rule": "BR-KEY-MATERIAL",
+      "category": "information_disclosure",
+      "disposition": "mitigated",
+      "entry_point": "EP-API",
+      "id": "T01",
+      "owner": "",
+      "radius": 5,
+      "review_by": "",
+      "severity": "critical"
+    },
+    {
+      "asset": "A-RUNTIME",
+      "blast_rule": "BR-KEY-MATERIAL",
+      "category": "elevation_of_privilege",
+      "disposition": "mitigated",
+      "entry_point": "EP-APP",
+      "id": "T02",
+      "owner": "",
+      "radius": 5,
+      "review_by": "",
+      "severity": "critical"
+    },
+    {
+      "asset": "A-ADMIN",
+      "blast_rule": "BR-ADMIN-PLANE",
+      "category": "spoofing",
+      "disposition": "mitigated",
+      "entry_point": "EP-ADMIN-UI",
+      "id": "T03",
+      "owner": "",
+      "radius": 4,
+      "review_by": "",
+      "severity": "high"
+    },
+    {
+      "asset": "A-IDP",
+      "blast_rule": "BR-ADMIN-PLANE",
+      "category": "spoofing",
+      "disposition": "mitigated",
+      "entry_point": "EP-ADMIN-UI",
+      "id": "T04",
+      "owner": "",
+      "radius": 4,
+      "review_by": "",
+      "severity": "high"
+    },
+    {
+      "asset": "A-ADMIN",
+      "blast_rule": "BR-ADMIN-PLANE",
+      "category": "elevation_of_privilege",
+      "disposition": "mitigated",
+      "entry_point": "EP-ADMIN-PORT",
+      "id": "T05",
+      "owner": "",
+      "radius": 4,
+      "review_by": "",
+      "severity": "high"
+    },
+    {
+      "asset": "A-DB",
+      "blast_rule": "BR-CREDENTIAL",
+      "category": "tampering",
+      "disposition": "mitigated",
+      "entry_point": "EP-API",
+      "id": "T06",
+      "owner": "",
+      "radius": 4,
+      "review_by": "",
+      "severity": "high"
+    },
+    {
+      "asset": "A-APP",
+      "blast_rule": "BR-CODE-PATH",
+      "category": "information_disclosure",
+      "disposition": "mitigated",
+      "entry_point": "EP-APP",
+      "id": "T07",
+      "owner": "",
+      "radius": 3,
+      "review_by": "",
+      "severity": "high"
+    },
+    {
+      "asset": "A-APP",
+      "blast_rule": "BR-CODE-PATH",
+      "category": "repudiation",
+      "disposition": "accepted",
+      "entry_point": "EP-API",
+      "id": "T08",
+      "owner": "role:founder@lunaria-carto.example",
+      "radius": 3,
+      "review_by": "2027-01-14",
+      "severity": "high"
+    },
+    {
+      "asset": "A-SITE",
+      "blast_rule": "BR-HYGIENE",
+      "category": "denial_of_service",
+      "disposition": "accepted",
+      "entry_point": "EP-GW-PORT",
+      "id": "T09",
+      "owner": "role:founder@lunaria-carto.example",
+      "radius": 2,
+      "review_by": "2027-01-14",
+      "severity": "medium"
+    },
+    {
+      "asset": "A-SITE",
+      "blast_rule": "BR-HYGIENE",
+      "category": "denial_of_service",
+      "disposition": "mitigated",
+      "entry_point": "EP-APP",
+      "id": "T10",
+      "owner": "",
+      "radius": 2,
+      "review_by": "",
+      "severity": "medium"
+    }
+  ],
+  "tool": "noascan",
+  "verdict": "PASSED",
+  "version": "2.0.0"
+}

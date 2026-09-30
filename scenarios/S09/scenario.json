@@ -1,0 +1,10 @@
+{
+  "id": "S09",
+  "title": "Cooperativa Tessile Arvale - a secret rule is narrowed",
+  "kind": "demonstration",
+  "run": [
+    "python",
+    "check.py"
+  ],
+  "timeout_s": 120
+}

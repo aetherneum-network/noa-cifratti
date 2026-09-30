@@ -1,0 +1,5 @@
+{
+  "author": "monitoring@lunaria-carto.example",
+  "endpoint_id": "EP-4172",
+  "note": "public endpoint answering without authentication"
+}

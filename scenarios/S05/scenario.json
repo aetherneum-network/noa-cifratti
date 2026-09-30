@@ -1,0 +1,10 @@
+{
+  "id": "S05",
+  "title": "Studio Cartografico Lunaria - a new entry point without a threat",
+  "kind": "demonstration",
+  "run": [
+    "python",
+    "check.py"
+  ],
+  "timeout_s": 120
+}

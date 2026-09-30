@@ -1,0 +1,59 @@
+{
+  "added": [],
+  "after": "after_reduce",
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "before": "before",
+  "counters": {
+    "delta": -1,
+    "grown": 0,
+    "unreadable_added": 0
+  },
+  "delta": -1,
+  "entries": [
+    {
+      "change": "removed",
+      "flags": [
+        "no_forward_auth"
+      ],
+      "item": "route:app.officina-brennero.example/legacy",
+      "radius": 4,
+      "severity": "high"
+    }
+  ],
+  "exit_code": 0,
+  "gate_rule": "SURF-PASS",
+  "removed": [
+    "route:app.officina-brennero.example/legacy"
+  ],
+  "report": "surface",
+  "rules": {
+    "blast_radius": {
+      "sha256": "a5e00250dde81e067cfa7fef3439bf4b32df3a9bc00e8d63668493306625fa5f",
+      "version": "2.0.0"
+    },
+    "config": {
+      "sha256": "eb9fcb4f0672e41d55ec5901304b3ade1ac0d6dbb2e57cf521b435f2d002a074",
+      "version": "2.0.0"
+    },
+    "coverage": {
+      "sha256": "0c74e8bfc985eb5d26bad02a38cf4b9dd2c40431aacd5b393f4944e4f76d462d",
+      "version": "2.0.0"
+    },
+    "secrets": {
+      "sha256": "d39cdfba316c5777292d0280e4b0bb678169264b6b55da1e5d6a70a74256f6e9",
+      "version": "2.0.0"
+    },
+    "surface": {
+      "sha256": "b47840c8ec108ef2ef6409a5c9ef949f1bebd1914897c4320c55f6d29d4ed620",
+      "version": "2.0.0"
+    }
+  },
+  "strengthened": [],
+  "surface_after": 4,
+  "surface_before": 5,
+  "tool": "noascan",
+  "unreadable_added": [],
+  "verdict": "PASS",
+  "version": "2.0.0",
+  "weakened": []
+}
