@@ -4,34 +4,34 @@
 > still measures a generator and a scanner written by the same author: it is a step beyond the
 > author's own seeds, not a validation on real systems.
 
-**At the tag `v2.0.2-freeze`: this file is not yet valid for a blind run.** The text below was
-written for `v2.0.1-freeze` and is unchanged. It was run once on that tag, on 2026-09-30
-(`eval/history.json`, runs 9 to 11), and the defect that run found (finding T19) is fixed by
-version 2.0.2, which changes frozen paths: the harness now checks `v2.0.2-freeze`, and refuses the
-seed of that run. This file names a tag and its commit, so it names `v2.0.2-freeze` only in the
-commit that follows the tag (a commit cannot contain its own id).
-
-**State at the time of writing: not run.** This file was written by the author after the tag
-`v2.0.0-freeze` and pointed to `v2.0.1-freeze` in the commit that follows that second tag. No blind
-seed has been generated or looked at by the author.
+**State at the time of writing: not run on `v2.0.2-freeze`.** This file was written by the author
+after the tag `v2.0.2-freeze`, in the commit that follows it. The protocol was run once before, on
+`v2.0.1-freeze` (see "Earlier runs" below). No blind seed for `v2.0.2-freeze` has been generated or
+looked at by the author.
 
 ## What is frozen
 
-The tag `v2.0.1-freeze` (commit `335b6875ad1498323fe1a5441a1d2052c80d11ea`). It differs from the
-first freeze, `v2.0.0-freeze` (commit `3be83ef9e41d293b2e2744b0077768b148f386a1`), in documentation
-only: one token of the profile text and the files that record it (`CHANGELOG.md`, 2.0.1).
+The tag `v2.0.2-freeze` (commit `a4492d8817e413ec23b1a8090c2ce064659c9ed9`). It is a code freeze:
+version 2.0.2 changes the scanner so that it reads the header and the message of every commit and
+annotated-tag object (finding T19 of the evaluation of 2026-09-30; `CHANGELOG.md`, 2.0.2), and with
+it the harness and the seeds. The harness now compares with this tag itself: `eval/score.py`
+names `v2.0.2-freeze`, and a recorded run carries its commit as `freeze_commit`.
 
 A blind run is valid only if these paths are identical to the tag: `noascan`, `rules`,
 `playbooks`, `tabletop`, `threatmodel`, `corpus`, `eval/score.py`, `eval/manual.py`,
-`eval/seeds.json`. They are identical in the two tags. The harness checks it by itself and refuses
-to run otherwise (exit code 64, "not a blind run"). Its code names the first tag, `v2.0.0-freeze`:
-giving it the new name would have changed a scoring file, which a documentation-only freeze must
-not do. So both tags must be in the clone, the comparison is made with `v2.0.0-freeze`, and a
-recorded run carries the commit of `v2.0.0-freeze` as `freeze_commit`. Step 0 below shows that
-this is the same code as `v2.0.1-freeze`.
+`eval/seeds.json`. The harness checks it by itself and refuses to run otherwise (exit code 64, "not
+a blind run").
 
-This file is not part of either tag: the clone is at the head of the branch, one commit after
-`v2.0.1-freeze`, and that commit changes this file only.
+This file is not part of the tag: the clone is at the head of the branch, one commit after
+`v2.0.2-freeze`, and that commit changes this file only.
+
+### A statement of the previous version that was wrong
+
+The version of this file written for `v2.0.1-freeze` (commit `6d77abe`) said that tag differed from
+`v2.0.0-freeze` "in documentation only". That was wrong: between the two tags `tools/manifest.py`,
+`tests/test_freeze.py` and `tests/test_docs.py` changed too (`git diff --stat v2.0.0-freeze
+v2.0.1-freeze`). What was true, and what the harness checked, is narrower: no frozen path changed.
+The sentence stays in the history of this file; `CHANGELOG.md` records the same correction.
 
 ## Who runs it
 
@@ -42,9 +42,14 @@ must not change any frozen path.
 
 ## What the author has already seen
 
-Seeds `20260930` (dev), `20261001` (holdout) and `20261002` (stress). The harness refuses them for
-a blind run. Any other integer is a valid blind seed. The runner chooses it, writes it down before
-the first command, and does not ask the author.
+- Seeds `20260930` (dev), `20261001` (holdout) and `20261002` (stress), generated and inspected by
+  the author.
+- Seed `20261011`, the seed of the blind run on `v2.0.1-freeze`: the author did not generate it,
+  but read its results and the repository in which its values were hidden, to make version 2.0.2.
+  It is listed in `eval/seeds.json` as `seen_seeds`.
+
+The harness refuses all four for a blind run. Any other integer is a valid blind seed. The runner
+chooses it, writes it down before the first command, and does not ask the author.
 
 ## The commands
 
@@ -54,10 +59,8 @@ by the runner (for example `2026-10-05T10:00:00+02:00`): the programs never read
 
 ```
 # 0. the code is the frozen one
-git rev-parse "v2.0.1-freeze^{commit}"          # must print 335b6875ad1498323fe1a5441a1d2052c80d11ea
-git rev-parse "v2.0.0-freeze^{commit}"          # must print 3be83ef9e41d293b2e2744b0077768b148f386a1
-git diff --name-only v2.0.0-freeze v2.0.1-freeze -- noascan rules playbooks tabletop threatmodel corpus eval/score.py eval/manual.py eval/seeds.json   # must print nothing
-git diff --name-only v2.0.1-freeze               # must print eval/BLIND_PROTOCOL.md and nothing else
+git rev-parse "v2.0.2-freeze^{commit}"          # must print a4492d8817e413ec23b1a8090c2ce064659c9ed9
+git diff --name-only v2.0.2-freeze               # must print eval/BLIND_PROTOCOL.md and nothing else
 git status --short                               # must print nothing
 python tools/manifest.py --check                 # must say "0 differ" and "is the list of the tagged commit"
 
@@ -82,12 +85,18 @@ that goes badly stays in the history like the author's bad first runs.
 
 ### "plain" and "other" in step 2
 
-A hidden value is `plain` when it sits contiguous and unmodified in a text file (UTF-8, under
-1 MiB) of the working tree or of the git history, in the form `COVERAGE.md` declares: a token
-anywhere on a line; a key block with its begin line, body and end line in order; a connection URI
-as printed; a password assigned with `=` or `:` to a key whose name contains `password`, `secret`,
-`token`, `api_key` or `private_key` (quoted anywhere, unquoted only in environment-like files).
-Everything else (split, encoded, reversed, inside an archive, under an unrelated key) is `other`:
+A hidden value is `plain` when it sits contiguous and unmodified, in the form `COVERAGE.md`
+declares, in one of these places:
+
+- a text file (UTF-8, under 1 MiB) of the working tree or of the git history;
+- (since 2.0.2) the text of a commit or annotated-tag object: its message, or its header (the
+  author, committer or tagger line). Such a text is read like a file whose name is not known.
+
+The covered forms: a token anywhere on a line; a key block with its begin line, body and end line in
+order; a connection URI as printed; a password assigned with `=` or `:` to a key whose name
+contains `password`, `secret`, `token`, `api_key` or `private_key` (quoted anywhere, unquoted only
+in environment-like files and in commit or tag texts). Everything else (split, encoded, reversed,
+inside an archive, under an unrelated key, a bare password with no key before it) is `other`:
 outside the promise, and counted apart. The runner is encouraged to hide at least half of the
 values as `other`, as cleverly as possible: that is where the pack is expected to be weakest.
 
@@ -110,17 +119,31 @@ found); 1 otherwise; 64 when the run was refused.
 - Commit `eval/history.json` and the three result files, locally, with the runner as author.
 - Do not change a rule in response to the blind run under the same tag. A fix needs a new version,
   a new freeze tag and a new seed; the seed used here then becomes a seed "already seen" and must
-  be added to `eval/seeds.json`.
+  be added to `eval/seeds.json` (`seen_seeds`), as 20261011 was for 2.0.2.
 - If the run could not be completed, say so in `--note` of a recorded run or in the commit message:
   a failed run is a result.
 
+## Earlier runs
+
+| Tag | Date | Seed | Runner | `eval/history.json` | What came of it |
+|---|---|---|---|---|---|
+| `v2.0.1-freeze` | 2026-09-30 | 20261011 | evaluator (Claude Opus 5.5) | runs 9 to 11 | both must-be-zero numbers 0 in the three steps; step 2: 10 of 10 `plain` values found, 2 of 10 `other` found as secrets. One `other` value sat only in a commit message, which the scanner did not read and did not say it did not read (finding T19). Fixed in 2.0.2: the message is read. That value itself, a bare password with no key, is still outside the covered forms (`COVERAGE.md`, Known limits) |
+
+The runs of that row carry `freeze_commit` `3be83ef9e41d293b2e2744b0077768b148f386a1`
+(`v2.0.0-freeze`): the harness of `v2.0.1-freeze` compared with that tag, whose frozen paths were
+identical.
+
 ## What the author did and did not do
 
-- Did: generate and inspect the three seeds above; run the tests, which use only those seeds and
+- Did: generate and inspect the three author seeds; run the tests, which use only those seeds and
   fixed test namespaces (`noa-tests/v1/...`, `noa-scenario/v1/...`), and, for the hand-planted
   scorer, the values of the dev and holdout seeds, which the command line refuses for a blind run.
-- Did, after the first freeze: one documentation change (one token of the profile text, recorded
-  in `CLAIMS.md` and `CHANGELOG.md`) and the tag `v2.0.1-freeze`. No frozen path was touched and no
-  seed was generated for it.
-- Did not: generate, read or score any other seed; run any command of this file beyond its
-  refusals (author seed, missing tag), which the tests exercise.
+- Did, after the first freeze: one documentation change of the profile text (one token, recorded
+  in `CLAIMS.md` and `CHANGELOG.md`) with the manifest tooling that goes with it, and the tag
+  `v2.0.1-freeze`. No frozen path was touched and no seed was generated for it.
+- Did, for 2.0.2: read the results and the hand-planted repository of the blind run on
+  `v2.0.1-freeze`, reproduce the defect on a copy of that repository and on synthetic repositories
+  of its own, fix it, re-run the three author seeds (runs 12 to 14, result files byte-identical
+  to runs 6 to 8), and tag `v2.0.2-freeze`.
+- Did not: generate or score any other seed, including 20261011; run any command of this file
+  beyond its refusals (author seed, seen seed, missing tag), which the tests exercise.
