@@ -1,0 +1,109 @@
+{
+  "file": "threatmodel",
+  "version": "2.0.0",
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "target": "Synthetic target: tile-server of Studio Cartografico Lunaria (fictitious)",
+  "method": "A short list of threat categories (spoofing, tampering, repudiation, information_disclosure, denial_of_service, elevation_of_privilege) applied per entry point, sorted by blast radius. The category names follow the published STRIDE mnemonic [TO CONFIRM with legal]; no conformance to any standard is claimed.",
+  "context": "Solo-founder context: one person holds every role, so each accepted risk names a role account, a date and a review date instead of relying on a team to remember it.",
+  "assets": [
+    {"id": "A-KEY", "name": "deploy and custody keys", "class": "custody_key"},
+    {"id": "A-RUNTIME", "name": "container runtime of the host", "class": "container_runtime"},
+    {"id": "A-ADMIN", "name": "administration plane", "class": "admin_plane"},
+    {"id": "A-IDP", "name": "identity gate (forward-auth)", "class": "identity_gate"},
+    {"id": "A-DB", "name": "survey and tile database", "class": "data_store"},
+    {"id": "A-APP", "name": "application handlers", "class": "application"},
+    {"id": "A-SITE", "name": "public site availability", "class": "public_site"}
+  ],
+  "boundaries": [
+    {"id": "B-INTERNET", "name": "internet to gateway", "entrypoint": "public"},
+    {"id": "B-PRIVATE", "name": "private plane to administration", "entrypoint": "admin"},
+    {"id": "B-HOST", "name": "host interfaces to containers", "entrypoint": "host"}
+  ],
+  "entry_points": [
+    {"id": "EP-APP", "item": "route:public:app.lunaria-carto.example/", "boundary": "B-INTERNET"},
+    {"id": "EP-API", "item": "route:public:api.lunaria-carto.example/v1", "boundary": "B-INTERNET"},
+    {"id": "EP-ADMIN-UI", "item": "route:admin:admin.lunaria-carto.example/", "boundary": "B-PRIVATE"},
+    {"id": "EP-GW-PORT", "item": "port:gateway:0.0.0.0:443", "boundary": "B-HOST"},
+    {"id": "EP-ADMIN-PORT", "item": "port:admin:10.77.0.1:8443", "boundary": "B-HOST"}
+  ],
+  "threats": [
+    {
+      "id": "T01", "entry_point": "EP-API", "asset": "A-KEY", "category": "information_disclosure",
+      "statement": "A key committed to the repository is read by anyone who can clone it.",
+      "disposition": "mitigated",
+      "mitigation": "No covered secret in the tree; if one leaks, the compromised-key playbook rotates and revokes it.",
+      "checks": [{"type": "no_covered_secret_in_tree"},
+                 {"type": "playbook_invariant", "playbook": "compromised_key", "code": "ROTATED_NOT_REVOKED"}]
+    },
+    {
+      "id": "T02", "entry_point": "EP-APP", "asset": "A-RUNTIME", "category": "elevation_of_privilege",
+      "statement": "A compromised handler reaches the container runtime and takes the host.",
+      "disposition": "mitigated",
+      "mitigation": "No service mounts the runtime socket.",
+      "checks": [{"type": "no_socket_mount"}]
+    },
+    {
+      "id": "T03", "entry_point": "EP-ADMIN-UI", "asset": "A-ADMIN", "category": "spoofing",
+      "statement": "A request reaches the administration interface without an authenticated identity.",
+      "disposition": "mitigated",
+      "mitigation": "The admin router sits behind forward-auth.",
+      "checks": [{"type": "route_has_middleware", "item": "route:admin:admin.lunaria-carto.example/", "middleware": "forward-auth"}]
+    },
+    {
+      "id": "T04", "entry_point": "EP-ADMIN-UI", "asset": "A-IDP", "category": "spoofing",
+      "statement": "A client forges the identity headers that the gate is supposed to set.",
+      "disposition": "mitigated",
+      "mitigation": "The forward-auth middleware does not trust forwarded headers from the client.",
+      "checks": [{"type": "middleware_setting", "name": "forward-auth", "key": "trust_forward_header", "value": false}]
+    },
+    {
+      "id": "T05", "entry_point": "EP-ADMIN-PORT", "asset": "A-ADMIN", "category": "elevation_of_privilege",
+      "statement": "The administration port is published on a public interface.",
+      "disposition": "mitigated",
+      "mitigation": "The admin service publishes its port on the private bind only.",
+      "checks": [{"type": "port_bind_private", "service": "admin"}]
+    },
+    {
+      "id": "T06", "entry_point": "EP-API", "asset": "A-DB", "category": "tampering",
+      "statement": "The public network reaches the database directly, bypassing the API.",
+      "disposition": "mitigated",
+      "mitigation": "Segmentation: the database is on the data network only and publishes no port; the API is not on the public network.",
+      "checks": [{"type": "service_not_on_network", "service": "db", "network": "public"},
+                 {"type": "service_not_on_network", "service": "api", "network": "public"},
+                 {"type": "no_published_port", "service": "db"}]
+    },
+    {
+      "id": "T07", "entry_point": "EP-APP", "asset": "A-APP", "category": "information_disclosure",
+      "statement": "Debug output exposes internals through the public application.",
+      "disposition": "mitigated",
+      "mitigation": "DEBUG is off in the production environment file and no debug route is public.",
+      "checks": [{"type": "env_flag_off", "path": "deploy/prod.env", "key": "DEBUG"},
+                 {"type": "no_public_debug_route"}]
+    },
+    {
+      "id": "T08", "entry_point": "EP-API", "asset": "A-APP", "category": "repudiation",
+      "statement": "An API call cannot be attributed afterwards because request logs are kept for a short time only.",
+      "disposition": "accepted",
+      "owner": "role:founder@lunaria-carto.example",
+      "date": "2026-10-14",
+      "review_by": "2027-01-14",
+      "rationale": "Low value of the data served by the public API; revisit when write endpoints are added."
+    },
+    {
+      "id": "T09", "entry_point": "EP-GW-PORT", "asset": "A-SITE", "category": "denial_of_service",
+      "statement": "A volumetric flood on the single gateway takes the public site down.",
+      "disposition": "accepted",
+      "owner": "role:founder@lunaria-carto.example",
+      "date": "2026-10-14",
+      "review_by": "2027-01-14",
+      "rationale": "One gateway, no upstream scrubbing: accepted for a public map viewer; rate limiting covers only the application layer."
+    },
+    {
+      "id": "T10", "entry_point": "EP-APP", "asset": "A-SITE", "category": "denial_of_service",
+      "statement": "A single client exhausts the application handlers.",
+      "disposition": "mitigated",
+      "mitigation": "Rate limiting on the public application router.",
+      "checks": [{"type": "route_has_middleware", "item": "route:public:app.lunaria-carto.example/", "middleware": "rate-limit"}]
+    }
+  ]
+}
