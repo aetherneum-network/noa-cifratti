@@ -1,0 +1,97 @@
+{
+  "id": "compromised_key",
+  "version": "2.0.0",
+  "as_of": "2026-09-30",
+  "title": "Compromised key: rotate, revoke, prove the old key is dead",
+  "subject_field": "key_id",
+  "note": "Threshold custody is modelled as a procedure (a quorum of distinct custodians approves the rotation); no cryptography is implemented here.",
+  "steps": [
+    {
+      "id": "declare_incident",
+      "role": "incident_lead",
+      "requires": [],
+      "evidence": [
+        "alert_reference"
+      ]
+    },
+    {
+      "id": "inventory_usages",
+      "role": "operator",
+      "requires": [
+        "declare_incident"
+      ],
+      "evidence": [
+        "usage_list"
+      ]
+    },
+    {
+      "id": "assemble_quorum",
+      "role": "incident_lead",
+      "requires": [
+        "declare_incident"
+      ],
+      "evidence": [],
+      "quorum": {
+        "role_prefix": "custodian",
+        "min_distinct": 3,
+        "of": 5
+      }
+    },
+    {
+      "id": "rotate_key",
+      "role": "operator",
+      "requires": [
+        "assemble_quorum",
+        "inventory_usages"
+      ],
+      "evidence": [
+        "new_key_fingerprint"
+      ]
+    },
+    {
+      "id": "revoke_old_key",
+      "role": "operator",
+      "requires": [
+        "rotate_key"
+      ],
+      "evidence": [
+        "revocation_receipt"
+      ]
+    },
+    {
+      "id": "verify_old_key_rejected",
+      "role": "operator",
+      "requires": [
+        "revoke_old_key"
+      ],
+      "evidence": [
+        "rejection_probe"
+      ]
+    },
+    {
+      "id": "close_incident",
+      "role": "incident_lead",
+      "requires": [
+        "verify_old_key_rejected"
+      ],
+      "evidence": [
+        "summary"
+      ],
+      "closes": true
+    }
+  ],
+  "invariants": [
+    {
+      "id": "INV-ROTATE-IMPLIES-REVOKE",
+      "type": "paired",
+      "first": "rotate_key",
+      "then": "revoke_old_key",
+      "code": "ROTATED_NOT_REVOKED"
+    },
+    {
+      "id": "INV-ONE-SUBJECT",
+      "type": "same_subject",
+      "code": "IDENTIFIER_MISMATCH"
+    }
+  ]
+}

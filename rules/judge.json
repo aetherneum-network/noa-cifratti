@@ -1,0 +1,20 @@
+{
+  "file": "judge",
+  "version": "2.0.0",
+  "as_of": "2026-09-30",
+  "policy": "Ordered, first match wins: each step of the playbook gets at most one procedure violation, the first rule that applies. The more specific reading sits on top (a missing revocation after a rotation is ROTATED_NOT_REVOKED, not a generic skipped step; a destructive step run before the evidence was preserved is EVIDENCE_DESTROYED, not a generic order violation). A missing prerequisite is reported once, on the missing step, and not again on every step that depended on it. Identifier consistency and log integrity are separate passes and add to the step's violation.",
+  "rules": [
+    {"id": "J-PAIRED-MISSING", "when": "step_absent_but_its_pair_ran", "code_from": "invariant"},
+    {"id": "J-STEP-SKIPPED", "when": "step_absent", "code": "STEP_SKIPPED"},
+    {"id": "J-EVIDENCE-DESTROYED", "when": "destructive_before_preservation", "code": "EVIDENCE_DESTROYED"},
+    {"id": "J-ORDER", "when": "prerequisite_ran_later", "code": "ORDER_VIOLATED"},
+    {"id": "J-CONSENT", "when": "destructive_without_human_consent", "code": "CONSENT_MISSING"},
+    {"id": "J-QUORUM", "when": "quorum_not_met", "code": "QUORUM_NOT_MET"},
+    {"id": "J-EVIDENCE", "when": "evidence_incomplete", "code": "EVIDENCE_MISSING"}
+  ],
+  "passes": [
+    {"id": "J-IDENTIFIER", "code_from": "invariant", "note": "every event and every cited artifact must name the subject declared when the incident was opened"},
+    {"id": "J-CHAIN", "code": "LOG_CHAIN_BROKEN", "note": "each event's hash must match its content and the previous event's hash"}
+  ],
+  "closure": {"allowed_when": "no violation", "otherwise": "BLOCKED"}
+}

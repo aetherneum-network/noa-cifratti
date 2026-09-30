@@ -1,0 +1,77 @@
+{
+  "id": "leaked_endpoint",
+  "version": "2.0.0",
+  "as_of": "2026-09-30",
+  "title": "Leaked endpoint: close it, hand it over with a receipt, verify from outside, then all clear",
+  "subject_field": "endpoint_id",
+  "steps": [
+    {
+      "id": "receive_alert",
+      "role": "incident_lead",
+      "requires": [],
+      "evidence": [
+        "alert_reference"
+      ]
+    },
+    {
+      "id": "confirm_exposure",
+      "role": "operator",
+      "requires": [
+        "receive_alert"
+      ],
+      "evidence": [
+        "probe_result"
+      ]
+    },
+    {
+      "id": "close_exposure",
+      "role": "operator",
+      "requires": [
+        "confirm_exposure"
+      ],
+      "evidence": [
+        "route_diff"
+      ]
+    },
+    {
+      "id": "handoff_to_owner",
+      "role": "operator",
+      "requires": [
+        "close_exposure"
+      ],
+      "evidence": [
+        "handoff_file",
+        "receipt_file"
+      ]
+    },
+    {
+      "id": "verify_from_outside",
+      "role": "operator",
+      "requires": [
+        "close_exposure"
+      ],
+      "evidence": [
+        "external_probe"
+      ]
+    },
+    {
+      "id": "all_clear",
+      "role": "incident_lead",
+      "requires": [
+        "verify_from_outside",
+        "handoff_to_owner"
+      ],
+      "evidence": [
+        "summary"
+      ],
+      "closes": true
+    }
+  ],
+  "invariants": [
+    {
+      "id": "INV-ONE-SUBJECT",
+      "type": "same_subject",
+      "code": "IDENTIFIER_MISMATCH"
+    }
+  ]
+}
