@@ -1,16 +1,17 @@
-# proof pack manifest - tag v2.0.0-freeze - commit 3be83ef9e41d293b2e2744b0077768b148f386a1
-# files: 195 - bundle sha256 (of the lines below): c9c9109b043f09913b3c9229038438a3f7c32f9fbaf5b0421c5ca4509a148fa0
-# not listed, because added after that commit: MANIFEST.sha256, eval/BLIND_PROTOCOL.md, eval/history.json, tests/test_freeze.py
+# proof pack manifest - tag v2.0.1-freeze - every file of the tagged commit except the ones named below
+# files: 196 - bundle sha256 (of the lines below): 7003c441d4dc560b0a81d0f091b40246627f61062ceb0e5e58b0c45ffb1b4fe0
+# not listed: MANIFEST.sha256 (a file cannot hold its own hash); eval/BLIND_PROTOCOL.md (it names the tagged commit, so it is completed after the tag); eval/history.json (every recorded run is appended to it)
+# identical to v2.0.0-freeze (commit 3be83ef9e41d293b2e2744b0077768b148f386a1), the tag the blind harness checks: noascan, rules, playbooks, tabletop, threatmodel, corpus, eval/score.py, eval/manual.py, eval/seeds.json
 9396bb7974521bb30a187b6e2909d96e090a3b6acd758b84e904a76a1337b030  .gitattributes
 fdbbd884a867ac33c4cdf32d079e73e4cdb26a6fee9b856b8d63a1a7ab999b4b  .github/workflows/ci.yml
 43227cb488a2693273cc97fc84878d149b2d274699a4453744a8330f1001f109  .gitignore
-8f24d32dac0bc51af2b3384ab5beb5438550f03104c8eced627ea7eeb32c21c2  CHANGELOG.md
-34f96f9f250f830da3f2c2e77720cbd98124d987fe4a255c7960371b79235ad4  CLAIMS.md
+f5d35320e19d7be28c0737aba5b4d984b2cecffc82a9c44a5c43dac0b80645e0  CHANGELOG.md
+aa9729cdc015ca0fff19ba41124f760c21ea215e937a84d0cb8f491952103746  CLAIMS.md
 0e1e533c8918c3fa1ba636cb8060435f0f5f313ef2c329e1943e18a43109fb9b  COVERAGE.md
 1ee0bd6b0810ad2e504cc1faf6f51807526369c2e73c6eb8ec72292f2aa5ba93  DEPENDENCIES.md
 d2109f3b7b3e9c2731c00ce6d63a2e884dc46ea83fa2c7bed616178eb348ee70  LICENSE
 46b357fae971dbadc3b24eb13f5d8fe2851e97db815234fafb88732738c76b5b  MODEL.md
-7e81679f85cab3a1f2c6dceaeb5d2c387c83790ce86e599072cda0bf212b3fdb  README.md
+1bec23badd8ba6c3256e0085ae2a1a1520e609525e6ab36ac864c2ccf71e0365  README.md
 54459e8deaf276a50ad8474fb6000682243c148fd8a04be700e772a332471722  SECURITY.md
 5b7ae66891a3aa216fb39a3b30f010882a7559b69a73de7fb21349032297cdd4  SYNTHETIC.md
 8011125d33ae169d6799a74c72d3d14aa5817f6b42a61d673c3adb842d09ff6a  avatar.jpg
@@ -175,8 +176,9 @@ b04fe880e1388e33e6ea33dc6f9354f986fd94cd1ba05b4e26bca7fe85fafc5e  tests/test_all
 126887765b4ecc987a4e7c45f9f1a7a00adf1a772c9c1a88d3db3e1d3d7de8e4  tests/test_config_pycode_surface.py
 caa62b145934ecaacb075b77a5391ac2f6998e104065bdef83168418c5e1ec7b  tests/test_corpus.py
 dbad6e7f5f727c7980cc2fb97cfc75b29984066f68fb5ae69e3f03c4f09fd5c7  tests/test_determinism.py
-5f72a2c349a1aa83a06f3974fc8dba00f25adb6ab5baee43385feca518d8c048  tests/test_docs.py
+61b8a8b514d983362cbac146dda0cf28cc4948f6894d02ec3ffe2781d13210ff  tests/test_docs.py
 8e3e729f4b635055a5a6d7859b313a048fe26715d228f5ef0033489afb48ad2c  tests/test_eval.py
+d738246b683c3351f496f28df281a277ae452fef9277dc5927319f3101ff7400  tests/test_freeze.py
 88ade825c92b9af42928c7201197b34a522533a89b1b040ba172b8c513ee1d87  tests/test_history.py
 7e225ad2049cfffcf937d0fc2644f8a80f630ea2754034eb700b7aeee2aba464  tests/test_manual.py
 c9deb6c24d489ac655fda8a5e5d200712df92f7e99f2a0701a5b2d2f757d5d0d  tests/test_never_clean.py
@@ -193,6 +195,6 @@ cdea0f75bb9ab489a81644ebae0f26ed8b6cb32d4057a98ec35ccaedc0e12a9c  threatmodel/ch
 90998cd993cd6f5f44c8d3412485254823dea12c3d46bb10cddd4f878d120c00  threatmodel/target/config/gateway/routes.json
 d2af133e5a475e2d2c67c9f59d7069f231e2d1a62f3b27b064e95515cbc3c9df  threatmodel/target/config/services.json
 3fe7a0ca55af641a678f8c72d4f2f8abc72a7d67e4decc3257c520b97e1a2ea4  threatmodel/target/deploy/prod.env
-7843ea7857b2dd73bbfcceaa39d488d36a72b95df46fa8fc5aca4d5b66db0c2c  tools/manifest.py
+d200597e2ef0a0518107179c4de3e467ea8f1a4e197167eecf2cad74cc8a92be  tools/manifest.py
 cdbf1cabb02906142f27a03048dd084646b830a454b76e439e513831d9ef4a3d  tools/rebuild.py
 15f3373a4165e1ed2266c68112e4ee7a7f09177ef4e839f8516969b06c069938  tools/selfscan.py

@@ -2,6 +2,7 @@
 import contextlib
 import io
 import json
+import re
 import subprocess
 import sys
 import unittest
@@ -17,10 +18,17 @@ SEEDS = json.loads((u.ROOT / "eval" / "seeds.json").read_text(encoding="utf-8"))
 HISTORY = json.loads((u.ROOT / "eval" / "history.json").read_text(encoding="utf-8"))
 
 
-def tag_present() -> bool:
-    cp = subprocess.run(["git", "-C", str(u.ROOT), "rev-parse", "--verify", "--quiet", f"refs/tags/{score.FREEZE_TAG}"],
-                        capture_output=True, stdin=subprocess.DEVNULL)
-    return cp.returncode == 0
+MANIFEST_TEXT = (u.ROOT / "MANIFEST.sha256").read_bytes().replace(b"\r\n", b"\n").decode("utf-8")
+MANIFEST_TAG = manifest.tag_of(MANIFEST_TEXT)               # the tag the manifest travels with: the first freeze or a later one
+PROTOCOL = (u.ROOT / "eval" / "BLIND_PROTOCOL.md").read_text(encoding="utf-8")
+
+
+def git(*args):
+    return subprocess.run(["git", "-C", str(u.ROOT), *args], capture_output=True, text=True, stdin=subprocess.DEVNULL)
+
+
+def tag_present(tag: str = score.FREEZE_TAG) -> bool:
+    return git("rev-parse", "--verify", "--quiet", f"refs/tags/{tag}").returncode == 0
 
 
 class Freeze(unittest.TestCase):
@@ -32,13 +40,47 @@ class Freeze(unittest.TestCase):
 
     @unittest.skipUnless(tag_present(), "the freeze tag is not in this clone")
     def test_the_manifest_lists_the_tagged_files_and_they_are_unchanged(self):
-        self.assertEqual(manifest.main(["--check"]), 0)
-        text = (u.ROOT / "MANIFEST.sha256").read_text(encoding="utf-8")
-        self.assertIn(score.FREEZE_TAG, text)
-        listed = [ln.split("  ", 1)[1] for ln in text.splitlines() if ln and not ln.startswith("#")]
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            self.assertEqual(manifest.main(["--check"]), 0)
+        self.assertIn(", 0 differ;", out.getvalue())
+        self.assertRegex(MANIFEST_TAG, r"^v2\.0\.\d+-freeze$")
+        head = [ln for ln in MANIFEST_TEXT.splitlines() if ln.startswith("#")]
+        self.assertEqual(len(head), 4)
+        self.assertIn(f"identical to {score.FREEZE_TAG} (commit {score.frozen_state()[1]})", head[3])
+        for path in score.FROZEN_PATHS:
+            self.assertIn(path, head[3])
+        listed = [ln.split("  ", 1)[1] for ln in MANIFEST_TEXT.splitlines() if ln and not ln.startswith("#")]
         self.assertEqual(listed, sorted(listed))
-        for name in ("MANIFEST.sha256", "eval/BLIND_PROTOCOL.md", "eval/history.json", "tests/test_freeze.py"):
-            self.assertNotIn(name, listed)          # written after the tag, and said so in the header
+        for name, why in manifest.NOT_LISTED:
+            self.assertNotIn(name, listed)
+            self.assertIn(f"{name} ({why})", head[2])     # left out, and said so in the header with the reason
+        for name in ("README.md", "CLAIMS.md", "CHANGELOG.md", "tests/test_docs.py", "tests/test_freeze.py",
+                     "tools/manifest.py", "eval/score.py", "rules/gate.json"):
+            self.assertIn(name, listed)
+
+    @unittest.skipUnless(tag_present(MANIFEST_TAG), "the tag the manifest names is not in this clone")
+    def test_the_manifest_is_the_list_of_the_commit_its_tag_points_to(self):
+        self.assertEqual(manifest.render(MANIFEST_TAG, f"{MANIFEST_TAG}^{{commit}}"), MANIFEST_TEXT)
+        self.assertEqual(git("cat-file", "-t", f"refs/tags/{MANIFEST_TAG}").stdout.strip(), "tag")     # annotated
+
+    @unittest.skipUnless(tag_present() and tag_present(MANIFEST_TAG), "the freeze tags are not in this clone")
+    def test_a_later_freeze_tag_changes_no_path_that_decides_a_result(self):
+        self.assertEqual(git("diff", "--quiet", score.FREEZE_TAG, MANIFEST_TAG, "--", *score.FROZEN_PATHS).returncode, 0)
+        changed = git("diff", "--name-only", score.FREEZE_TAG, MANIFEST_TAG).stdout.split()
+        for path in changed:
+            with self.subTest(path=path):
+                self.assertFalse(any(path == frozen or path.startswith(frozen + "/") for frozen in score.FROZEN_PATHS))
+
+    def test_the_protocol_names_a_tag_and_the_commit_it_points_to(self):
+        m = re.search(r'^git rev-parse "(v[0-9.]+-freeze)\^\{commit\}"\s+# must print ([0-9a-f]{40})$', PROTOCOL, re.M)
+        self.assertIsNotNone(m)
+        tag, commit = m.groups()
+        self.assertIn(f"The tag `{tag}` (commit `{commit}`)", PROTOCOL)
+        if not tag_present(tag):
+            self.skipTest("the tag the protocol names is not in this clone")
+        self.assertEqual(git("rev-parse", f"{tag}^{{commit}}").stdout.strip(), commit)
+        self.assertEqual(git("diff", "--quiet", score.FREEZE_TAG, tag, "--", *score.FROZEN_PATHS).returncode, 0)
 
     def test_the_protocol_names_the_command_and_the_refusals(self):
         text = (u.ROOT / "eval" / "BLIND_PROTOCOL.md").read_text(encoding="utf-8")

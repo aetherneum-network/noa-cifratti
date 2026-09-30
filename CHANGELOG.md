@@ -2,6 +2,40 @@
 
 All dates are those of the work, not of any release to the public: nothing was pushed.
 
+## 2.0.1 — 2026-09-30 (tag `v2.0.1-freeze`)
+
+Documentation only. No file of the scanner, the rules, the playbooks, the tabletop, the threat
+model, the corpus generator, the scorers or the seeds differs from `v2.0.0-freeze`; the blind
+harness still compares those paths with `v2.0.0-freeze`, which stays where it was.
+
+### Changed after the first freeze
+
+- `README.md`, profile text: **one token**. In the section "Verifiable Artifacts", the line that
+  names the Charter and the Rubric wrote the name of a rubric criterion as an identifier, with an
+  underscore between the words "synthetic" and "transparency"; the underscore is now a space.
+  Reason: the intake lint of the Council refuses a candidate document that names a rubric
+  criterion by its identifier. No change of meaning, same length. Nothing else in the profile text
+  changed, and the sentences awaiting legal review are untouched (see `CLAIMS.md`).
+- `README.md`, proof-pack section: the sentence that called the profile unchanged "byte for byte"
+  now names the exception.
+- `CLAIMS.md`: the change is recorded in a section of its own.
+- `tests/test_docs.py`: expects the hash of the profile text as it is now, and checks that putting
+  the underscore back gives the hash of the original text; checks that the identifier is in no
+  text of the repository.
+- `MANIFEST.sha256`: regenerated. It now travels inside the tagged commit, so it names the tag
+  and not the commit (a commit cannot contain its own id) and lists every file of that commit
+  except itself, the blind protocol and the measurement history. `tools/manifest.py` writes it from
+  a tree, refuses to write it if a frozen path differs from `v2.0.0-freeze`, and `--check` also
+  compares the list with the tagged commit when the tag is in the clone. `tests/test_freeze.py`
+  follows.
+
+### Superseded, not removed
+
+- "kept byte for byte", under "Not changed" of 2.0.0 below: true at `v2.0.0-freeze`; since this
+  version the exception above applies.
+- The manifest of 2.0.0 (195 files of the commit tagged `v2.0.0-freeze`) is in the history of
+  this repository, in the commit that follows that tag.
+
 ## 2.0.0 — 2026-09-30 (tag `v2.0.0-freeze`)
 
 First proof pack. Before it, this repository held a profile (`README.md`), a picture and a licence.

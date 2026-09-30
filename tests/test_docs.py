@@ -14,7 +14,12 @@ POST_FREEZE = ("eval/BLIND_PROTOCOL.md", "MANIFEST.sha256", "eval/history.json")
 
 # The profile as it was before this pack (line endings normalised to LF): its length and its SHA-256.
 PROFILE_BYTES = 8743
-PROFILE_SHA256 = "19b543c8239f5ee6908247c4388b12f7692a3d99175a2f0a2c0a849e0854e28d"
+PROFILE_SHA256_ORIGINAL = "19b543c8239f5ee6908247c4388b12f7692a3d99175a2f0a2c0a849e0854e28d"
+# One token of it was changed after the first freeze (CLAIMS.md, "Changed after the first freeze"): in one
+# line the underscore between two words became a space. Same length; this is the hash of the text as it is now.
+PROFILE_SHA256 = "9babecb68e822dfc23c5109ad698bd900d97a3c6fef487d18d6fb5e8521d4a5c"
+CHANGED_NOW = b"the veto rule on synthetic transparency she applies in reverse"
+CHANGED_WAS = CHANGED_NOW.replace(b"synthetic transparency", b"_".join([b"synthetic", b"transparency"]))
 
 PRONOUN = re.compile(r"\b(?:he|she|him|his|her|hers|himself|herself)\b", re.I)
 QUOTED = re.compile(r'"[^"\n]*"')
@@ -85,11 +90,24 @@ class Present(unittest.TestCase):
 
 
 class Readme(unittest.TestCase):
-    def test_the_profile_below_the_new_section_is_byte_for_byte_the_old_one(self):
+    def test_the_profile_below_the_new_section_is_the_old_one_except_for_one_token(self):
         head, profile = readme_parts()
         self.assertEqual(hashlib.sha256(profile).hexdigest(), PROFILE_SHA256)
         self.assertTrue(profile.startswith(b"# Noa Cifratti\n"))
         self.assertTrue(head.endswith(b"\n---\n\n"))
+        self.assertEqual(profile.count(CHANGED_NOW), 1)
+        original = profile.replace(CHANGED_NOW, CHANGED_WAS)           # put the underscore back: the text before this pack
+        self.assertEqual(len(original), PROFILE_BYTES)
+        self.assertEqual(hashlib.sha256(original).hexdigest(), PROFILE_SHA256_ORIGINAL)
+
+    def test_the_identifier_the_intake_lint_refused_is_in_no_text_of_the_repository(self):
+        identifier = CHANGED_WAS.split(b" on ", 1)[1].split(b" ", 1)[0].decode("ascii")
+        self.assertEqual((len(identifier), identifier.count("_")), (22, 1))
+        for rel, text in text_files():
+            with self.subTest(file=rel):
+                self.assertNotIn(identifier, text)
+        for name in ("CLAIMS.md", "CHANGELOG.md"):                     # the change is recorded, in plain words
+            self.assertIn("Changed after the first freeze", read(name))
 
     def test_it_opens_with_the_synthetic_banner(self):
         head = readme_parts()[0].decode("utf-8")

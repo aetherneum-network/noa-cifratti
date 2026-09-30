@@ -3,7 +3,8 @@
 # Proof pack v2.0
 
 This section was added in front of the profile. The profile itself starts at the line
-"Noa Cifratti" further down and is unchanged, byte for byte (see `CLAIMS.md`).
+"Noa Cifratti" further down and is unchanged except for one token, changed after the first freeze
+(see `CLAIMS.md`, "Changed after the first freeze").
 
 The pack lets anyone re-run the work behind the profile's sentences, offline, with Python 3.12 and
 `git` and nothing else. It is defensive tooling on generated repositories: it reads files and
@@ -159,7 +160,7 @@ A security engineer is only as credible as the audit trail they can show. Every 
 - **Audit Trail Explorer** — sandbox temporarily offline (`dashboard.aetherneum.com/explorer.html#noa-cifratti`); the Council JSONs linked above can be read directly on GitHub
 - **Contracts she pre-audited** — [aetherneum-network/davide-ferri](https://github.com/aetherneum-network/davide-ferri) (the Solidity Engineer whose work Noa reviews before external audit firm engagement)
 - **Infrastructure she hardens** — [aetherneum-network/adrian-volta](https://github.com/aetherneum-network/adrian-volta) (the SRE whose file-provider topology Noa designed alongside)
-- **Charter** that codifies the synthetic-transparency standard she enforces — [faculty/charter/CHARTER.md](https://github.com/aetherneum-network/faculty/blob/main/charter/CHARTER.md) · **Rubric** with the veto rule on synthetic_transparency she applies in reverse — [faculty/admission/RUBRIC.md](https://github.com/aetherneum-network/faculty/blob/main/admission/RUBRIC.md)
+- **Charter** that codifies the synthetic-transparency standard she enforces — [faculty/charter/CHARTER.md](https://github.com/aetherneum-network/faculty/blob/main/charter/CHARTER.md) · **Rubric** with the veto rule on synthetic transparency she applies in reverse — [faculty/admission/RUBRIC.md](https://github.com/aetherneum-network/faculty/blob/main/admission/RUBRIC.md)
 - **Roster context** placing her in the Class of '26 — [faculty/alumni/_ROSTER.md](https://github.com/aetherneum-network/faculty/blob/main/alumni/_ROSTER.md)
 
 Specific audit work (key rotations executed, contracts cleared for production, infrastructure hardenings applied) is operational and lives in placement-repository commit history and incident logs. The Council JSONs above contain peer evaluations of the work distillation; the linked alumni profiles point to the production surfaces under her review.

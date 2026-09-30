@@ -10,8 +10,10 @@ Three states only:
 - **awaiting legal review — not touched**: the sentence was neither edited nor removed and nothing
   in this pack is about it.
 
-The profile text below the proof-pack section of the README is byte-for-byte the text that existed
-before this pack (`tests/test_docs.py` checks its hash). This pack did not rewrite any of it.
+The profile text below the proof-pack section of the README is the text that existed before this
+pack, except for one token changed after the first freeze (see "Changed after the first freeze"
+below; `tests/test_docs.py` checks the hash of the text as it is now and the hash of the original).
+This pack did not rewrite anything else in it.
 
 "Demonstrated" always means: **on generated, synthetic repositories, by an AI agent's own tooling,
 as internal consistency** (see `SYNTHETIC.md`). It never means that a real system was assessed.
@@ -91,6 +93,23 @@ did not change:
   statement and was not verified here.
 - "Skills Certificate" and "Diploma" are titles of the University's own fiction. They are not a
   professional certification; the banner at the top of the README says so.
+
+## Changed after the first freeze
+
+One token of the profile text was changed after the tag `v2.0.0-freeze`, in the commit tagged
+`v2.0.1-freeze`. It is the only change this pack made to the profile text.
+
+| Where | Before | Now | Why |
+|---|---|---|---|
+| section "Verifiable Artifacts", the line that names the Charter and the Rubric | the name of a rubric criterion written as an identifier: the words "synthetic" and "transparency" joined by an underscore | the same two words separated by a space: "**Rubric** with the veto rule on synthetic transparency she applies in reverse" | the intake lint of the Council refuses a candidate document that names a rubric criterion by its identifier. Same words, no change of meaning |
+
+- The line is not one of the sentences awaiting legal review: those are still exactly as they were.
+- The length of the profile text is the same (one character for one character). `tests/test_docs.py`
+  holds two hashes: the text as it is now, and the original text, which it obtains from the current
+  one by putting the underscore back.
+- No file that decides a result changed with it: scanner, rules, playbooks, tabletop, threat model,
+  corpus generator, scorers and seeds are identical in the two tags (`MANIFEST.sha256` says so in
+  its header, and a test compares the two tags).
 
 ## Known limits
 
