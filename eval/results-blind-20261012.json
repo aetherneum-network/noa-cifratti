@@ -1,0 +1,350 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "clean_repos_not_called_clean": {
+    "count": 9,
+    "repos": [
+      "R0022-lunaria-tile-server",
+      "R0052-lunaria-atlas-export",
+      "R0053-arvale-loom-telemetry",
+      "R0087-brennero-workshop-orders",
+      "R0089-arvale-loom-telemetry",
+      "R0147-brennero-parts-catalog",
+      "R0160-lunaria-survey-intake",
+      "R0164-arvale-members-portal",
+      "R0194-arvale-members-portal"
+    ]
+  },
+  "clean_with_only_out_of_coverage_secret": {
+    "count": 0,
+    "repos": []
+  },
+  "config_by_class": {
+    "ALL": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 61
+    },
+    "admin_route_without_forward_auth": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 6
+    },
+    "debug_flag_enabled": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 7
+    },
+    "debug_route_public": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 12
+    },
+    "forward_auth_trusts_client_headers": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 8
+    },
+    "internal_port_published_on_all_interfaces": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 12
+    },
+    "runtime_socket_mounted": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 9
+    },
+    "service_bridges_public_and_data_networks": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 7
+    }
+  },
+  "decoys": {
+    "by_kind": {
+      "nonsecret_key": 14,
+      "wordlike": 17
+    },
+    "flagged": 31,
+    "planted": 987
+  },
+  "false_positive_examples": [],
+  "never_event_clean_with_covered_secret": {
+    "count": 0,
+    "repos": []
+  },
+  "perturbed": false,
+  "pycode_by_class": {
+    "ALL": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 52
+    },
+    "bind_all_interfaces": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 5
+    },
+    "debug_server": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 7
+    },
+    "dynamic_code_execution": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 8
+    },
+    "shell_command": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 6
+    },
+    "shell_true": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 8
+    },
+    "tls_verification_disabled": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 10
+    },
+    "unsafe_deserialization": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 8
+    }
+  },
+  "repos": 200,
+  "rules": {
+    "blast_radius": {
+      "sha256": "a5e00250dde81e067cfa7fef3439bf4b32df3a9bc00e8d63668493306625fa5f",
+      "version": "2.0.0"
+    },
+    "config": {
+      "sha256": "eb9fcb4f0672e41d55ec5901304b3ade1ac0d6dbb2e57cf521b435f2d002a074",
+      "version": "2.0.0"
+    },
+    "coverage": {
+      "sha256": "0c74e8bfc985eb5d26bad02a38cf4b9dd2c40431aacd5b393f4944e4f76d462d",
+      "version": "2.0.0"
+    },
+    "gate": {
+      "sha256": "2423133ba9e7e57b48dd8ca2f1b1c0d29f6ee424122406e396b2a9cdae1f1bc2",
+      "version": "2.0.0"
+    },
+    "pycode": {
+      "sha256": "8ccd47366f23e74e1c91ec66eb9065d86c90d504b8b06e777e0c69c48f3ff72c",
+      "version": "2.0.0"
+    },
+    "secrets": {
+      "sha256": "d39cdfba316c5777292d0280e4b0bb678169264b6b55da1e5d6a70a74256f6e9",
+      "version": "2.0.0"
+    },
+    "surface": {
+      "sha256": "b47840c8ec108ef2ef6409a5c9ef949f1bebd1914897c4320c55f6d29d4ed620",
+      "version": "2.0.0"
+    }
+  },
+  "secret_location": {
+    "checked": 185,
+    "commit_ok": 185,
+    "line_ok": 185,
+    "path_ok": 185
+  },
+  "secret_values_in_reports": 0,
+  "secrets_by_class": {
+    "ALL": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 185
+    },
+    "armored_key_block": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 16
+    },
+    "assigned_password": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 33
+    },
+    "connection_uri_password": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 33
+    },
+    "vendor_api_token": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 20
+    },
+    "vendor_payment_key": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 24
+    },
+    "vendor_test_key": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 31
+    },
+    "vendor_webhook_secret": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 28
+    }
+  },
+  "seed": 20261012,
+  "sizes": {
+    "patch_pairs": 120,
+    "repos": 200,
+    "transcripts": 150
+  },
+  "statement": "internal consistency on synthetic data; no claim about any real system",
+  "suite": "blind",
+  "surface": {
+    "delta_exact": 120,
+    "gate_agree": 120,
+    "items_exact": 120,
+    "pairs": 120
+  },
+  "suspects_without_a_plant_at_path": 30,
+  "tabletop": {
+    "failed_called_passed": 0,
+    "gold_failed": 86,
+    "passed_called_failed": 0,
+    "transcripts": 150,
+    "verdict_agree": 150,
+    "violations_exact": 150
+  },
+  "techniques": {
+    "carrier_binary_nul": {
+      "covered": 0,
+      "found_as_secret": 1,
+      "found_in_other_form": 0,
+      "planted": 1,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    },
+    "carrier_encrypted_archive": {
+      "covered": 0,
+      "found_as_secret": 0,
+      "found_in_other_form": 0,
+      "planted": 1,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    },
+    "carrier_not_utf8": {
+      "covered": 0,
+      "found_as_secret": 1,
+      "found_in_other_form": 0,
+      "planted": 1,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    },
+    "carrier_oversized": {
+      "covered": 0,
+      "found_as_secret": 0,
+      "found_in_other_form": 0,
+      "planted": 1,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    },
+    "carrier_utf16": {
+      "covered": 0,
+      "found_as_secret": 3,
+      "found_in_other_form": 0,
+      "planted": 3,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    },
+    "carrier_zip_archive": {
+      "covered": 0,
+      "found_as_secret": 0,
+      "found_in_other_form": 0,
+      "planted": 1,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    },
+    "plain": {
+      "covered": 185,
+      "found_as_secret": 185,
+      "found_in_other_form": 0,
+      "planted": 185,
+      "repo_clean": 0,
+      "suspect_at_path": 1
+    }
+  },
+  "verdict_confusion_expected_to_got": {
+    "BLOCKED": {
+      "BLOCKED": 127
+    },
+    "CLEAN": {
+      "CLEAN": 51,
+      "NEEDS_REVIEW": 9
+    },
+    "NEEDS_REVIEW": {
+      "BLOCKED": 2,
+      "NEEDS_REVIEW": 2
+    },
+    "NOT_COVERED": {
+      "BLOCKED": 2,
+      "NOT_COVERED": 7
+    }
+  },
+  "verdicts": {
+    "acceptable": 4,
+    "agree": 187,
+    "wrong": 9
+  }
+}

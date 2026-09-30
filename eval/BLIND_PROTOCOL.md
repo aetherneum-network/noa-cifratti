@@ -128,6 +128,7 @@ found); 1 otherwise; 64 when the run was refused.
 | Tag | Date | Seed | Runner | `eval/history.json` | What came of it |
 |---|---|---|---|---|---|
 | `v2.0.1-freeze` | 2026-09-30 | 20261011 | evaluator (Claude Opus 5.5) | runs 9 to 11 | both must-be-zero numbers 0 in the three steps; step 2: 10 of 10 `plain` values found, 2 of 10 `other` found as secrets. One `other` value sat only in a commit message, which the scanner did not read and did not say it did not read (finding T19). Fixed in 2.0.2: the message is read. That value itself, a bare password with no key, is still outside the covered forms (`COVERAGE.md`, Known limits) |
+| `v2.0.2-freeze` | 2026-09-30 | 20261012 | evaluator (Claude Fable 5.1) | runs 15 and 16 | steps 1 and 3 only: both must-be-zero numbers 0 in both steps (never_event 0, secret_values_in_reports 0); step 1 secrets 185/185, verdicts agree 187 / acceptable 4 / wrong 9 (nine clean repositories called NEEDS_REVIEW); step 3 secrets 61/61 plain, agree 157 / acceptable 34 / wrong 9, 6 repositories CLEAN with only out-of-coverage secrets. Step 2 (twenty hand-hidden values) NOT executed by the evaluator: not measured |
 
 The runs of that row carry `freeze_commit` `3be83ef9e41d293b2e2744b0077768b148f386a1`
 (`v2.0.0-freeze`): the harness of `v2.0.1-freeze` compared with that tag, whose frozen paths were

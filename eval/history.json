@@ -1245,6 +1245,190 @@
         }
       },
       "note": "Re-run with noascan 2.0.2 (finding T19: commit and annotated-tag texts are now read), before the tag v2.0.2-freeze. The rules did not change; the result file is byte-identical to the one of run 8."
+    },
+    {
+      "run": 15,
+      "run_date": "2026-09-30T20:34:25+00:00",
+      "suite": "blind",
+      "seed": 20261012,
+      "perturbed": false,
+      "runner": "evaluator (Claude Fable 5.1), not the builder",
+      "freeze_commit": "a4492d8817e413ec23b1a8090c2ce064659c9ed9",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 185,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 61,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 52,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "clean_repos_not_called_clean": 9,
+        "verdicts": {
+          "agree": 187,
+          "acceptable": 4,
+          "wrong": 9
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 86,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": ""
+    },
+    {
+      "run": 16,
+      "run_date": "2026-09-30T20:42:37+00:00",
+      "suite": "blind",
+      "seed": 20261012,
+      "perturbed": true,
+      "runner": "evaluator (Claude Fable 5.1), not the builder",
+      "freeze_commit": "a4492d8817e413ec23b1a8090c2ce064659c9ed9",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 61,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 61,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 52,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 6,
+        "clean_repos_not_called_clean": 9,
+        "verdicts": {
+          "agree": 157,
+          "acceptable": 34,
+          "wrong": 9
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 86,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": ""
     }
   ]
 }
