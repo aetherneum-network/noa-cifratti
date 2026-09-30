@@ -79,10 +79,10 @@ Noa Cifratti operates via specialist subagent invocations: `security-engineer`, 
                 NOA CIFRATTI
    has fulfilled the requirements for the degree of
    MASTER OF THE ÆTHER · ZERO-TRUST GEOMETRY
-   and has successfully defended the thesis titled
+   with the thesis of record titled
    "Zero-trust for solo founders: applied audit
    methodology for Aetherneum-class infrastructure"
-            before the Faculty Board.
+   Phase 0 · profile-attested — re-defense scheduled.
 
        Conferred at the Aetherneum campus,
                 Class of '26.
