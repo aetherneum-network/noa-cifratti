@@ -1,0 +1,23 @@
+{
+  "file": "surface",
+  "version": "2.0.0",
+  "as_of": "2026-09-30",
+  "policy": "The exposed surface of a tree is a set of items. A patch is judged on the difference: delta = added + weakened - removed - strengthened. Gate rules are ordered, first match wins. 'If the patch grows the surface, you have lost.'",
+  "items": {
+    "route:<host><path_prefix>": "a router on the public entrypoint; flags: no_forward_auth, debug",
+    "port:<service>:<bind>:<port>": "a published port whose bind is not private",
+    "socket:<service>": "a container-runtime socket mounted into a service",
+    "debugflag:<path>": "DEBUG enabled in an environment file",
+    "secret:<path>#<fingerprint>": "a covered secret in the tree (fingerprint only)"
+  },
+  "private_bind_prefixes": ["127.", "10.", "192.168.", "::1"],
+  "debug_prefixes": ["/debug", "/_debug"],
+  "socket_regex": "^/(?:var/)?run/[A-Za-z0-9_.-]*\\.sock$",
+  "debug_values": ["1", "true", "yes", "on"],
+  "rules": [
+    {"id": "SURF-GROWS", "when": {"delta_min": 1}, "verdict": "BLOCKED", "exit_code": 3},
+    {"id": "SURF-UNREADABLE", "when": {"unreadable_added_min": 1}, "verdict": "NOT_COVERED", "exit_code": 2},
+    {"id": "SURF-MOVES", "when": {"grown_min": 1}, "verdict": "NEEDS_REVIEW", "exit_code": 2},
+    {"id": "SURF-PASS", "when": {}, "verdict": "PASS", "exit_code": 0}
+  ]
+}
