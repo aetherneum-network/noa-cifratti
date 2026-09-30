@@ -1,0 +1,149 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "counters": {
+    "blocking": 0,
+    "exceptions": 12,
+    "not_covered": 0,
+    "review": 0
+  },
+  "coverage": {
+    "not_covered": [],
+    "secret_classes": [
+      "armored_key_block",
+      "assigned_password",
+      "connection_uri_password",
+      "vendor_api_token",
+      "vendor_payment_key",
+      "vendor_test_key",
+      "vendor_webhook_secret"
+    ]
+  },
+  "exceptions": [
+    {
+      "class": "excluded",
+      "fingerprint": "",
+      "id": "EXCLUDED-BY-CALLER",
+      "path": ".git",
+      "reason": "excluded on the command line: not read"
+    },
+    {
+      "class": "excluded",
+      "fingerprint": "",
+      "id": "EXCLUDED-BY-CALLER",
+      "path": "__pycache__",
+      "reason": "excluded on the command line: not read"
+    },
+    {
+      "class": "binary",
+      "fingerprint": "",
+      "id": "AL-AVATAR",
+      "path": "avatar.jpg",
+      "reason": "profile picture: a binary image, pinned by content hash; the scanner abstains on it"
+    },
+    {
+      "class": "excluded",
+      "fingerprint": "",
+      "id": "EXCLUDED-BY-CALLER",
+      "path": "build",
+      "reason": "excluded on the command line: not read"
+    },
+    {
+      "class": "vendor_webhook_secret",
+      "fingerprint": "b11eca194d675a8e",
+      "id": "AL-S02-2",
+      "path": "scenarios/S02/input/tree/config/integrations.json",
+      "reason": "scenario S02 fixture: inert synthetic value generated from the scenario seed (see SYNTHETIC.md)"
+    },
+    {
+      "class": "vendor_api_token",
+      "fingerprint": "5a28aa18917a5055",
+      "id": "AL-S02-1",
+      "path": "scenarios/S02/input/tree/deploy/prod.env",
+      "reason": "scenario S02 fixture: inert synthetic value generated from the scenario seed (see SYNTHETIC.md)"
+    },
+    {
+      "class": "connection_uri_password",
+      "fingerprint": "317d96b57afb3de0",
+      "id": "AL-S02-4",
+      "path": "scenarios/S02/input/tree/deploy/values.yml",
+      "reason": "scenario S02 fixture: inert synthetic value generated from the scenario seed (see SYNTHETIC.md)"
+    },
+    {
+      "class": "armored_key_block",
+      "fingerprint": "96875de413c077c0",
+      "id": "AL-S02-5",
+      "path": "scenarios/S02/input/tree/keys/deploy_key.txt",
+      "reason": "scenario S02 fixture: inert synthetic value generated from the scenario seed (see SYNTHETIC.md)"
+    },
+    {
+      "class": "assigned_password",
+      "fingerprint": "4e621f580061c5c8",
+      "id": "AL-S02-3",
+      "path": "scenarios/S02/input/tree/src/settings.py",
+      "reason": "scenario S02 fixture: inert synthetic value generated from the scenario seed (see SYNTHETIC.md)"
+    },
+    {
+      "class": "wordlike_value_under_secret_key",
+      "fingerprint": "2cc27951cb658237",
+      "id": "AL-S02-6",
+      "path": "scenarios/S02/input/tree/src/settings.py",
+      "reason": "scenario S02 fixture: decoy 12, a label under a secret-looking key; kept to show the review verdict"
+    },
+    {
+      "class": "debug_route_public",
+      "fingerprint": "",
+      "id": "AL-S04-2",
+      "path": "scenarios/S04/input/after_fix/config/gateway/routes.json",
+      "reason": "scenario S04 fixture: the debug route the 'fix' opens, in an invented configuration schema"
+    },
+    {
+      "class": "assigned_password",
+      "fingerprint": "1b17141aedbce3c6",
+      "id": "AL-S04-1",
+      "path": "scenarios/S04/input/after_fix/deploy/prod.env",
+      "reason": "scenario S04 fixture: inert synthetic value, the credential the 'fix' adds"
+    }
+  ],
+  "exit_code": 0,
+  "findings": [],
+  "gate_rule": "GATE-EXCEPTIONS-ONLY",
+  "report": "scan",
+  "rules": {
+    "blast_radius": {
+      "sha256": "a5e00250dde81e067cfa7fef3439bf4b32df3a9bc00e8d63668493306625fa5f",
+      "version": "2.0.0"
+    },
+    "config": {
+      "sha256": "eb9fcb4f0672e41d55ec5901304b3ade1ac0d6dbb2e57cf521b435f2d002a074",
+      "version": "2.0.0"
+    },
+    "coverage": {
+      "sha256": "0c74e8bfc985eb5d26bad02a38cf4b9dd2c40431aacd5b393f4944e4f76d462d",
+      "version": "2.0.0"
+    },
+    "gate": {
+      "sha256": "2423133ba9e7e57b48dd8ca2f1b1c0d29f6ee424122406e396b2a9cdae1f1bc2",
+      "version": "2.0.0"
+    },
+    "pycode": {
+      "sha256": "8ccd47366f23e74e1c91ec66eb9065d86c90d504b8b06e777e0c69c48f3ff72c",
+      "version": "2.0.0"
+    },
+    "secrets": {
+      "sha256": "d39cdfba316c5777292d0280e4b0bb678169264b6b55da1e5d6a70a74256f6e9",
+      "version": "2.0.0"
+    }
+  },
+  "scope": {
+    "blobs_read": 0,
+    "commits_read": 0,
+    "config_and_code": "working tree only",
+    "history": "skipped",
+    "statement": "internal consistency on synthetic data; no claim about any real system",
+    "worktree_files": 196
+  },
+  "target": "noa-cifratti",
+  "tool": "noascan",
+  "verdict": "EXCEPTIONS_ONLY",
+  "version": "2.0.0"
+}
