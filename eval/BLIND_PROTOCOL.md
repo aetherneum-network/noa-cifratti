@@ -5,14 +5,26 @@
 > author's own seeds, not a validation on real systems.
 
 **State at the time of writing: not run.** This file was written by the author after the tag
-`v2.0.0-freeze`. No blind seed has been generated or looked at by the author.
+`v2.0.0-freeze` and pointed to `v2.0.1-freeze` in the commit that follows that second tag. No blind
+seed has been generated or looked at by the author.
 
 ## What is frozen
 
-The tag `v2.0.0-freeze` (commit `3be83ef9e41d293b2e2744b0077768b148f386a1`). A blind run is valid
-only if these paths are identical to the tag: `noascan`, `rules`, `playbooks`, `tabletop`,
-`threatmodel`, `corpus`, `eval/score.py`, `eval/manual.py`, `eval/seeds.json`. The harness checks
-it by itself and refuses to run otherwise (exit code 64, "not a blind run").
+The tag `v2.0.1-freeze` (commit `335b6875ad1498323fe1a5441a1d2052c80d11ea`). It differs from the
+first freeze, `v2.0.0-freeze` (commit `3be83ef9e41d293b2e2744b0077768b148f386a1`), in documentation
+only: one token of the profile text and the files that record it (`CHANGELOG.md`, 2.0.1).
+
+A blind run is valid only if these paths are identical to the tag: `noascan`, `rules`,
+`playbooks`, `tabletop`, `threatmodel`, `corpus`, `eval/score.py`, `eval/manual.py`,
+`eval/seeds.json`. They are identical in the two tags. The harness checks it by itself and refuses
+to run otherwise (exit code 64, "not a blind run"). Its code names the first tag, `v2.0.0-freeze`:
+giving it the new name would have changed a scoring file, which a documentation-only freeze must
+not do. So both tags must be in the clone, the comparison is made with `v2.0.0-freeze`, and a
+recorded run carries the commit of `v2.0.0-freeze` as `freeze_commit`. Step 0 below shows that
+this is the same code as `v2.0.1-freeze`.
+
+This file is not part of either tag: the clone is at the head of the branch, one commit after
+`v2.0.1-freeze`, and that commit changes this file only.
 
 ## Who runs it
 
@@ -35,9 +47,12 @@ by the runner (for example `2026-10-05T10:00:00+02:00`): the programs never read
 
 ```
 # 0. the code is the frozen one
+git rev-parse "v2.0.1-freeze^{commit}"          # must print 335b6875ad1498323fe1a5441a1d2052c80d11ea
 git rev-parse "v2.0.0-freeze^{commit}"          # must print 3be83ef9e41d293b2e2744b0077768b148f386a1
+git diff --name-only v2.0.0-freeze v2.0.1-freeze -- noascan rules playbooks tabletop threatmodel corpus eval/score.py eval/manual.py eval/seeds.json   # must print nothing
+git diff --name-only v2.0.1-freeze               # must print eval/BLIND_PROTOCOL.md and nothing else
 git status --short                               # must print nothing
-python tools/manifest.py --check                 # must say "0 differ"
+python tools/manifest.py --check                 # must say "0 differ" and "is the list of the tagged commit"
 
 # 1. generated corpus, as planted
 python eval/score.py --suite blind --seed N --runner "NAME" --json eval/results-blind-N.json --record --run-date ISO
@@ -97,5 +112,8 @@ found); 1 otherwise; 64 when the run was refused.
 - Did: generate and inspect the three seeds above; run the tests, which use only those seeds and
   fixed test namespaces (`noa-tests/v1/...`, `noa-scenario/v1/...`), and, for the hand-planted
   scorer, the values of the dev and holdout seeds, which the command line refuses for a blind run.
+- Did, after the first freeze: one documentation change (one token of the profile text, recorded
+  in `CLAIMS.md` and `CHANGELOG.md`) and the tag `v2.0.1-freeze`. No frozen path was touched and no
+  seed was generated for it.
 - Did not: generate, read or score any other seed; run any command of this file beyond its
   refusals (author seed, missing tag), which the tests exercise.
