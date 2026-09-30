@@ -1,0 +1,146 @@
+"""After the freeze: the tag, the blind protocol, the history of the measurements and the manifest."""
+import contextlib
+import io
+import json
+import subprocess
+import sys
+import unittest
+from unittest import mock
+
+from tests import _util as u
+
+sys.path.insert(0, str(u.ROOT / "eval"))
+import score  # noqa: E402
+from tools import manifest  # noqa: E402
+
+SEEDS = json.loads((u.ROOT / "eval" / "seeds.json").read_text(encoding="utf-8"))
+HISTORY = json.loads((u.ROOT / "eval" / "history.json").read_text(encoding="utf-8"))
+
+
+def tag_present() -> bool:
+    cp = subprocess.run(["git", "-C", str(u.ROOT), "rev-parse", "--verify", "--quiet", f"refs/tags/{score.FREEZE_TAG}"],
+                        capture_output=True, stdin=subprocess.DEVNULL)
+    return cp.returncode == 0
+
+
+class Freeze(unittest.TestCase):
+    @unittest.skipUnless(tag_present(), "the freeze tag is not in this clone")
+    def test_the_frozen_paths_are_still_what_was_tagged(self):
+        ok, detail = score.frozen_state()
+        self.assertTrue(ok, detail)
+        self.assertRegex(detail, r"^[0-9a-f]{40}$")
+
+    @unittest.skipUnless(tag_present(), "the freeze tag is not in this clone")
+    def test_the_manifest_lists_the_tagged_files_and_they_are_unchanged(self):
+        self.assertEqual(manifest.main(["--check"]), 0)
+        text = (u.ROOT / "MANIFEST.sha256").read_text(encoding="utf-8")
+        self.assertIn(score.FREEZE_TAG, text)
+        listed = [ln.split("  ", 1)[1] for ln in text.splitlines() if ln and not ln.startswith("#")]
+        self.assertEqual(listed, sorted(listed))
+        for name in ("MANIFEST.sha256", "eval/BLIND_PROTOCOL.md", "eval/history.json", "tests/test_freeze.py"):
+            self.assertNotIn(name, listed)          # written after the tag, and said so in the header
+
+    def test_the_protocol_names_the_command_and_the_refusals(self):
+        text = (u.ROOT / "eval" / "BLIND_PROTOCOL.md").read_text(encoding="utf-8")
+        for phrase in ("python eval/score.py --suite blind --seed", "python eval/manual.py values --seed",
+                       "python eval/manual.py score --seed", "--runner", "--record --run-date", score.FREEZE_TAG,
+                       "git rev-parse", "python tools/manifest.py --check", "once", "[TO CONFIRM]"):
+            self.assertIn(phrase, text)
+        for seed in SEEDS["author_seeds"].values():
+            self.assertIn(str(seed), text)
+
+    def test_no_blind_run_is_recorded_by_the_author(self):
+        for r in HISTORY["runs"]:
+            if r["runner"] == SEEDS["author"]:
+                self.assertIn(r["suite"], SEEDS["author_seeds"])
+                self.assertEqual(r["freeze_commit"], "")
+
+
+@unittest.skipUnless(tag_present(), "the freeze tag is not in this clone")
+class BlindCommands(unittest.TestCase):
+    """The commands of the protocol run to the end. They are tried here on the dev seed, with the list of
+    author seeds emptied for the duration of the test: no seed a different hand could use is generated."""
+
+    def call(self, module, *args):
+        out, err = io.StringIO(), io.StringIO()
+        allow_the_dev_seed = mock.patch.dict(score.SEEDS["author_seeds"], clear=True)
+        with contextlib.redirect_stdout(out), contextlib.redirect_stderr(err), allow_the_dev_seed:
+            code = module.main([str(a) for a in args])
+        return code, out.getvalue(), err.getvalue()
+
+    def test_the_generated_part_runs_and_names_the_freeze_commit(self):
+        out = u.tmp("freeze-blind") / "result.json"
+        code, text, err = self.call(score, "--suite", "blind", "--seed", u.DEV_SEED, "--runner", "a-test", "--repos", 12,
+                                    "--transcripts", 6, "--pairs", 6, "--json", out)
+        self.assertEqual(code, 0, err)
+        self.assertIn(f"suite blind seed {u.DEV_SEED}: 12 repositories", text)
+        res = json.loads(out.read_text(encoding="ascii"))
+        self.assertEqual((res["suite"], res["never_event_clean_with_covered_secret"]["count"]), ("blind", 0))
+
+    def test_the_hand_planted_part_prints_the_values_and_scores_a_filled_form(self):
+        import manual
+        root = u.tmp("freeze-manual-root")
+        with mock.patch.object(manual, "ROOT", root):
+            code, text, err = self.call(manual, "values", "--seed", u.DEV_SEED, "--runner", "a-test")
+            self.assertEqual(code, 0, err)
+            form_path = root / "build" / f"blind-manual-{u.DEV_SEED}" / "hidden.json"
+            form = json.loads(form_path.read_text(encoding="ascii"))
+            plants = manual.plants(u.DEV_SEED)
+            self.assertEqual(len([ln for ln in text.splitlines() if ln.startswith("M")]), 20)
+            token = next(p for p in plants if p["class"] == "vendor_api_token")
+            self.assertIn(token["value"], text)                       # the runner needs the values: they are printed, never stored
+            self.assertNotIn(token["value"], form_path.read_text(encoding="ascii"))
+            repo = u.write_tree(u.tmp("freeze-manual-repo"), dict(u.CLEAN_FILES, **{
+                "deploy/integration.env": "\n".join(["LOG_LEVEL=warn", "INTEGRATION_CREDENTIAL=" + token["value"], ""])}))
+            for entry in form["plants"]:
+                if entry["id"] == token["id"]:
+                    entry.update(hidden=True, form="plain", where="deploy/integration.env")
+            form_path.write_text(json.dumps(form), encoding="ascii")
+            out = u.tmp("freeze-manual-out") / "result.json"
+            code, text, err = self.call(manual, "score", "--seed", u.DEV_SEED, "--runner", "a-test", "--repo", repo,
+                                        "--hidden", form_path, "--json", out)
+        self.assertEqual(code, 0, err)
+        self.assertIn("plain 1/1 found", text)
+        self.assertNotIn(token["value"], out.read_text(encoding="ascii"))
+        self.assertFalse((root / "eval" / "history.json").exists())   # nothing recorded without --record
+
+
+class History(unittest.TestCase):
+    def test_runs_are_numbered_dated_and_attributed(self):
+        runs = HISTORY["runs"]
+        self.assertEqual([r["run"] for r in runs], list(range(1, len(runs) + 1)))
+        for r in runs:
+            with self.subTest(run=r["run"]):
+                self.assertRegex(r["run_date"], r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$")
+                self.assertTrue(r["runner"])
+                self.assertTrue(r["rules"])
+                if r["suite"] in SEEDS["author_seeds"]:
+                    self.assertEqual(r["seed"], SEEDS["author_seeds"][r["suite"]])
+                    self.assertEqual(r["runner"], SEEDS["author"])
+                else:
+                    self.assertIn(r["suite"], ("blind", "blind-manual"))
+                    self.assertNotIn(r["seed"], SEEDS["author_seeds"].values())
+                    self.assertNotEqual(r["runner"], SEEDS["author"])
+                    self.assertTrue(r["freeze_commit"])
+
+    def test_the_bad_first_runs_are_still_there(self):
+        first = HISTORY["runs"][0]
+        self.assertEqual((first["suite"], first["numbers"]["secrets"]["fp"]), ("dev", 45))
+        self.assertLess(first["numbers"]["secrets"]["precision"], 1.0)
+        self.assertGreaterEqual(len([r for r in HISTORY["runs"] if r["suite"] == "stress"]), 2)
+
+    def test_the_never_event_never_happened_in_a_recorded_run(self):
+        for r in HISTORY["runs"]:
+            self.assertEqual(r["numbers"]["never_event"], 0, r["run"])
+            self.assertEqual(r["numbers"]["secret_values_in_reports"], 0, r["run"])
+
+    def test_the_last_author_run_of_each_suite_is_the_committed_result(self):
+        for suite in SEEDS["author_seeds"]:
+            last = [r for r in HISTORY["runs"] if r["suite"] == suite and r["runner"] == SEEDS["author"]][-1]
+            res = json.loads((u.ROOT / "eval" / f"results-{suite}.json").read_text(encoding="ascii"))
+            self.assertEqual(last["numbers"], score.key_numbers(res), suite)
+            self.assertEqual({e["file"]: e["sha256_12"] for e in last["rules"]}, {n: v["sha256"][:12] for n, v in res["rules"].items()})
+
+
+if __name__ == "__main__":
+    unittest.main()
