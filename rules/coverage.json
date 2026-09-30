@@ -1,0 +1,63 @@
+{
+  "file": "coverage",
+  "version": "2.0.0",
+  "as_of": "2026-09-30",
+  "policy": "Ordered, first match wins. A file that matches a rule here is NOT_COVERED: the scanner abstains on it (best effort only) and the repository can no longer be CLEAN. A file that matches none is COVERED: UTF-8 text, read in full, line by line.",
+  "rules": [
+    {
+      "id": "COV-OVERSIZED",
+      "test": "size_over_limit",
+      "reason": "oversized",
+      "best_effort": "prefix"
+    },
+    {
+      "id": "COV-ARCHIVE-OR-ENCRYPTED",
+      "test": "magic",
+      "reason": "archive_or_encrypted",
+      "best_effort": "none",
+      "magic_hex": [
+        "504b0304",
+        "504b0506",
+        "1f8b",
+        "377abcaf271c",
+        "53616c7465645f5f",
+        "fd377a585a00",
+        "425a68",
+        "526172211a07",
+        "6167652d656e6372797074696f6e2e6f7267",
+        "2d2d2d2d2d424547494e20504750204d4553534147452d2d2d2d2d"
+      ]
+    },
+    {
+      "id": "COV-UTF16-OR-UTF32",
+      "test": "bom_utf16_utf32",
+      "reason": "utf16_or_utf32",
+      "best_effort": "utf16"
+    },
+    {
+      "id": "COV-BINARY",
+      "test": "contains_nul",
+      "reason": "binary",
+      "best_effort": "latin1"
+    },
+    {
+      "id": "COV-NOT-UTF8",
+      "test": "not_utf8",
+      "reason": "not_utf8",
+      "best_effort": "latin1"
+    },
+    {
+      "id": "COV-LINE-TOO-LONG",
+      "test": "line_over_limit",
+      "reason": "line_too_long",
+      "best_effort": "utf8"
+    },
+    {
+      "id": "COV-LFS-POINTER",
+      "test": "prefix",
+      "prefix": "version https://git-lfs",
+      "reason": "lfs_pointer",
+      "best_effort": "utf8"
+    }
+  ]
+}

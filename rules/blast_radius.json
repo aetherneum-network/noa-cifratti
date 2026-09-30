@@ -1,0 +1,115 @@
+{
+  "file": "blast_radius",
+  "version": "2.0.0",
+  "as_of": "2026-09-30",
+  "policy": "Ordered, first match wins. Radius 1-5 answers 'how far does the damage travel if this is abused'; findings and threats are listed largest radius first. The scale is this pack's own working convention, not a standard.",
+  "rules": [
+    {
+      "id": "BR-TEST-SCOPE",
+      "when": {
+        "class_in": [
+          "vendor_test_key"
+        ]
+      },
+      "radius": 1,
+      "severity": "low",
+      "why": "test-only credential"
+    },
+    {
+      "id": "BR-KEY-MATERIAL",
+      "when": {
+        "class_in": [
+          "armored_key_block",
+          "vendor_payment_key",
+          "runtime_socket_mounted",
+          "custody_key",
+          "container_runtime"
+        ]
+      },
+      "radius": 5,
+      "severity": "critical",
+      "why": "whoever holds it controls the whole system or its money"
+    },
+    {
+      "id": "BR-ADMIN-PLANE",
+      "when": {
+        "class_in": [
+          "admin_route_without_forward_auth",
+          "forward_auth_trusts_client_headers",
+          "internal_port_published_on_all_interfaces",
+          "admin_plane",
+          "identity_gate"
+        ]
+      },
+      "radius": 4,
+      "severity": "high",
+      "why": "reaches the administrative plane"
+    },
+    {
+      "id": "BR-CREDENTIAL",
+      "when": {
+        "class_in": [
+          "vendor_api_token",
+          "vendor_webhook_secret",
+          "assigned_password",
+          "connection_uri_password",
+          "data_store",
+          "service_credential"
+        ]
+      },
+      "radius": 4,
+      "severity": "high",
+      "why": "reaches data or a service identity"
+    },
+    {
+      "id": "BR-CODE-PATH",
+      "when": {
+        "class_in": [
+          "dynamic_code_execution",
+          "shell_true",
+          "shell_command",
+          "unsafe_deserialization",
+          "tls_verification_disabled",
+          "debug_route_public",
+          "application"
+        ]
+      },
+      "radius": 3,
+      "severity": "high",
+      "why": "one service, through its own code path"
+    },
+    {
+      "id": "BR-HYGIENE",
+      "when": {
+        "class_in": [
+          "debug_server",
+          "bind_all_interfaces",
+          "debug_flag_enabled",
+          "service_bridges_public_and_data_networks",
+          "public_site"
+        ]
+      },
+      "radius": 2,
+      "severity": "medium",
+      "why": "widens exposure without granting access by itself"
+    },
+    {
+      "id": "BR-SUSPECT",
+      "when": {
+        "kind_in": [
+          "suspect"
+        ]
+      },
+      "radius": 2,
+      "severity": "review",
+      "why": "not classified: a person has to look"
+    },
+    {
+      "id": "BR-DEFAULT",
+      "when": {},
+      "radius": 3,
+      "severity": "high",
+      "why": "unknown class: treated as serious until someone writes a rule"
+    }
+  ]
+}
