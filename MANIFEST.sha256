@@ -1,7 +1,7 @@
 # proof pack manifest - tag v2.0.3-freeze - every file of the tagged commit except the ones named below
 # files: 199 - bundle sha256 (of the lines below): 667ba6e1215c8dc7e31eb49f8ddbe21dc13df552df80fd60f7f7e631632c093d
 # not listed: MANIFEST.sha256 (a file cannot hold its own hash); eval/BLIND_PROTOCOL.md (it names the tagged commit, so it is completed after the tag); eval/history.json (every recorded run is appended to it)
-# identical to v2.0.2-freeze (commit 74298c2b2c786e033a0282b30725251d8dda0b87), the tag the blind harness checks: noascan, rules, playbooks, tabletop, threatmodel, corpus, eval/score.py, eval/manual.py, eval/seeds.json
+# identical to v2.0.2-freeze (commit bf05f7fec1e4c2364b67e8e038b41ff57dbce4cc), the tag the blind harness checks: noascan, rules, playbooks, tabletop, threatmodel, corpus, eval/score.py, eval/manual.py, eval/seeds.json
 9396bb7974521bb30a187b6e2909d96e090a3b6acd758b84e904a76a1337b030  .gitattributes
 859d8c588fc066ce6eb6e7d3258e751efff32c064c0907ceeab3515727836d01  .github/workflows/ci.yml
 43227cb488a2693273cc97fc84878d149b2d274699a4453744a8330f1001f109  .gitignore

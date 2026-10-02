@@ -11,7 +11,7 @@ looked at by the author.
 
 ## What is frozen
 
-The tag `v2.0.2-freeze` (commit `74298c2b2c786e033a0282b30725251d8dda0b87`). It is a code freeze:
+The tag `v2.0.2-freeze` (commit `bf05f7fec1e4c2364b67e8e038b41ff57dbce4cc`). It is a code freeze:
 version 2.0.2 changes the scanner so that it reads the header and the message of every commit and
 annotated-tag object (finding T19 of the evaluation of 2026-09-30; `CHANGELOG.md`, 2.0.2), and with
 it the harness and the seeds. The harness now compares with this tag itself: `eval/score.py`
@@ -65,7 +65,7 @@ by the runner (for example `2026-10-05T10:00:00+02:00`): the programs never read
 
 ```
 # 0. the code is the frozen one
-git rev-parse "v2.0.2-freeze^{commit}"          # must print 74298c2b2c786e033a0282b30725251d8dda0b87
+git rev-parse "v2.0.2-freeze^{commit}"          # must print bf05f7fec1e4c2364b67e8e038b41ff57dbce4cc
 git diff --name-only v2.0.2-freeze               # must print eval/BLIND_PROTOCOL.md and nothing else
 git status --short                               # must print nothing
 python tools/manifest.py --check                 # must say "0 differ" and "is the list of the tagged commit"
