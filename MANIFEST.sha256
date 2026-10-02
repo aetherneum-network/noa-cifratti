@@ -1,19 +1,19 @@
-# proof pack manifest - tag v2.0.2-freeze - every file of the tagged commit except the ones named below
-# files: 197 - bundle sha256 (of the lines below): f2217f1b381f8335e1f02c020ab9e41728711e68629e28e3dea41c8692943543
+# proof pack manifest - tag v2.0.3-freeze - every file of the tagged commit except the ones named below
+# files: 199 - bundle sha256 (of the lines below): 667ba6e1215c8dc7e31eb49f8ddbe21dc13df552df80fd60f7f7e631632c093d
 # not listed: MANIFEST.sha256 (a file cannot hold its own hash); eval/BLIND_PROTOCOL.md (it names the tagged commit, so it is completed after the tag); eval/history.json (every recorded run is appended to it)
-# v2.0.2-freeze is itself the tag the blind harness checks (eval/score.py FREEZE_TAG), over these paths: noascan, rules, playbooks, tabletop, threatmodel, corpus, eval/score.py, eval/manual.py, eval/seeds.json
+# identical to v2.0.2-freeze (commit a4492d8817e413ec23b1a8090c2ce064659c9ed9), the tag the blind harness checks: noascan, rules, playbooks, tabletop, threatmodel, corpus, eval/score.py, eval/manual.py, eval/seeds.json
 9396bb7974521bb30a187b6e2909d96e090a3b6acd758b84e904a76a1337b030  .gitattributes
-fdbbd884a867ac33c4cdf32d079e73e4cdb26a6fee9b856b8d63a1a7ab999b4b  .github/workflows/ci.yml
+859d8c588fc066ce6eb6e7d3258e751efff32c064c0907ceeab3515727836d01  .github/workflows/ci.yml
 43227cb488a2693273cc97fc84878d149b2d274699a4453744a8330f1001f109  .gitignore
-02ed5580c2b3257bc2dfa23baf48263189481e3afc7b322ef3aae6540038b83f  CHANGELOG.md
-c468d5093bc9de5b20d17d51ac8817885cc96775a2561495584cb8478834dd03  CLAIMS.md
+c77e02a98370a4a442042cc3b4223aae395c8fe61f7c5c52f6c7bd624bc54554  CHANGELOG.md
+f3b8343f798fdfb741df070d8a15b40592d435375f15202ad188cc65ae44373f  CLAIMS.md
 cdedfb06f79d6d5da7cd22b03aac0895795bd10ffd3c4459c62c565695bf2b14  COVERAGE.md
-1ee0bd6b0810ad2e504cc1faf6f51807526369c2e73c6eb8ec72292f2aa5ba93  DEPENDENCIES.md
+8a830528789cc9862ac3c659068f776711e521a45da1a1c2b2280059816a5a7e  DEPENDENCIES.md
 d2109f3b7b3e9c2731c00ce6d63a2e884dc46ea83fa2c7bed616178eb348ee70  LICENSE
 3e040a91ba7036e7522b606f816b869bbe9331c0609c29afeaeb3347bea794b3  MODEL.md
-443a251b9dc20b44bb50170570400d5efada5481ffe847adef390d40bc4a5b3c  README.md
+5bf0b82758667f337409711d364d91b40c74aa9b1c11af495c9655978af41f02  README.md
 508a8a57dea3ebe0d933540e1e4ffe8c2703b1d7ace62572cc1b59b338fcedef  SECURITY.md
-5b7ae66891a3aa216fb39a3b30f010882a7559b69a73de7fb21349032297cdd4  SYNTHETIC.md
+0b87d26209bbb677741eb02db1ccf2a6767063ad2d8b8c1f049a28269fe31a04  SYNTHETIC.md
 8011125d33ae169d6799a74c72d3d14aa5817f6b42a61d673c3adb842d09ff6a  avatar.jpg
 abfa5e77e89c02fbbf2109ee549a9676d23ecc468b8d59381cc90c14e568df50  corpus/MANIFEST.sha256
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  corpus/__init__.py
@@ -33,6 +33,8 @@ cc2f7fdc707a81fc2cd60250504021ad8a72daaa192493a9a50601d29a026483  corpus/referen
 aeaccebf740cac4350db44a18672fa528613371112302bc964304655de979d9c  corpus/tabletops.py
 50d6660158f1d239fc6b2113fa2e4767a6aefdaeb3ed24f1b4326f3b9c49fd0d  corpus/world.py
 b206e0e0bd4441b45e57341cd4e68bff677d8be9a6b203c929e8cf107ef62f60  eval/manual.py
+5cb028a3cf2b7c844d864eda42b1479569080649867a98ca061a748f9bb0ca96  eval/results-blind-20261012-perturbed.json
+2f1b97212d90046d47e77e674d52190f0c26cc314827414494323817aa2b780b  eval/results-blind-20261012.json
 7aec1f020a949fe84a97996966c180b1e0823878a747939781e090140c89ef16  eval/results-dev.json
 4801a2c55f213acc9ef189bffa64812e5fb3ead15514b7fd6dbe0119d2b179eb  eval/results-holdout.json
 e37050f262ef104ff6149e9ad3c08ed62c5735b1765458b8ac131f45a5eb9a3b  eval/results-stress.json
@@ -176,7 +178,7 @@ b04fe880e1388e33e6ea33dc6f9354f986fd94cd1ba05b4e26bca7fe85fafc5e  tests/test_all
 126887765b4ecc987a4e7c45f9f1a7a00adf1a772c9c1a88d3db3e1d3d7de8e4  tests/test_config_pycode_surface.py
 caa62b145934ecaacb075b77a5391ac2f6998e104065bdef83168418c5e1ec7b  tests/test_corpus.py
 dbad6e7f5f727c7980cc2fb97cfc75b29984066f68fb5ae69e3f03c4f09fd5c7  tests/test_determinism.py
-61b8a8b514d983362cbac146dda0cf28cc4948f6894d02ec3ffe2781d13210ff  tests/test_docs.py
+9b092ddf008354978e17227a1ba20e757230d982307ae9e3e3999ce4cbea5d25  tests/test_docs.py
 ba5c87f816d22e91880fb4372716af756a2b26a1deef93a08f50343591bceff0  tests/test_eval.py
 b5d90f446774d13c1db9ec3fe3a0d0b3a19dd2e13f70aefd38256f845037d7ee  tests/test_freeze.py
 88ade825c92b9af42928c7201197b34a522533a89b1b040ba172b8c513ee1d87  tests/test_history.py
