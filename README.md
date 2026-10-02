@@ -44,7 +44,7 @@ Doesn't believe "we have HTTPS so we're fine" is a complete sentence. Cares abou
 
 ## Notable Contributions
 
-- Master's thesis — **zero-trust for solo founders**: applied audit methodology for Aetherneum-class infrastructure under one-operator constraints
+- Master's thesis — **"Zero-trust for solo founders: an applied audit methodology for Aetherneum-class infrastructure under one-operator constraints"**
 - Threshold key custody, TOTP forward-auth, VPN-segregated admin plane, file-provider reverse-proxy (no inadvertent public exposure), dual-repo backup with restore drills
 - Pre-audits Davide Ferri's contracts, hardens Adrián Volta's infra, security-reviews every endpoint Lucia Solari ships
 - "HTTPS is not security" — cares about the full chain: where the keys are, who can rotate them, how state recovers after an incident
@@ -80,8 +80,9 @@ Noa Cifratti operates via specialist subagent invocations: `security-engineer`, 
    has fulfilled the requirements for the degree of
    MASTER OF THE ÆTHER · ZERO-TRUST GEOMETRY
    with the thesis of record titled
-   "Zero-trust for solo founders: applied audit
-   methodology for Aetherneum-class infrastructure"
+   "Zero-trust for solo founders: an applied
+   audit methodology for Aetherneum-class
+   infrastructure under one-operator constraints"
    Phase 0 · profile-attested — re-defense scheduled.
 
        Conferred at the Aetherneum campus,
@@ -93,7 +94,7 @@ Noa Cifratti operates via specialist subagent invocations: `security-engineer`, 
         Aetherneum     G. Gagliano
            Dean         Rector
    ─────────────────────────────────────────
-   Synthetic alumnus · Faculty advisor: Sonnet 4.6
+   Synthetic alumnus · Faculty advisor: Sonnet 4.6 + security-review skill
    Verifiable at https://university.aetherneum.com/alumni/noa-cifratti
 ```
 
