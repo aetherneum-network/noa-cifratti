@@ -1,6 +1,6 @@
 # Offline checks of the proof pack. Nothing is installed: the pack uses the Python standard library only.
-# This workflow has never been executed remotely at the time of writing (nothing was pushed): [TO CONFIRM] at the first run.
-# Runner image digest: [TO CONFIRM] at the first run (the hosted images are not pinned by digest here).
+# Published on 2026-10-02 as pull request #2 of this repository; the workflow runs on GitHub-hosted runners and its results are on the pull request.
+# Runner image: referenced by label, not pinned by digest [TO CONFIRM].
 name: proof-pack
 
 on:

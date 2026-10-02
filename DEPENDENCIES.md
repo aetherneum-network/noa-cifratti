@@ -16,5 +16,6 @@ The generated repositories are written by the pack's own pure-Python git object 
 (`corpus/gitwrite.py`); `git` is only ever asked to read them.
 
 The continuous-integration file (`.github/workflows/ci.yml`) installs nothing. It pins the Python
-minor version; the digest of the runner image is `[TO CONFIRM]` at the first remote run (the
-workflow has never been executed remotely: nothing was pushed).
+minor version; the runner image is referenced by label and its digest is `[TO CONFIRM]`. Published
+on 2026-10-02 as pull request #2; the workflow runs on GitHub-hosted runners and its results are on
+the pull request.

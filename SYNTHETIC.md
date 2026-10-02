@@ -63,8 +63,9 @@ tokens, private-key armour and others) and asserts that no generated value, no c
 and no file of a 60-repository sample (plain and perturbed) matches any of them.
 
 **Not verified:** the behaviour of any hosting platform's push protection or secret scanning.
-Nothing was pushed anywhere; the patterns in the test are an approximation written from memory, not
-a platform's actual rule set. `[TO CONFIRM]` at the first push, by whoever pushes.
+The repository was published on 2026-10-02 as pull request #2; what a platform's push protection or
+secret scanning reported about it, if anything, is not recorded here. The patterns in the test are an
+approximation written from memory, not a platform's actual rule set `[TO CONFIRM]`.
 
 ## Where planted values are committed on purpose
 

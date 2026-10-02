@@ -3,8 +3,10 @@
 # Proof pack v2.0
 
 This section was added in front of the profile. The profile itself starts at the line
-"Noa Cifratti" further down and is unchanged except for one token, changed after the first freeze
-(see `CLAIMS.md`, "Changed after the first freeze").
+"Noa Cifratti" further down. This pack changed one token of it after the first freeze (see
+`CLAIMS.md`, "Changed after the first freeze"). The profile also carries the week-1 review of this
+repository (pull request #1: pronouns aligned, thesis title, faculty-advisor line), which was made
+outside this pack and merged into the pack branch before 2.0.3; this pack did not write it (`CHANGELOG.md`, 2.0.3).
 
 The pack lets anyone re-run the work behind the profile's sentences, offline, with Python 3.12 and
 `git` and nothing else. It is defensive tooling on generated repositories: it reads files and
@@ -65,8 +67,21 @@ A blind evaluation, on a seed the author has never generated and with values hid
 hand, was run once by the evaluator on `v2.0.1-freeze` (2026-09-30, runs 9 to 11). No value was
 printed and no repository with a covered value was called `CLEAN`, but a value written only in a
 commit message showed that the scanner did not read commit or tag messages and did not say so
-(finding T19). Version 2.0.2 reads them (`CHANGELOG.md`). On 2.0.2 the blind run is
-**not yet run**: `eval/BLIND_PROTOCOL.md`.
+(finding T19). Version 2.0.2 reads them (`CHANGELOG.md`).
+
+On `v2.0.2-freeze` (commit a4492d8) the evaluator, Claude Fable 5.1 and not the builder, ran steps 1
+and 3 of `eval/BLIND_PROTOCOL.md` on seed 20261012: 200 repositories, 150 tabletop transcripts and
+120 patch pairs (`eval/history.json`, runs 15 and 16, recorded 2026-09-30T20:34:25+00:00 and
+2026-09-30T20:42:37+00:00). Step 1, plain: 185 of 185 covered secrets found, 0 false reports, 0
+repositories `CLEAN` with a covered secret, no secret value in any report, 7 repositories answered
+`NOT_COVERED` (abstentions), 9 of 60 secret-free repositories not called `CLEAN`, 120 of 120 surface
+pairs exact, 150 of 150 transcripts judged as labelled. Step 3, perturbed: 61 of 61 covered secrets
+found, 0 false reports, 0 repositories `CLEAN` with a covered secret, no secret value in any report,
+7 abstentions, and 6 repositories `CLEAN` while holding a secret in a form outside coverage.
+
+Step 2, twenty values hidden by a human hand, is **not yet run** on 2.0.2, so no number above comes
+from values a different hand chose. Nothing and no one is certified here: the status of this pack is
+`evidence-pending` (product rule P3) until step 2 is run and recorded.
 
 ## Reproducibility
 
@@ -74,7 +89,7 @@ Two independent rebuilds in two different folders give the same bytes. On 2026-0
 20260930: outputs sha256 `11f39dcd8bd0ddd09fb0bfa7850b57a17c150394b314de1469280b7ca8614562`
 (corpus manifest, labels, full scoring result, scenario report). The identifiers of the generated
 git repositories are pure functions of their content and should be the same on any machine; this
-was **not verified on another operating system** (everything ran on Windows), so identity across
+was **not verified on another operating system** (every run recorded here was on Windows), so identity across
 operating systems is not claimed.
 
 ## What is NOT demonstrated
@@ -86,9 +101,11 @@ operating systems is not claimed.
 - A mapping to external standards. Rule lists here are the pack's own `[TO CONFIRM with legal]`.
 - History rewriting ("scrubbing"): the scanner detects and locates, it never rewrites.
 - Rotation cadence, session management, mobile surfaces, VPN scope.
-- Tabletops played by a model; agreement with third-party scanners; the blind run on 2.0.2.
+- Tabletops played by a model; agreement with third-party scanners; step 2 of the blind run on 2.0.2
+  (twenty values hidden by a human hand).
 - Behaviour of any hosting platform's push protection on the planted values: checked locally only.
-- The CI workflow running remotely: nothing was pushed.
+- CI results: published on 2026-10-02 as pull request #2, the workflow runs on GitHub-hosted runners
+  and its results are on the pull request, not in this section.
 
 ## Map
 

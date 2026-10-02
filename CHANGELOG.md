@@ -1,6 +1,43 @@
 # CHANGELOG
 
-All dates are those of the work, not of any release to the public: nothing was pushed.
+All dates are those of the work. Published on 2026-10-02 as pull request #2 of this repository; the workflow runs on GitHub-hosted runners and its results are on the pull request.
+
+## 2.0.3 — 2026-10-02 (tag `v2.0.3-freeze`)
+
+Documentation and documentation tests only. No file that decides a result changed: `noascan/`,
+`rules/`, `playbooks/`, `tabletop/`, `threatmodel/`, `corpus/`, `eval/score.py`, `eval/manual.py`
+and `eval/seeds.json` are identical to `v2.0.2-freeze`, which stays the tag the blind harness checks
+(`eval/BLIND_PROTOCOL.md` is unchanged). The version string of the scanner stays 2.0.2, because it
+lives in a frozen file. `eval/history.json` and the result files are unchanged. In the workflow file
+only a comment changed.
+
+Why: the week-1 review of the profile (pull request #1 of this repository, made outside this pack)
+was merged into the pack branch after 2.0.2. It changed the profile below the proof-pack section
+(pronouns aligned, thesis title, advisor line of the diploma), so three documentation tests failed:
+the hash pins of the profile, one quotation in `CLAIMS.md`, and the manifest check. The first run of
+the workflow on pull request #2, published on 2026-10-02 after that merge, failed on these three
+documentation and freeze tests; this release is the fix. Separately, the
+proof-pack section of the README still said that the blind run on 2.0.2 had not been run, while
+`eval/history.json` records steps 1 and 3 of it (runs 15 and 16).
+
+### Changed
+
+- `tests/test_docs.py`: "the text before this pack" is now the profile after the week-1 review; new
+  length and hashes, with a comment that keeps the pins up to 2.0.2 and gives the reason. One quoted
+  sentence follows the new pronoun of the profile.
+- `README.md`, proof-pack section only: names the week-1 review; states what runs 15 and 16 record
+  (tag, seed, dates, sizes, abstentions, never-events) and what is still not done: step 2 of the
+  blind protocol, twenty values hidden by a human hand, is not yet run; no one is certified; the
+  status is `evidence-pending` (product rule P3).
+- `CLAIMS.md`: quotations follow the profile as it is now; the line on pronouns in "Left as
+  written" records that they are consistent since the review; the row on the blind evaluation and
+  known limits 1 and 3 record runs 15 and 16.
+- Statements written before the publication, that nothing was pushed or that the workflow had never
+  run remotely: the top line of this file, `CLAIMS.md` (known limits 6 to 8), `DEPENDENCIES.md`,
+  `SYNTHETIC.md`, the proof-pack section of `README.md` and a comment in `.github/workflows/ci.yml`.
+  They now say that the pack was published on 2026-10-02 as pull request #2, that the workflow runs on
+  GitHub-hosted runners and that its results are on the pull request; no result is copied here.
+- `MANIFEST.sha256`: regenerated with `tools/manifest.py` for the tag `v2.0.3-freeze`.
 
 ## 2.0.2 — 2026-09-30 (tag `v2.0.2-freeze`)
 

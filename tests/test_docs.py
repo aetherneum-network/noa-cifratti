@@ -13,12 +13,18 @@ REQUIRED = DOCS + ("README.md", "LICENSE", ".github/workflows/ci.yml", "eval/see
 POST_FREEZE = ("eval/BLIND_PROTOCOL.md", "MANIFEST.sha256", "eval/history.json")     # written after the freeze tag
 
 # The profile as it was before this pack (line endings normalised to LF): its length and its SHA-256.
-PROFILE_BYTES = 8743
-PROFILE_SHA256_ORIGINAL = "19b543c8239f5ee6908247c4388b12f7692a3d99175a2f0a2c0a849e0854e28d"
-# One token of it was changed after the first freeze (CLAIMS.md, "Changed after the first freeze"): in one
-# line the underscore between two words became a space. Same length; this is the hash of the text as it is now.
-PROFILE_SHA256 = "9babecb68e822dfc23c5109ad698bd900d97a3c6fef487d18d6fb5e8521d4a5c"
-CHANGED_NOW = b"the veto rule on synthetic transparency she applies in reverse"
+# Since 2.0.3 "before this pack" is README.md of commit 7ae2d66: the repository's main profile plus its week-1
+# review (pronouns aligned to he/him, thesis title, faculty-advisor line), pull request #1 of this repository.
+# That review was made outside this pack and merged into the pack branch in commit 54c3250. Pins up to 2.0.2,
+# for the profile of commit 7dca178: 8743 bytes, original 19b543c8239f5ee6908247c4388b12f7692a3d99175a2f0a2c0a849e0854e28d,
+# with the token 9babecb68e822dfc23c5109ad698bd900d97a3c6fef487d18d6fb5e8521d4a5c.
+PROFILE_BYTES = 8805
+PROFILE_SHA256_ORIGINAL = "e301775aadf6e737ee93a06ce418dafe52b06524951c7d0a37c75e65c5b5c679"
+# One token of it was changed by this pack after the first freeze (CLAIMS.md, "Changed after the first freeze"):
+# in one line the underscore between two words became a space. Same length; this is the hash of the text as it
+# is now (week-1 review plus that token).
+PROFILE_SHA256 = "546f749d7ca146a40859e775c8a2ff1ba9a8b50d9786c4fc29a91701e9cffbed"
+CHANGED_NOW = b"the veto rule on synthetic transparency he applies in reverse"      # "she" before the week-1 review
 CHANGED_WAS = CHANGED_NOW.replace(b"synthetic transparency", b"_".join([b"synthetic", b"transparency"]))
 
 PRONOUN = re.compile(r"\b(?:he|she|him|his|her|hers|himself|herself)\b", re.I)
@@ -200,9 +206,9 @@ class Wording(unittest.TestCase):
         for row in rows:
             self.assertTrue(row.rstrip().endswith("| awaiting legal review — not touched |"))
         for sentence in ("Applied case studies: platform auth surface, contracts pre-audit, API key isolation.",
-                         "Noa pre-audits Davide Ferri's contracts", "Contracts she pre-audited",
+                         "Noa pre-audits Davide Ferri's contracts", "Contracts he pre-audited",
                          "running industry-standard fuzzing and static analysis before external audit firm"):
-            self.assertIn(sentence, profile)                # still there, exactly as it was
+            self.assertIn(sentence, profile)                # still there, not touched by this pack (week-1 review: pronoun only)
 
     def test_the_stdlib_only_statement_and_the_offline_workflow(self):
         self.assertIn("standard library only", read("DEPENDENCIES.md"))
