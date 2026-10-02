@@ -1,0 +1,189 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "clean_with_only_out_of_coverage_secret": 0,
+  "counters": {
+    "blocking": 13,
+    "exceptions": 0,
+    "not_covered": 3,
+    "review": 4
+  },
+  "hidden": 20,
+  "never_event": 0,
+  "other": 13,
+  "other_found_as_secret": 2,
+  "plain": 7,
+  "plain_found": 7,
+  "plants": [
+    {
+      "class": "vendor_api_token",
+      "fingerprint": "6e6d6c4589cd8103",
+      "form": "other",
+      "found_as_secret": true,
+      "id": "M01"
+    },
+    {
+      "class": "vendor_test_key",
+      "fingerprint": "71146962e98e8553",
+      "form": "plain",
+      "found_as_secret": true,
+      "id": "M02"
+    },
+    {
+      "class": "vendor_payment_key",
+      "fingerprint": "7df4d94db098c162",
+      "form": "other",
+      "found_as_secret": false,
+      "id": "M03"
+    },
+    {
+      "class": "vendor_webhook_secret",
+      "fingerprint": "682b4faec54c54b6",
+      "form": "plain",
+      "found_as_secret": true,
+      "id": "M04"
+    },
+    {
+      "class": "armored_key_block",
+      "fingerprint": "2a169c4644d7124b",
+      "form": "other",
+      "found_as_secret": false,
+      "id": "M05"
+    },
+    {
+      "class": "assigned_password",
+      "fingerprint": "f98926308ea860e1",
+      "form": "plain",
+      "found_as_secret": true,
+      "id": "M06"
+    },
+    {
+      "class": "connection_uri_password",
+      "fingerprint": "814fc708bb91ee83",
+      "form": "other",
+      "found_as_secret": false,
+      "id": "M07"
+    },
+    {
+      "class": "vendor_api_token",
+      "fingerprint": "388ba93c20eeb708",
+      "form": "other",
+      "found_as_secret": false,
+      "id": "M08"
+    },
+    {
+      "class": "vendor_test_key",
+      "fingerprint": "c3eb4b4df8b64892",
+      "form": "other",
+      "found_as_secret": true,
+      "id": "M09"
+    },
+    {
+      "class": "vendor_payment_key",
+      "fingerprint": "1f79c0d368c24c60",
+      "form": "plain",
+      "found_as_secret": true,
+      "id": "M10"
+    },
+    {
+      "class": "vendor_webhook_secret",
+      "fingerprint": "debddc61d2f896fd",
+      "form": "other",
+      "found_as_secret": false,
+      "id": "M11"
+    },
+    {
+      "class": "armored_key_block",
+      "fingerprint": "48db381d253948e1",
+      "form": "plain",
+      "found_as_secret": true,
+      "id": "M12"
+    },
+    {
+      "class": "assigned_password",
+      "fingerprint": "6817d20b21893442",
+      "form": "other",
+      "found_as_secret": false,
+      "id": "M13"
+    },
+    {
+      "class": "connection_uri_password",
+      "fingerprint": "1d0be5ba97207cdb",
+      "form": "other",
+      "found_as_secret": false,
+      "id": "M14"
+    },
+    {
+      "class": "vendor_api_token",
+      "fingerprint": "c902daf42240bde8",
+      "form": "plain",
+      "found_as_secret": true,
+      "id": "M15"
+    },
+    {
+      "class": "vendor_test_key",
+      "fingerprint": "4478225931d5ffb2",
+      "form": "other",
+      "found_as_secret": false,
+      "id": "M16"
+    },
+    {
+      "class": "vendor_payment_key",
+      "fingerprint": "7dca1181e0bfc398",
+      "form": "other",
+      "found_as_secret": false,
+      "id": "M17"
+    },
+    {
+      "class": "vendor_webhook_secret",
+      "fingerprint": "05b668d8323b7735",
+      "form": "other",
+      "found_as_secret": false,
+      "id": "M18"
+    },
+    {
+      "class": "armored_key_block",
+      "fingerprint": "4daea3285ca7813e",
+      "form": "plain",
+      "found_as_secret": true,
+      "id": "M19"
+    },
+    {
+      "class": "assigned_password",
+      "fingerprint": "3c5714868c0430a6",
+      "form": "other",
+      "found_as_secret": false,
+      "id": "M20"
+    }
+  ],
+  "rules": {
+    "blast_radius": {
+      "sha256": "a5e00250dde81e067cfa7fef3439bf4b32df3a9bc00e8d63668493306625fa5f",
+      "version": "2.0.0"
+    },
+    "config": {
+      "sha256": "eb9fcb4f0672e41d55ec5901304b3ade1ac0d6dbb2e57cf521b435f2d002a074",
+      "version": "2.0.0"
+    },
+    "coverage": {
+      "sha256": "0c74e8bfc985eb5d26bad02a38cf4b9dd2c40431aacd5b393f4944e4f76d462d",
+      "version": "2.0.0"
+    },
+    "gate": {
+      "sha256": "2423133ba9e7e57b48dd8ca2f1b1c0d29f6ee424122406e396b2a9cdae1f1bc2",
+      "version": "2.0.0"
+    },
+    "pycode": {
+      "sha256": "8ccd47366f23e74e1c91ec66eb9065d86c90d504b8b06e777e0c69c48f3ff72c",
+      "version": "2.0.0"
+    },
+    "secrets": {
+      "sha256": "d39cdfba316c5777292d0280e4b0bb678169264b6b55da1e5d6a70a74256f6e9",
+      "version": "2.0.0"
+    }
+  },
+  "secret_values_in_reports": 0,
+  "seed": 463788,
+  "statement": "internal consistency on synthetic data; no claim about any real system",
+  "suite": "blind-manual",
+  "verdict": "BLOCKED"
+}

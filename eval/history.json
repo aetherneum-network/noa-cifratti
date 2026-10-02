@@ -1429,6 +1429,240 @@
         }
       },
       "note": ""
+    },
+    {
+      "run": 17,
+      "run_date": "2026-10-03T00:02:48+02:00",
+      "suite": "blind",
+      "seed": 463788,
+      "perturbed": false,
+      "runner": "Giulio (human reviewer)",
+      "freeze_commit": "bf05f7fec1e4c2364b67e8e038b41ff57dbce4cc",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 220,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 71,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 72,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "clean_repos_not_called_clean": 6,
+        "verdicts": {
+          "agree": 191,
+          "acceptable": 2,
+          "wrong": 7
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 91,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": ""
+    },
+    {
+      "run": 18,
+      "run_date": "2026-10-03T00:21:50+02:00",
+      "suite": "blind-manual",
+      "seed": 463788,
+      "perturbed": false,
+      "runner": "Giulio (human reviewer, guided menu)",
+      "freeze_commit": "bf05f7fec1e4c2364b67e8e038b41ff57dbce4cc",
+      "sizes": {
+        "hand_planted": 20
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        }
+      ],
+      "numbers": {
+        "hidden": 20,
+        "plain": 7,
+        "plain_found": 7,
+        "other": 13,
+        "other_found_as_secret": 2,
+        "verdict": "BLOCKED",
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "secret_values_in_reports": 0
+      },
+      "note": "step 2 guided: for each value the runner picked from a menu where and how to hide it, or let it pick at random; the menu and the code that writes were prepared by the author model (Claude Opus 5.5) before the seed was chosen, without seeing the seed, the values or the choices (passo2_aiuto.py)"
+    },
+    {
+      "run": 19,
+      "run_date": "2026-10-03T00:21:50+02:00",
+      "suite": "blind",
+      "seed": 463788,
+      "perturbed": true,
+      "runner": "Giulio (human reviewer)",
+      "freeze_commit": "bf05f7fec1e4c2364b67e8e038b41ff57dbce4cc",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 101,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.9902,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 71,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 72,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 8,
+        "clean_repos_not_called_clean": 6,
+        "verdicts": {
+          "agree": 158,
+          "acceptable": 35,
+          "wrong": 7
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 91,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": ""
     }
   ]
 }
