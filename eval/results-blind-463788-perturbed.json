@@ -1,0 +1,419 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "clean_repos_not_called_clean": {
+    "count": 6,
+    "repos": [
+      "R0012-brennero-invoice-gateway",
+      "R0022-lunaria-tile-server",
+      "R0148-lunaria-tile-server",
+      "R0155-arvale-loom-telemetry",
+      "R0171-brennero-bench-scheduler",
+      "R0194-arvale-loom-telemetry"
+    ]
+  },
+  "clean_with_only_out_of_coverage_secret": {
+    "count": 8,
+    "repos": [
+      "R0013-lunaria-tile-server",
+      "R0048-brennero-workshop-orders",
+      "R0055-lunaria-tile-server",
+      "R0065-arvale-yarn-inventory",
+      "R0079-lunaria-atlas-export",
+      "R0130-lunaria-layer-registry",
+      "R0156-brennero-invoice-gateway",
+      "R0176-arvale-yarn-inventory"
+    ]
+  },
+  "config_by_class": {
+    "ALL": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 71
+    },
+    "admin_route_without_forward_auth": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 7
+    },
+    "debug_flag_enabled": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 3
+    },
+    "debug_route_public": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 14
+    },
+    "forward_auth_trusts_client_headers": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 13
+    },
+    "internal_port_published_on_all_interfaces": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 14
+    },
+    "runtime_socket_mounted": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 10
+    },
+    "service_bridges_public_and_data_networks": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 10
+    }
+  },
+  "decoys": {
+    "by_kind": {
+      "nonsecret_key": 11,
+      "wordlike": 26
+    },
+    "flagged": 37,
+    "planted": 1031
+  },
+  "false_positive_examples": [
+    {
+      "class": "armored_key_block",
+      "decoy_kind": "",
+      "line": 2,
+      "path": "",
+      "repo": "R0147-brennero-workshop-orders",
+      "rule": "SEC-ARMORED-BLOCK"
+    }
+  ],
+  "never_event_clean_with_covered_secret": {
+    "count": 0,
+    "repos": []
+  },
+  "perturbed": true,
+  "pycode_by_class": {
+    "ALL": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 72
+    },
+    "bind_all_interfaces": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 10
+    },
+    "debug_server": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 17
+    },
+    "dynamic_code_execution": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 6
+    },
+    "shell_command": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 8
+    },
+    "shell_true": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 11
+    },
+    "tls_verification_disabled": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 11
+    },
+    "unsafe_deserialization": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 9
+    }
+  },
+  "repos": 200,
+  "rules": {
+    "blast_radius": {
+      "sha256": "a5e00250dde81e067cfa7fef3439bf4b32df3a9bc00e8d63668493306625fa5f",
+      "version": "2.0.0"
+    },
+    "config": {
+      "sha256": "eb9fcb4f0672e41d55ec5901304b3ade1ac0d6dbb2e57cf521b435f2d002a074",
+      "version": "2.0.0"
+    },
+    "coverage": {
+      "sha256": "0c74e8bfc985eb5d26bad02a38cf4b9dd2c40431aacd5b393f4944e4f76d462d",
+      "version": "2.0.0"
+    },
+    "gate": {
+      "sha256": "2423133ba9e7e57b48dd8ca2f1b1c0d29f6ee424122406e396b2a9cdae1f1bc2",
+      "version": "2.0.0"
+    },
+    "pycode": {
+      "sha256": "8ccd47366f23e74e1c91ec66eb9065d86c90d504b8b06e777e0c69c48f3ff72c",
+      "version": "2.0.0"
+    },
+    "secrets": {
+      "sha256": "d39cdfba316c5777292d0280e4b0bb678169264b6b55da1e5d6a70a74256f6e9",
+      "version": "2.0.0"
+    },
+    "surface": {
+      "sha256": "b47840c8ec108ef2ef6409a5c9ef949f1bebd1914897c4320c55f6d29d4ed620",
+      "version": "2.0.0"
+    }
+  },
+  "secret_location": {
+    "checked": 101,
+    "commit_ok": 101,
+    "line_ok": 101,
+    "path_ok": 101
+  },
+  "secret_values_in_reports": 0,
+  "secrets_by_class": {
+    "ALL": {
+      "fn": 0,
+      "fp": 1,
+      "precision": 0.9902,
+      "recall": 1.0,
+      "tp": 101
+    },
+    "armored_key_block": {
+      "fn": 0,
+      "fp": 1,
+      "precision": 0.9375,
+      "recall": 1.0,
+      "tp": 15
+    },
+    "assigned_password": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 12
+    },
+    "connection_uri_password": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 15
+    },
+    "vendor_api_token": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 12
+    },
+    "vendor_payment_key": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 14
+    },
+    "vendor_test_key": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 15
+    },
+    "vendor_webhook_secret": {
+      "fn": 0,
+      "fp": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "tp": 18
+    }
+  },
+  "seed": 463788,
+  "sizes": {
+    "patch_pairs": 120,
+    "repos": 200,
+    "transcripts": 150
+  },
+  "statement": "internal consistency on synthetic data; no claim about any real system",
+  "suite": "blind",
+  "surface": {
+    "delta_exact": 120,
+    "gate_agree": 120,
+    "items_exact": 120,
+    "pairs": 120
+  },
+  "suspects_without_a_plant_at_path": 36,
+  "tabletop": {
+    "failed_called_passed": 0,
+    "gold_failed": 91,
+    "passed_called_failed": 0,
+    "transcripts": 150,
+    "verdict_agree": 150,
+    "violations_exact": 150
+  },
+  "techniques": {
+    "base64": {
+      "covered": 0,
+      "found_as_secret": 0,
+      "found_in_other_form": 0,
+      "planted": 27,
+      "repo_clean": 0,
+      "suspect_at_path": 25
+    },
+    "carrier_binary_nul": {
+      "covered": 0,
+      "found_as_secret": 1,
+      "found_in_other_form": 0,
+      "planted": 1,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    },
+    "carrier_not_utf8": {
+      "covered": 0,
+      "found_as_secret": 1,
+      "found_in_other_form": 0,
+      "planted": 1,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    },
+    "carrier_oversized": {
+      "covered": 0,
+      "found_as_secret": 0,
+      "found_in_other_form": 0,
+      "planted": 1,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    },
+    "carrier_utf16": {
+      "covered": 0,
+      "found_as_secret": 2,
+      "found_in_other_form": 0,
+      "planted": 2,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    },
+    "carrier_zip_archive": {
+      "covered": 0,
+      "found_as_secret": 0,
+      "found_in_other_form": 0,
+      "planted": 3,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    },
+    "concat_same_line": {
+      "covered": 0,
+      "found_as_secret": 2,
+      "found_in_other_form": 2,
+      "planted": 14,
+      "repo_clean": 0,
+      "suspect_at_path": 9
+    },
+    "hex": {
+      "covered": 0,
+      "found_as_secret": 0,
+      "found_in_other_form": 0,
+      "planted": 15,
+      "repo_clean": 1,
+      "suspect_at_path": 14
+    },
+    "percent_encoded": {
+      "covered": 0,
+      "found_as_secret": 0,
+      "found_in_other_form": 0,
+      "planted": 23,
+      "repo_clean": 0,
+      "suspect_at_path": 23
+    },
+    "plain": {
+      "covered": 63,
+      "found_as_secret": 63,
+      "found_in_other_form": 0,
+      "planted": 63,
+      "repo_clean": 0,
+      "suspect_at_path": 2
+    },
+    "reversed": {
+      "covered": 0,
+      "found_as_secret": 0,
+      "found_in_other_form": 0,
+      "planted": 16,
+      "repo_clean": 1,
+      "suspect_at_path": 11
+    },
+    "split_lines": {
+      "covered": 0,
+      "found_as_secret": 0,
+      "found_in_other_form": 3,
+      "planted": 22,
+      "repo_clean": 7,
+      "suspect_at_path": 1
+    },
+    "unseen_format": {
+      "covered": 38,
+      "found_as_secret": 38,
+      "found_in_other_form": 0,
+      "planted": 40,
+      "repo_clean": 0,
+      "suspect_at_path": 0
+    }
+  },
+  "verdict_confusion_expected_to_got": {
+    "BLOCKED": {
+      "BLOCKED": 110
+    },
+    "CLEAN": {
+      "CLEAN": 34,
+      "NEEDS_REVIEW": 6
+    },
+    "NEEDS_REVIEW": {
+      "BLOCKED": 1,
+      "NEEDS_REVIEW": 6
+    },
+    "NOT_COVERED": {
+      "BLOCKED": 2,
+      "NEEDS_REVIEW": 1,
+      "NOT_COVERED": 8
+    },
+    "UNSPECIFIED": {
+      "BLOCKED": 4,
+      "CLEAN": 8,
+      "NEEDS_REVIEW": 20
+    }
+  },
+  "verdicts": {
+    "acceptable": 35,
+    "agree": 158,
+    "wrong": 7
+  }
+}
