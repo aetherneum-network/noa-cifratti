@@ -1,0 +1,14 @@
+{
+  "file": "secrets",
+  "rule": "SEC-ASSIGN-BARE",
+  "set": {
+    "path_globs": [
+      ".env",
+      ".env.*",
+      "*/.env",
+      "*/.env.*",
+      "*.env"
+    ]
+  },
+  "why": "narrow the unquoted KEY=value rule to environment files only"
+}

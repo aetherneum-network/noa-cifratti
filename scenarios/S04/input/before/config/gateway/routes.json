@@ -1,0 +1,74 @@
+{
+  "schema": "gateway-routes/v1",
+  "entrypoints": {
+    "public": {
+      "bind": "0.0.0.0:443"
+    },
+    "admin": {
+      "bind": "10.77.0.1:8443"
+    }
+  },
+  "middlewares": {
+    "forward-auth": {
+      "type": "forward-auth",
+      "address": "http://authgate:9091/verify",
+      "trust_forward_header": false
+    },
+    "rate-limit": {
+      "type": "rate-limit",
+      "average": 50
+    }
+  },
+  "routers": [
+    {
+      "name": "app",
+      "entrypoint": "public",
+      "host": "app.officina-brennero.example",
+      "path_prefix": "/",
+      "middlewares": [
+        "rate-limit"
+      ],
+      "service": "app"
+    },
+    {
+      "name": "api",
+      "entrypoint": "public",
+      "host": "api.officina-brennero.example",
+      "path_prefix": "/v1",
+      "middlewares": [
+        "rate-limit"
+      ],
+      "service": "api"
+    },
+    {
+      "name": "admin-ui",
+      "entrypoint": "admin",
+      "host": "admin.officina-brennero.example",
+      "path_prefix": "/",
+      "middlewares": [
+        "forward-auth"
+      ],
+      "service": "admin"
+    },
+    {
+      "name": "legacy",
+      "entrypoint": "public",
+      "host": "app.officina-brennero.example",
+      "path_prefix": "/legacy",
+      "middlewares": [
+        "rate-limit"
+      ],
+      "service": "app"
+    },
+    {
+      "name": "portal",
+      "entrypoint": "public",
+      "host": "app.officina-brennero.example",
+      "path_prefix": "/portal",
+      "middlewares": [
+        "forward-auth"
+      ],
+      "service": "app"
+    }
+  ]
+}

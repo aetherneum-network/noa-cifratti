@@ -1,0 +1,77 @@
+{
+  "schema": "services/v1",
+  "networks": [
+    "public",
+    "app",
+    "data",
+    "admin"
+  ],
+  "services": [
+    {
+      "name": "gateway",
+      "plane": "public",
+      "networks": [
+        "public",
+        "app"
+      ],
+      "published": [
+        "0.0.0.0:443:443"
+      ],
+      "mounts": [
+        "./config/gateway:/etc/gateway:ro"
+      ]
+    },
+    {
+      "name": "app",
+      "plane": "app",
+      "networks": [
+        "app"
+      ],
+      "published": [],
+      "mounts": []
+    },
+    {
+      "name": "api",
+      "plane": "app",
+      "networks": [
+        "app",
+        "data"
+      ],
+      "published": [],
+      "mounts": []
+    },
+    {
+      "name": "db",
+      "plane": "data",
+      "networks": [
+        "data"
+      ],
+      "published": [],
+      "mounts": [
+        "dbdata:/var/lib/db"
+      ]
+    },
+    {
+      "name": "admin",
+      "plane": "admin",
+      "networks": [
+        "admin",
+        "data"
+      ],
+      "published": [
+        "10.77.0.1:8443:8443"
+      ],
+      "mounts": []
+    },
+    {
+      "name": "authgate",
+      "plane": "admin",
+      "networks": [
+        "app",
+        "admin"
+      ],
+      "published": [],
+      "mounts": []
+    }
+  ]
+}

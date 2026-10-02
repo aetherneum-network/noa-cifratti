@@ -1,0 +1,3 @@
+# S06 - tabletop 'compromised key': rotated, never revoked
+
+*Company (synthetic): Cooperativa Tessile Arvale. Lessons covered: L6.* **Failure reproduced.** In the exercise the operator rotates the key and the incident is closed; the old key is never revoked. **Pass criterion.** The judge marks the transcript FAILED with the single violation `ROTATED_NOT_REVOKED` on step `revoke_old_key` and blocks the closing step. The transcript that follows the playbook passes. Both transcripts are committed under `input/` (hash-chained JSON lines). Run `python scenarios/S06/check.py` from the repository root (or `python check.py` in this folder): it compares the output with `expected/` byte for byte and then asserts the criterion in code.

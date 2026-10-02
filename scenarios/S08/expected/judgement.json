@@ -1,0 +1,38 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "closing_step": "all_clear",
+  "closure": "BLOCKED",
+  "events": 6,
+  "exit_code": 1,
+  "playbook": "leaked_endpoint",
+  "playbook_version": "2.0.0",
+  "refused": [],
+  "report": "tabletop-judgement",
+  "rules": {
+    "judge": {
+      "sha256": "412168236d6d9d0580cec20631068df1f8047916765558f81249d2c85ab3b18b",
+      "version": "2.0.0"
+    },
+    "playbook": {
+      "sha256": "0ea89bf53d1ae9f22a6906a13fb0d394413e971cb127650fac7ad85cd8d16c2e",
+      "version": "2.0.0"
+    }
+  },
+  "statement": "a paper exercise: it shows the playbook is coherent and departures are seen, not that a real incident would be handled",
+  "subject": "EP-4172",
+  "tool": "noascan",
+  "verdict": "FAILED",
+  "version": "2.0.2",
+  "violations": [
+    {
+      "code": "IDENTIFIER_MISMATCH",
+      "details": [
+        "endpoint_id EP-4172 in file alert.json by monitoring@lunaria-carto.example; endpoint_id EP-1472 in file handoff.json by operator@lunaria-carto.example",
+        "endpoint_id EP-4172 in file alert.json by monitoring@lunaria-carto.example; endpoint_id EP-1472 in file receipt.json by owner-tiles@lunaria-carto.example"
+      ],
+      "rule": "J-IDENTIFIER",
+      "seq": 4,
+      "step": "handoff_to_owner"
+    }
+  ]
+}

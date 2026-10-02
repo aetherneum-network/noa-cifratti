@@ -1,0 +1,1434 @@
+{
+  "runs": [
+    {
+      "run": 1,
+      "run_date": "2026-09-30T17:14:58+02:00",
+      "suite": "dev",
+      "seed": 20260930,
+      "perturbed": false,
+      "runner": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+      "freeze_commit": "",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "0c6a2539ce42"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 243,
+          "fp": 45,
+          "fn": 0,
+          "precision": 0.8438,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 79,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 60,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "clean_repos_not_called_clean": 8,
+        "verdicts": {
+          "agree": 187,
+          "acceptable": 5,
+          "wrong": 8
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 89,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": "first run on the dev corpus, before any rule was changed against it (one inline rule test had failed earlier and was fixed: SUS-BASE64 lookbehind)"
+    },
+    {
+      "run": 2,
+      "run_date": "2026-09-30T17:16:35+02:00",
+      "suite": "dev",
+      "seed": 20260930,
+      "perturbed": false,
+      "runner": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+      "freeze_commit": "",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "ad8adc00a03e"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 243,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 79,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 60,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "clean_repos_not_called_clean": 8,
+        "verdicts": {
+          "agree": 187,
+          "acceptable": 5,
+          "wrong": 8
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 89,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": "after adding SUS-WORDLIKE-QUOTED and SUS-WORDLIKE-BARE: word-like values under a secret-looking key become suspects (review) instead of secrets (block). The harness now compares line and commit only for plants inside coverage."
+    },
+    {
+      "run": 3,
+      "run_date": "2026-09-30T17:17:12+02:00",
+      "suite": "holdout",
+      "seed": 20261001,
+      "perturbed": false,
+      "runner": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+      "freeze_commit": "",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "ad8adc00a03e"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 213,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 83,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 64,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "clean_repos_not_called_clean": 6,
+        "verdicts": {
+          "agree": 190,
+          "acceptable": 4,
+          "wrong": 6
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 79,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": "first and only look at the holdout seed with the rules as fixed on dev"
+    },
+    {
+      "run": 4,
+      "run_date": "2026-09-30T17:17:12+02:00",
+      "suite": "stress",
+      "seed": 20261002,
+      "perturbed": true,
+      "runner": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+      "freeze_commit": "",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "ad8adc00a03e"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 89,
+          "fp": 6,
+          "fn": 0,
+          "precision": 0.9368,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 71,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 64,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 7,
+        "clean_repos_not_called_clean": 6,
+        "verdicts": {
+          "agree": 165,
+          "acceptable": 27,
+          "wrong": 8
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 87,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": "first run on the perturbed corpus (diagnosis, not an independent test)"
+    },
+    {
+      "run": 5,
+      "run_date": "2026-09-30T17:18:44+02:00",
+      "suite": "stress",
+      "seed": 20261002,
+      "perturbed": true,
+      "runner": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+      "freeze_commit": "",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 89,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 71,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 64,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 4,
+        "clean_repos_not_called_clean": 6,
+        "verdicts": {
+          "agree": 165,
+          "acceptable": 27,
+          "wrong": 8
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 87,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": "after the stress diagnosis: added SUS-PERCENT and SUS-REVERSED (suspects, review only). Harness: a finding at the path of an out-of-coverage plant of the same class, with a different fingerprint, is counted as 'found in other form', no longer as a false positive."
+    },
+    {
+      "run": 6,
+      "run_date": "2026-09-30T18:05:16+02:00",
+      "suite": "dev",
+      "seed": 20260930,
+      "perturbed": false,
+      "runner": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+      "freeze_commit": "",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 243,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 79,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 60,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "clean_repos_not_called_clean": 8,
+        "verdicts": {
+          "agree": 187,
+          "acceptable": 5,
+          "wrong": 8
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 89,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": "Final code before the freeze. Since run 2: file and folder names are scanned, a skipped history is a gap, a missing target is an error, as_of must be ISO 8601, and two suspect rules (SUS-PERCENT, SUS-REVERSED) were added after the stress diagnosis of run 4."
+    },
+    {
+      "run": 7,
+      "run_date": "2026-09-30T18:05:42+02:00",
+      "suite": "holdout",
+      "seed": 20261001,
+      "perturbed": false,
+      "runner": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+      "freeze_commit": "",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 213,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 83,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 64,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "clean_repos_not_called_clean": 6,
+        "verdicts": {
+          "agree": 190,
+          "acceptable": 4,
+          "wrong": 6
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 79,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": "Second look at the holdout seed with the final code. The rules were not changed in response to the holdout results of run 3; the two suspect rules added since then came from the stress diagnosis. Being a second look, this is not an independent test."
+    },
+    {
+      "run": 8,
+      "run_date": "2026-09-30T18:06:07+02:00",
+      "suite": "stress",
+      "seed": 20261002,
+      "perturbed": true,
+      "runner": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+      "freeze_commit": "",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 89,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 71,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 64,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 4,
+        "clean_repos_not_called_clean": 6,
+        "verdicts": {
+          "agree": 165,
+          "acceptable": 27,
+          "wrong": 8
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 87,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": "Final code before the freeze, perturbed corpus. Used for diagnosis during development (runs 4 and 5): not an independent test."
+    },
+    {
+      "run": 9,
+      "run_date": "2026-09-30T19:15:37+02:00",
+      "suite": "blind",
+      "seed": 20261011,
+      "perturbed": false,
+      "runner": "evaluator (Claude Opus 5.5), not the builder",
+      "freeze_commit": "3be83ef9e41d293b2e2744b0077768b148f386a1",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 204,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 77,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 67,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "clean_repos_not_called_clean": 11,
+        "verdicts": {
+          "agree": 187,
+          "acceptable": 1,
+          "wrong": 12
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 91,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": ""
+    },
+    {
+      "run": 10,
+      "run_date": "2026-09-30T19:18:59+02:00",
+      "suite": "blind-manual",
+      "seed": 20261011,
+      "perturbed": false,
+      "runner": "evaluator (Claude Opus 5.5), not the builder",
+      "freeze_commit": "3be83ef9e41d293b2e2744b0077768b148f386a1",
+      "sizes": {
+        "hand_planted": 20
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        }
+      ],
+      "numbers": {
+        "hidden": 20,
+        "plain": 10,
+        "plain_found": 10,
+        "other": 10,
+        "other_found_as_secret": 2,
+        "verdict": "BLOCKED",
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "secret_values_in_reports": 0
+      },
+      "note": ""
+    },
+    {
+      "run": 11,
+      "run_date": "2026-09-30T19:18:59+02:00",
+      "suite": "blind",
+      "seed": 20261011,
+      "perturbed": true,
+      "runner": "evaluator (Claude Opus 5.5), not the builder",
+      "freeze_commit": "3be83ef9e41d293b2e2744b0077768b148f386a1",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 88,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 77,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 67,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 5,
+        "clean_repos_not_called_clean": 11,
+        "verdicts": {
+          "agree": 158,
+          "acceptable": 30,
+          "wrong": 12
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 91,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": ""
+    },
+    {
+      "run": 12,
+      "run_date": "2026-09-30T21:32:39+02:00",
+      "suite": "dev",
+      "seed": 20260930,
+      "perturbed": false,
+      "runner": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+      "freeze_commit": "",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 243,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 79,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 60,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "clean_repos_not_called_clean": 8,
+        "verdicts": {
+          "agree": 187,
+          "acceptable": 5,
+          "wrong": 8
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 89,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": "Re-run with noascan 2.0.2 (finding T19: commit and annotated-tag texts are now read), before the tag v2.0.2-freeze. The rules did not change; the result file is byte-identical to the one of run 6."
+    },
+    {
+      "run": 13,
+      "run_date": "2026-09-30T21:33:04+02:00",
+      "suite": "holdout",
+      "seed": 20261001,
+      "perturbed": false,
+      "runner": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+      "freeze_commit": "",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 213,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 83,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 64,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "clean_repos_not_called_clean": 6,
+        "verdicts": {
+          "agree": 190,
+          "acceptable": 4,
+          "wrong": 6
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 79,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": "Re-run with noascan 2.0.2 (finding T19: commit and annotated-tag texts are now read), before the tag v2.0.2-freeze. The rules did not change; the result file is byte-identical to the one of run 7."
+    },
+    {
+      "run": 14,
+      "run_date": "2026-09-30T21:33:27+02:00",
+      "suite": "stress",
+      "seed": 20261002,
+      "perturbed": true,
+      "runner": "Noa Cifratti (synthetic agent, via Claude Opus 5.5)",
+      "freeze_commit": "",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 89,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 71,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 64,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 4,
+        "clean_repos_not_called_clean": 6,
+        "verdicts": {
+          "agree": 165,
+          "acceptable": 27,
+          "wrong": 8
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 87,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": "Re-run with noascan 2.0.2 (finding T19: commit and annotated-tag texts are now read), before the tag v2.0.2-freeze. The rules did not change; the result file is byte-identical to the one of run 8."
+    },
+    {
+      "run": 15,
+      "run_date": "2026-09-30T20:34:25+00:00",
+      "suite": "blind",
+      "seed": 20261012,
+      "perturbed": false,
+      "runner": "evaluator (Claude Fable 5.1), not the builder",
+      "freeze_commit": "a4492d8817e413ec23b1a8090c2ce064659c9ed9",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 185,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 61,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 52,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 0,
+        "clean_repos_not_called_clean": 9,
+        "verdicts": {
+          "agree": 187,
+          "acceptable": 4,
+          "wrong": 9
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 86,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": ""
+    },
+    {
+      "run": 16,
+      "run_date": "2026-09-30T20:42:37+00:00",
+      "suite": "blind",
+      "seed": 20261012,
+      "perturbed": true,
+      "runner": "evaluator (Claude Fable 5.1), not the builder",
+      "freeze_commit": "a4492d8817e413ec23b1a8090c2ce064659c9ed9",
+      "sizes": {
+        "repos": 200,
+        "transcripts": 150,
+        "patch_pairs": 120
+      },
+      "rules": [
+        {
+          "file": "secrets",
+          "sha256_12": "d39cdfba316c"
+        },
+        {
+          "file": "coverage",
+          "sha256_12": "0c74e8bfc985"
+        },
+        {
+          "file": "gate",
+          "sha256_12": "2423133ba9e7"
+        },
+        {
+          "file": "blast_radius",
+          "sha256_12": "a5e00250dde8"
+        },
+        {
+          "file": "config",
+          "sha256_12": "eb9fcb4f0672"
+        },
+        {
+          "file": "pycode",
+          "sha256_12": "8ccd47366f23"
+        },
+        {
+          "file": "surface",
+          "sha256_12": "b47840c8ec10"
+        }
+      ],
+      "numbers": {
+        "repos": 200,
+        "secrets": {
+          "tp": 61,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "config": {
+          "tp": 61,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "pycode": {
+          "tp": 52,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0
+        },
+        "never_event": 0,
+        "clean_with_only_out_of_coverage_secret": 6,
+        "clean_repos_not_called_clean": 9,
+        "verdicts": {
+          "agree": 157,
+          "acceptable": 34,
+          "wrong": 9
+        },
+        "secret_values_in_reports": 0,
+        "surface": {
+          "pairs": 120,
+          "items_exact": 120,
+          "delta_exact": 120,
+          "gate_agree": 120
+        },
+        "tabletop": {
+          "transcripts": 150,
+          "gold_failed": 86,
+          "verdict_agree": 150,
+          "violations_exact": 150,
+          "failed_called_passed": 0,
+          "passed_called_failed": 0
+        }
+      },
+      "note": ""
+    }
+  ]
+}

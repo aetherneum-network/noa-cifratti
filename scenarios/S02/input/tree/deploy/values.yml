@@ -1,0 +1,5 @@
+app:
+  host: app.lunaria-carto.example
+  replicas: 2
+  tenantId: 293c2a74-897b-425e-aaac-96e49f73b8ee
+  databaseUrl: "nbxdb://migrator:F6s2_8Y2Y7u3F4@db.lunaria-carto.example:5432/app"

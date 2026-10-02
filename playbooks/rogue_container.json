@@ -1,0 +1,89 @@
+{
+  "id": "rogue_container",
+  "version": "2.0.0",
+  "as_of": "2026-09-30",
+  "title": "Rogue container: isolate, preserve the evidence, only then destroy",
+  "subject_field": "container_id",
+  "steps": [
+    {
+      "id": "declare_incident",
+      "role": "incident_lead",
+      "requires": [],
+      "evidence": [
+        "alert_reference"
+      ]
+    },
+    {
+      "id": "isolate_network",
+      "role": "operator",
+      "requires": [
+        "declare_incident"
+      ],
+      "evidence": [
+        "network_detach_receipt"
+      ]
+    },
+    {
+      "id": "preserve_evidence",
+      "role": "operator",
+      "requires": [
+        "isolate_network"
+      ],
+      "evidence": [
+        "memory_snapshot",
+        "filesystem_snapshot",
+        "log_export"
+      ],
+      "preserves_evidence": true
+    },
+    {
+      "id": "restart_container",
+      "role": "operator",
+      "requires": [
+        "preserve_evidence"
+      ],
+      "evidence": [
+        "restart_receipt"
+      ],
+      "destructive": true
+    },
+    {
+      "id": "rebuild_from_known_image",
+      "role": "operator",
+      "requires": [
+        "restart_container"
+      ],
+      "evidence": [
+        "image_digest"
+      ]
+    },
+    {
+      "id": "verify_clean",
+      "role": "operator",
+      "requires": [
+        "rebuild_from_known_image"
+      ],
+      "evidence": [
+        "process_list"
+      ]
+    },
+    {
+      "id": "close_incident",
+      "role": "incident_lead",
+      "requires": [
+        "verify_clean"
+      ],
+      "evidence": [
+        "summary"
+      ],
+      "closes": true
+    }
+  ],
+  "invariants": [
+    {
+      "id": "INV-ONE-SUBJECT",
+      "type": "same_subject",
+      "code": "IDENTIFIER_MISMATCH"
+    }
+  ]
+}

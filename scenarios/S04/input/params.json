@@ -1,0 +1,8 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "seed": 20260930,
+  "expected_added": [
+    "route:app.officina-brennero.example/debug",
+    "secret:deploy/prod.env#1b17141aedbce3c6"
+  ]
+}

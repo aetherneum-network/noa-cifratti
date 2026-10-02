@@ -1,0 +1,10 @@
+{
+  "id": "S10",
+  "title": "Officina Brennero - encrypted archive and a file that is not UTF-8 (boundary)",
+  "kind": "boundary",
+  "run": [
+    "python",
+    "check.py"
+  ],
+  "timeout_s": 120
+}

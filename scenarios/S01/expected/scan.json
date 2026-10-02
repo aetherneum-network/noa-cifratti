@@ -1,0 +1,86 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "counters": {
+    "blocking": 1,
+    "exceptions": 0,
+    "not_covered": 0,
+    "review": 0
+  },
+  "coverage": {
+    "not_covered": [],
+    "secret_classes": [
+      "armored_key_block",
+      "assigned_password",
+      "connection_uri_password",
+      "vendor_api_token",
+      "vendor_payment_key",
+      "vendor_test_key",
+      "vendor_webhook_secret"
+    ]
+  },
+  "exceptions": [],
+  "exit_code": 3,
+  "findings": [
+    {
+      "author": "Brennero Dev B",
+      "blob": "017133df8cfb5ea3c292fed010792306fb369074",
+      "class": "vendor_api_token",
+      "commit": "acab0a12fcb8270080e42d86a8c0e7e08bd963cc",
+      "date": "2026-09-01T10:30:00+02:00",
+      "fingerprint": "e0f86898aafee434",
+      "id": "F001",
+      "in_worktree": false,
+      "kind": "secret",
+      "length": 42,
+      "line": 4,
+      "path": "deploy/prod.env",
+      "radius": 4,
+      "reachable": true,
+      "rule": "SEC-NBX-TOKEN",
+      "severity": "high",
+      "via": ""
+    }
+  ],
+  "gate_rule": "GATE-BLOCKED",
+  "report": "scan",
+  "rules": {
+    "blast_radius": {
+      "sha256": "a5e00250dde81e067cfa7fef3439bf4b32df3a9bc00e8d63668493306625fa5f",
+      "version": "2.0.0"
+    },
+    "config": {
+      "sha256": "eb9fcb4f0672e41d55ec5901304b3ade1ac0d6dbb2e57cf521b435f2d002a074",
+      "version": "2.0.0"
+    },
+    "coverage": {
+      "sha256": "0c74e8bfc985eb5d26bad02a38cf4b9dd2c40431aacd5b393f4944e4f76d462d",
+      "version": "2.0.0"
+    },
+    "gate": {
+      "sha256": "2423133ba9e7e57b48dd8ca2f1b1c0d29f6ee424122406e396b2a9cdae1f1bc2",
+      "version": "2.0.0"
+    },
+    "pycode": {
+      "sha256": "8ccd47366f23e74e1c91ec66eb9065d86c90d504b8b06e777e0c69c48f3ff72c",
+      "version": "2.0.0"
+    },
+    "secrets": {
+      "sha256": "d39cdfba316c5777292d0280e4b0bb678169264b6b55da1e5d6a70a74256f6e9",
+      "version": "2.0.0"
+    }
+  },
+  "scope": {
+    "blobs_read": 5,
+    "commits_read": 3,
+    "config_and_code": "working tree only",
+    "history": "read",
+    "object_texts": "header and message of every commit and annotated tag",
+    "statement": "internal consistency on synthetic data; no claim about any real system",
+    "tags_read": 0,
+    "worktree_files": 6
+  },
+  "target": "workshop-orders",
+  "tool": "noascan",
+  "verdict": "BLOCKED",
+  "version": "2.0.2"
+}

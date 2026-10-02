@@ -1,0 +1,64 @@
+{
+  "file": "gate",
+  "version": "2.0.0",
+  "as_of": "2026-09-30",
+  "policy": "Ordered, first match wins. CLEAN is the last rule and needs every counter at zero: nothing found, nothing left unread, no exception used.",
+  "blocking": {
+    "kinds": [
+      "secret"
+    ],
+    "severities": [
+      "critical",
+      "high"
+    ]
+  },
+  "review": {
+    "kinds": [
+      "suspect"
+    ],
+    "severities": [
+      "medium",
+      "low"
+    ]
+  },
+  "rules": [
+    {
+      "id": "GATE-BLOCKED",
+      "when": {
+        "blocking_min": 1
+      },
+      "verdict": "BLOCKED",
+      "exit_code": 3
+    },
+    {
+      "id": "GATE-NEEDS-REVIEW",
+      "when": {
+        "review_min": 1
+      },
+      "verdict": "NEEDS_REVIEW",
+      "exit_code": 2
+    },
+    {
+      "id": "GATE-NOT-COVERED",
+      "when": {
+        "not_covered_min": 1
+      },
+      "verdict": "NOT_COVERED",
+      "exit_code": 2
+    },
+    {
+      "id": "GATE-EXCEPTIONS-ONLY",
+      "when": {
+        "exceptions_min": 1
+      },
+      "verdict": "EXCEPTIONS_ONLY",
+      "exit_code": 0
+    },
+    {
+      "id": "GATE-CLEAN",
+      "when": {},
+      "verdict": "CLEAN",
+      "exit_code": 0
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "file": "pycode",
+  "version": "2.0.0",
+  "as_of": "2026-09-30",
+  "policy": "Ordered, first match wins, one decision per call expression. The source is parsed with the standard-library ast module: comments and string literals are never matched. Names are resolved through the file's own import aliases only; there is no data-flow analysis.",
+  "reference": "[TO CONFIRM with legal] No mapping to an external standard (for example OWASP) is claimed by these rules.",
+  "rules": [
+    {
+      "id": "PY-X-LITERAL-EVAL",
+      "action": "ignore",
+      "calls": ["ast.literal_eval"],
+      "reason": "parses literals only; it is the safe replacement for eval",
+      "tests": {"ignore": ["import ast\nast.literal_eval(expr)"]}
+    },
+    {
+      "id": "PY-EVAL",
+      "action": "report",
+      "class": "dynamic_code_execution",
+      "calls": ["eval", "exec"],
+      "tests": {"match": ["eval(expr)", "exec(code)"], "no_match": ["# eval(expr)", "note = \"eval(expr)\""]}
+    },
+    {
+      "id": "PY-SHELL-TRUE",
+      "action": "report",
+      "class": "shell_true",
+      "calls_prefix": ["subprocess."],
+      "keyword": {"shell": true},
+      "tests": {
+        "match": ["import subprocess\nsubprocess.run(cmd, shell=True)", "import subprocess as sp\nsp.Popen(cmd, shell=True)"],
+        "no_match": ["import subprocess\nsubprocess.run([\"tar\", \"czf\", name], check=True)"]
+      }
+    },
+    {
+      "id": "PY-OS-SYSTEM",
+      "action": "report",
+      "class": "shell_command",
+      "calls": ["os.system", "os.popen"],
+      "tests": {"match": ["import os\nos.system(\"gzip \" + name)", "from os import system\nsystem(cmd)"], "no_match": ["import os\nos.path.join(a, b)"]}
+    },
+    {
+      "id": "PY-PICKLE",
+      "action": "report",
+      "class": "unsafe_deserialization",
+      "calls": ["pickle.load", "pickle.loads"],
+      "tests": {"match": ["import pickle\npickle.loads(blob)", "from pickle import loads\nloads(blob)"], "no_match": ["import json\njson.loads(blob)"]}
+    },
+    {
+      "id": "PY-TLS-VERIFY-OFF",
+      "action": "report",
+      "class": "tls_verification_disabled",
+      "keyword": {"verify": false},
+      "tests": {"match": ["client.get(url, verify=False)"], "no_match": ["client.get(url, verify=True)"]}
+    },
+    {
+      "id": "PY-DEBUG-SERVER",
+      "action": "report",
+      "class": "debug_server",
+      "attr": "run",
+      "keyword": {"debug": true},
+      "tests": {"match": ["app.run(debug=True)"], "no_match": ["app.run(debug=False)", "log.configure(debug=True)"]}
+    },
+    {
+      "id": "PY-BIND-ALL",
+      "action": "report",
+      "class": "bind_all_interfaces",
+      "keyword": {"host": "0.0.0.0"},
+      "tests": {"match": ["server.serve(host=\"0.0.0.0\", port=8080)"], "no_match": ["server.serve(host=\"127.0.0.1\", port=8080)"]}
+    }
+  ]
+}

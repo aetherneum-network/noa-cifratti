@@ -1,0 +1,67 @@
+{
+  "passed": 10,
+  "report": "scenarios",
+  "scenarios": [
+    {
+      "id": "S01",
+      "line": "S01 PASS - secret removed by a later commit is found in history (commit acab0a12fcb8, deploy/prod.env:4); verdict BLOCKED; tree-only scan: 0 findings, verdict NOT_COVERED",
+      "result": "PASS",
+      "title": "Officina Brennero - a secret is committed and removed by a later commit"
+    },
+    {
+      "id": "S02",
+      "line": "S02 PASS - 5/5 planted secrets found; decoys reported as secrets: 0/12; decoys sent to review: 1 (wordlike); verdict BLOCKED",
+      "result": "PASS",
+      "title": "Studio Cartografico Lunaria - five planted secrets among twelve decoys"
+    },
+    {
+      "id": "S03",
+      "line": "S03 PASS - 9 planted values, 48 forms searched in 8 outputs: 0 in clear; 8/8 present as fingerprints; file named after a token masked",
+      "result": "PASS",
+      "title": "Cooperativa Tessile Arvale - the scanner's own report (negative)"
+    },
+    {
+      "id": "S04",
+      "line": "S04 PASS - 'fix' delta +2 BLOCKED with 2 entries (debug route, credential by fingerprint); reducing patch delta -1 PASS",
+      "result": "PASS",
+      "title": "Officina Brennero - a 'fix' opens a debug route and adds a credential"
+    },
+    {
+      "id": "S05",
+      "line": "S05 PASS - new entry point route:public:tiles.lunaria-carto.example/upload -> FAILED (ENTRY_POINT_NOT_IN_MODEL); model dated 2026-10-21T09:40:00+02:00; the model passes on its own topology (10 threats, 5 entry points)",
+      "result": "PASS",
+      "title": "Studio Cartografico Lunaria - a new entry point without a threat"
+    },
+    {
+      "id": "S06",
+      "line": "S06 PASS - rotated, not revoked -> FAILED on step revoke_old_key (ROTATED_NOT_REVOKED), closure BLOCKED; clean transcript PASSED",
+      "result": "PASS",
+      "title": "Cooperativa Tessile Arvale - tabletop 'compromised key': rotated, never revoked"
+    },
+    {
+      "id": "S07",
+      "line": "S07 PASS - restart before preservation -> FAILED (EVIDENCE_DESTROYED); destructive step without human consent -> refused by the runner (CONSENT_MISSING), closure BLOCKED; ordered run with consent PASSED",
+      "result": "PASS",
+      "title": "Officina Brennero - tabletop 'rogue container': restart before the evidence is preserved"
+    },
+    {
+      "id": "S08",
+      "line": "S08 PASS - identifier EP-4172 alerted, EP-1472 handed off -> FAILED at handoff_to_owner; all-clear BLOCKED; cited files alert.json, handoff.json, receipt.json and 3 authors",
+      "result": "PASS",
+      "title": "Studio Cartografico Lunaria - tabletop 'leaked endpoint': identifier transposed in the hand-off"
+    },
+    {
+      "id": "S09",
+      "line": "S09 PASS - rule SEC-ASSIGN-BARE narrowed: findings 4 -> 2; lost exactly the 2 expected (values.yml, backup.sh), gained 0; rule's own examples no longer matched: 0 (reported)",
+      "result": "PASS",
+      "title": "Cooperativa Tessile Arvale - a secret rule is narrowed"
+    },
+    {
+      "id": "S10",
+      "line": "S10 PASS - encrypted archive and non-UTF-8 file -> NOT_COVERED (2 files listed with a reason), never CLEAN; same tree without them CLEAN; token inside the non-UTF-8 file -> BLOCKED",
+      "result": "PASS",
+      "title": "Officina Brennero - encrypted archive and a file that is not UTF-8 (boundary)"
+    }
+  ],
+  "total": 10
+}

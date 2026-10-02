@@ -1,0 +1,326 @@
+{
+  "file": "config",
+  "version": "2.0.0",
+  "as_of": "2026-09-30",
+  "policy": "Ordered. Each rule names a target (route, middleware, service, env) and an aspect of it; for one subject and one aspect the first matching rule wins, and exceptions (action=ignore) sit on top. Only the two synthetic JSON schemas of this pack are understood (gateway-routes/v1, services/v1) plus KEY=VALUE environment files. Any other configuration format is outside coverage.",
+  "reference": "[TO CONFIRM with legal] No mapping to an external standard (for example OWASP) is claimed by these rules.",
+  "schemas": {
+    "routes": "gateway-routes/v1",
+    "services": "services/v1"
+  },
+  "env_globs": [
+    ".env",
+    ".env.*",
+    "*.env"
+  ],
+  "rules": [
+    {
+      "id": "CFG-X-ADMIN-ENTRYPOINT",
+      "action": "ignore",
+      "target": "route",
+      "aspect": "exposure",
+      "when": {
+        "entrypoint": "admin"
+      },
+      "reason": "a router on the admin entrypoint is bound to the private plane; the exposure rules below concern the public entrypoint",
+      "tests": {
+        "ignore": [
+          {
+            "name": "admin-ui",
+            "entrypoint": "admin",
+            "path_prefix": "/admin",
+            "middlewares": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "CFG-DEBUG-ROUTE",
+      "action": "report",
+      "target": "route",
+      "aspect": "exposure",
+      "class": "debug_route_public",
+      "when": {
+        "entrypoint": "public",
+        "path_prefix_any": [
+          "/debug",
+          "/_debug"
+        ]
+      },
+      "tests": {
+        "match": [
+          {
+            "name": "debug",
+            "entrypoint": "public",
+            "path_prefix": "/debug",
+            "middlewares": [
+              "forward-auth"
+            ]
+          }
+        ],
+        "no_match": [
+          {
+            "name": "docs",
+            "entrypoint": "public",
+            "path_prefix": "/docs/debugging",
+            "middlewares": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "CFG-ADMIN-NO-AUTH",
+      "action": "report",
+      "target": "route",
+      "aspect": "exposure",
+      "class": "admin_route_without_forward_auth",
+      "when": {
+        "entrypoint": "public",
+        "path_prefix_any": [
+          "/admin",
+          "/internal",
+          "/metrics"
+        ],
+        "lacks_middleware": "forward-auth"
+      },
+      "tests": {
+        "match": [
+          {
+            "name": "admin-public",
+            "entrypoint": "public",
+            "path_prefix": "/admin",
+            "middlewares": [
+              "rate-limit"
+            ]
+          }
+        ],
+        "no_match": [
+          {
+            "name": "admin-gated",
+            "entrypoint": "public",
+            "path_prefix": "/admin",
+            "middlewares": [
+              "forward-auth"
+            ]
+          },
+          {
+            "name": "app",
+            "entrypoint": "public",
+            "path_prefix": "/",
+            "middlewares": [
+              "rate-limit"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "CFG-FWD-AUTH-TRUST",
+      "action": "report",
+      "target": "middleware",
+      "aspect": "trust",
+      "class": "forward_auth_trusts_client_headers",
+      "when": {
+        "type": "forward-auth",
+        "setting": {
+          "trust_forward_header": true
+        }
+      },
+      "tests": {
+        "match": [
+          {
+            "name": "forward-auth",
+            "type": "forward-auth",
+            "trust_forward_header": true
+          }
+        ],
+        "no_match": [
+          {
+            "name": "forward-auth",
+            "type": "forward-auth",
+            "trust_forward_header": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "CFG-RUNTIME-SOCKET",
+      "action": "report",
+      "target": "service",
+      "aspect": "mounts",
+      "class": "runtime_socket_mounted",
+      "when": {
+        "mount_source_regex": "^/(?:var/)?run/[A-Za-z0-9_.-]*\\.sock$"
+      },
+      "tests": {
+        "match": [
+          {
+            "name": "app",
+            "plane": "app",
+            "networks": [
+              "app"
+            ],
+            "published": [],
+            "mounts": [
+              "/var/run/container.sock:/var/run/container.sock"
+            ]
+          }
+        ],
+        "no_match": [
+          {
+            "name": "db",
+            "plane": "data",
+            "networks": [
+              "data"
+            ],
+            "published": [],
+            "mounts": [
+              "dbdata:/var/lib/db"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "CFG-PORT-ALL-IFACES",
+      "action": "report",
+      "target": "service",
+      "aspect": "ports",
+      "class": "internal_port_published_on_all_interfaces",
+      "when": {
+        "plane_any": [
+          "admin",
+          "data"
+        ],
+        "published_bind_any": [
+          "0.0.0.0",
+          "::"
+        ]
+      },
+      "tests": {
+        "match": [
+          {
+            "name": "db",
+            "plane": "data",
+            "networks": [
+              "data"
+            ],
+            "published": [
+              "0.0.0.0:5432:5432"
+            ],
+            "mounts": []
+          },
+          {
+            "name": "db",
+            "plane": "data",
+            "networks": [
+              "data"
+            ],
+            "published": [
+              "5432:5432"
+            ],
+            "mounts": []
+          }
+        ],
+        "no_match": [
+          {
+            "name": "admin",
+            "plane": "admin",
+            "networks": [
+              "admin"
+            ],
+            "published": [
+              "10.77.0.1:8443:8443"
+            ],
+            "mounts": []
+          },
+          {
+            "name": "gateway",
+            "plane": "public",
+            "networks": [
+              "public"
+            ],
+            "published": [
+              "0.0.0.0:443:443"
+            ],
+            "mounts": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "CFG-BRIDGE-PUBLIC-DATA",
+      "action": "report",
+      "target": "service",
+      "aspect": "networks",
+      "class": "service_bridges_public_and_data_networks",
+      "when": {
+        "networks_all": [
+          "public",
+          "data"
+        ]
+      },
+      "tests": {
+        "match": [
+          {
+            "name": "api",
+            "plane": "app",
+            "networks": [
+              "public",
+              "app",
+              "data"
+            ],
+            "published": [],
+            "mounts": []
+          }
+        ],
+        "no_match": [
+          {
+            "name": "api",
+            "plane": "app",
+            "networks": [
+              "app",
+              "data"
+            ],
+            "published": [],
+            "mounts": []
+          }
+        ]
+      }
+    },
+    {
+      "id": "CFG-DEBUG-FLAG",
+      "action": "report",
+      "target": "env",
+      "aspect": "flag",
+      "class": "debug_flag_enabled",
+      "when": {
+        "key": "DEBUG",
+        "value_in": [
+          "1",
+          "true",
+          "yes",
+          "on"
+        ]
+      },
+      "tests": {
+        "match": [
+          {
+            "name": "DEBUG",
+            "value": "true"
+          }
+        ],
+        "no_match": [
+          {
+            "name": "DEBUG",
+            "value": "false"
+          },
+          {
+            "name": "LOG_LEVEL",
+            "value": "debug"
+          }
+        ]
+      }
+    }
+  ]
+}

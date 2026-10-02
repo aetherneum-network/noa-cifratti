@@ -1,0 +1,5 @@
+{
+  "schema": "integrations/v1",
+  "region": "eu-synthetic-1",
+  "webhookSecret": "hvnsyn_Igu1EfleA5vfDALXcQE48cmdSvOC6C8ULF90"
+}

@@ -1,0 +1,37 @@
+{
+  "as_of": "2026-10-21T09:40:00+02:00",
+  "closing_step": "close_incident",
+  "closure": "BLOCKED",
+  "events": 7,
+  "exit_code": 1,
+  "playbook": "rogue_container",
+  "playbook_version": "2.0.0",
+  "refused": [],
+  "report": "tabletop-judgement",
+  "rules": {
+    "judge": {
+      "sha256": "412168236d6d9d0580cec20631068df1f8047916765558f81249d2c85ab3b18b",
+      "version": "2.0.0"
+    },
+    "playbook": {
+      "sha256": "bbfa6cbad8fd38bd6f9a837a249c7f364a93b70f3f093bba7f98f56f1b4ba748",
+      "version": "2.0.0"
+    }
+  },
+  "statement": "a paper exercise: it shows the playbook is coherent and departures are seen, not that a real incident would be handled",
+  "subject": "CT-3906",
+  "tool": "noascan",
+  "verdict": "FAILED",
+  "version": "2.0.2",
+  "violations": [
+    {
+      "code": "EVIDENCE_DESTROYED",
+      "details": [
+        "a destructive step ran before the evidence was preserved"
+      ],
+      "rule": "J-EVIDENCE-DESTROYED",
+      "seq": 3,
+      "step": "restart_container"
+    }
+  ]
+}

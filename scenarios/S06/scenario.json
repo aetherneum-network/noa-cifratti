@@ -1,0 +1,10 @@
+{
+  "id": "S06",
+  "title": "Cooperativa Tessile Arvale - tabletop 'compromised key': rotated, never revoked",
+  "kind": "demonstration",
+  "run": [
+    "python",
+    "check.py"
+  ],
+  "timeout_s": 120
+}

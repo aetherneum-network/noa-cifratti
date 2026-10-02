@@ -1,0 +1,150 @@
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T001"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "verify_from_outside"]], "faults": ["skip_verify"], "playbook": "leaked_endpoint", "transcript": "T002"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "revoke_old_key"]], "faults": ["identifier_transposed"], "playbook": "compromised_key", "transcript": "T003"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "declare_incident"], ["EVIDENCE_MISSING", "preserve_evidence"]], "faults": ["evidence_missing", "first_step_evidence_missing"], "playbook": "rogue_container", "transcript": "T004"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "close_exposure"]], "faults": ["evidence_missing"], "playbook": "leaked_endpoint", "transcript": "T005"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T006"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T007"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "handoff_to_owner"]], "faults": ["identifier_transposed"], "playbook": "leaked_endpoint", "transcript": "T008"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T009"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_DESTROYED", "restart_container"]], "faults": ["restart_before_preserve"], "playbook": "rogue_container", "transcript": "T010"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T011"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T012"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "preserve_evidence"], ["LOG_CHAIN_BROKEN", "preserve_evidence"]], "faults": ["evidence_missing", "chain_tampered"], "playbook": "rogue_container", "transcript": "T013"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T014"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "revoke_old_key"]], "faults": ["evidence_missing"], "playbook": "compromised_key", "transcript": "T015"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_DESTROYED", "restart_container"], ["EVIDENCE_MISSING", "declare_incident"]], "faults": ["restart_before_preserve", "first_step_evidence_missing"], "playbook": "rogue_container", "transcript": "T016"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "verify_from_outside"]], "faults": ["skip_verify"], "playbook": "leaked_endpoint", "transcript": "T017"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "revoke_old_key"]], "faults": ["identifier_transposed"], "playbook": "compromised_key", "transcript": "T018"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["CONSENT_MISSING", "restart_container"]], "faults": ["no_consent"], "playbook": "rogue_container", "transcript": "T019"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["ORDER_VIOLATED", "all_clear"]], "faults": ["all_clear_before_verify"], "playbook": "leaked_endpoint", "transcript": "T020"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "declare_incident"], ["QUORUM_NOT_MET", "assemble_quorum"]], "faults": ["quorum_short", "first_step_evidence_missing"], "playbook": "compromised_key", "transcript": "T021"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T022"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "handoff_to_owner"]], "faults": ["identifier_transposed"], "playbook": "leaked_endpoint", "transcript": "T023"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "inventory_usages"]], "faults": ["skip_inventory"], "playbook": "compromised_key", "transcript": "T024"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "preserve_evidence"]], "faults": ["evidence_missing"], "playbook": "rogue_container", "transcript": "T025"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["LOG_CHAIN_BROKEN", "close_exposure"], ["ORDER_VIOLATED", "all_clear"]], "faults": ["all_clear_before_verify", "chain_tampered"], "playbook": "leaked_endpoint", "transcript": "T026"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T027"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "preserve_evidence"]], "faults": ["evidence_missing"], "playbook": "rogue_container", "transcript": "T028"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "verify_from_outside"]], "faults": ["skip_verify"], "playbook": "leaked_endpoint", "transcript": "T029"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["QUORUM_NOT_MET", "assemble_quorum"]], "faults": ["quorum_short"], "playbook": "compromised_key", "transcript": "T030"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["CONSENT_MISSING", "restart_container"]], "faults": ["no_consent"], "playbook": "rogue_container", "transcript": "T031"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T032"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T033"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "isolate_network"]], "faults": ["skip_isolate"], "playbook": "rogue_container", "transcript": "T034"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T035"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T036"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T037"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "verify_from_outside"]], "faults": ["skip_verify"], "playbook": "leaked_endpoint", "transcript": "T038"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T039"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T040"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T041"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["QUORUM_NOT_MET", "assemble_quorum"]], "faults": ["quorum_short"], "playbook": "compromised_key", "transcript": "T042"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["CONSENT_MISSING", "restart_container"], ["EVIDENCE_MISSING", "declare_incident"]], "faults": ["no_consent", "first_step_evidence_missing"], "playbook": "rogue_container", "transcript": "T043"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "verify_from_outside"]], "faults": ["skip_verify"], "playbook": "leaked_endpoint", "transcript": "T044"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "inventory_usages"]], "faults": ["skip_inventory"], "playbook": "compromised_key", "transcript": "T045"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T046"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "handoff_to_owner"]], "faults": ["identifier_transposed"], "playbook": "leaked_endpoint", "transcript": "T047"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T048"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T049"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "close_exposure"]], "faults": ["evidence_missing"], "playbook": "leaked_endpoint", "transcript": "T050"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "revoke_old_key"]], "faults": ["evidence_missing"], "playbook": "compromised_key", "transcript": "T051"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "isolate_network"]], "faults": ["skip_isolate"], "playbook": "rogue_container", "transcript": "T052"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T053"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T054"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T055"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T056"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "inventory_usages"]], "faults": ["skip_inventory"], "playbook": "compromised_key", "transcript": "T057"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T058"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T059"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "revoke_old_key"]], "faults": ["identifier_transposed"], "playbook": "compromised_key", "transcript": "T060"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "preserve_evidence"]], "faults": ["evidence_missing"], "playbook": "rogue_container", "transcript": "T061"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T062"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "inventory_usages"]], "faults": ["skip_inventory"], "playbook": "compromised_key", "transcript": "T063"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T064"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "close_exposure"]], "faults": ["evidence_missing"], "playbook": "leaked_endpoint", "transcript": "T065"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T066"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_DESTROYED", "restart_container"]], "faults": ["restart_before_preserve"], "playbook": "rogue_container", "transcript": "T067"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "verify_from_outside"]], "faults": ["skip_verify"], "playbook": "leaked_endpoint", "transcript": "T068"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T069"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T070"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T071"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["ORDER_VIOLATED", "rotate_key"]], "faults": ["rotate_before_quorum"], "playbook": "compromised_key", "transcript": "T072"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T073"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["LOG_CHAIN_BROKEN", "confirm_exposure"], ["ORDER_VIOLATED", "all_clear"]], "faults": ["all_clear_before_verify", "chain_tampered"], "playbook": "leaked_endpoint", "transcript": "T074"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T075"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["CONSENT_MISSING", "restart_container"]], "faults": ["no_consent"], "playbook": "rogue_container", "transcript": "T076"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T077"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T078"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["CONSENT_MISSING", "restart_container"]], "faults": ["no_consent"], "playbook": "rogue_container", "transcript": "T079"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T080"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["LOG_CHAIN_BROKEN", "verify_old_key_rejected"], ["STEP_SKIPPED", "inventory_usages"]], "faults": ["skip_inventory", "chain_tampered"], "playbook": "compromised_key", "transcript": "T081"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["CONSENT_MISSING", "restart_container"]], "faults": ["no_consent"], "playbook": "rogue_container", "transcript": "T082"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "verify_from_outside"]], "faults": ["skip_verify"], "playbook": "leaked_endpoint", "transcript": "T083"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "inventory_usages"]], "faults": ["skip_inventory"], "playbook": "compromised_key", "transcript": "T084"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["CONSENT_MISSING", "restart_container"]], "faults": ["no_consent"], "playbook": "rogue_container", "transcript": "T085"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T086"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T087"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T088"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["ORDER_VIOLATED", "all_clear"]], "faults": ["all_clear_before_verify"], "playbook": "leaked_endpoint", "transcript": "T089"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T090"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_DESTROYED", "restart_container"]], "faults": ["restart_before_preserve"], "playbook": "rogue_container", "transcript": "T091"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["ORDER_VIOLATED", "all_clear"]], "faults": ["all_clear_before_verify"], "playbook": "leaked_endpoint", "transcript": "T092"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "revoke_old_key"]], "faults": ["evidence_missing"], "playbook": "compromised_key", "transcript": "T093"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T094"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "handoff_to_owner"]], "faults": ["identifier_transposed"], "playbook": "leaked_endpoint", "transcript": "T095"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "revoke_old_key"]], "faults": ["evidence_missing"], "playbook": "compromised_key", "transcript": "T096"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "isolate_network"]], "faults": ["skip_isolate"], "playbook": "rogue_container", "transcript": "T097"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "handoff_to_owner"]], "faults": ["identifier_transposed"], "playbook": "leaked_endpoint", "transcript": "T098"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "inventory_usages"]], "faults": ["skip_inventory"], "playbook": "compromised_key", "transcript": "T099"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "isolate_network"]], "faults": ["skip_isolate"], "playbook": "rogue_container", "transcript": "T100"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "receive_alert"], ["ORDER_VIOLATED", "all_clear"]], "faults": ["all_clear_before_verify", "first_step_evidence_missing"], "playbook": "leaked_endpoint", "transcript": "T101"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T102"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "isolate_network"]], "faults": ["skip_isolate"], "playbook": "rogue_container", "transcript": "T103"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T104"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["QUORUM_NOT_MET", "assemble_quorum"]], "faults": ["quorum_short"], "playbook": "compromised_key", "transcript": "T105"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_DESTROYED", "restart_container"]], "faults": ["restart_before_preserve"], "playbook": "rogue_container", "transcript": "T106"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "verify_from_outside"]], "faults": ["skip_verify"], "playbook": "leaked_endpoint", "transcript": "T107"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["ROTATED_NOT_REVOKED", "revoke_old_key"]], "faults": ["rotated_not_revoked"], "playbook": "compromised_key", "transcript": "T108"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "isolate_network"]], "faults": ["skip_isolate"], "playbook": "rogue_container", "transcript": "T109"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T110"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T111"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_DESTROYED", "restart_container"], ["STEP_SKIPPED", "preserve_evidence"]], "faults": ["skip_preserve"], "playbook": "rogue_container", "transcript": "T112"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T113"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T114"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "isolate_network"]], "faults": ["skip_isolate"], "playbook": "rogue_container", "transcript": "T115"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["LOG_CHAIN_BROKEN", "confirm_exposure"], ["STEP_SKIPPED", "verify_from_outside"]], "faults": ["skip_verify", "chain_tampered"], "playbook": "leaked_endpoint", "transcript": "T116"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "revoke_old_key"]], "faults": ["identifier_transposed"], "playbook": "compromised_key", "transcript": "T117"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T118"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T119"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T120"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["CONSENT_MISSING", "restart_container"]], "faults": ["no_consent"], "playbook": "rogue_container", "transcript": "T121"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "receive_alert"], ["ORDER_VIOLATED", "all_clear"]], "faults": ["all_clear_before_verify", "first_step_evidence_missing"], "playbook": "leaked_endpoint", "transcript": "T122"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["QUORUM_NOT_MET", "assemble_quorum"]], "faults": ["quorum_short"], "playbook": "compromised_key", "transcript": "T123"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "isolate_network"]], "faults": ["skip_isolate"], "playbook": "rogue_container", "transcript": "T124"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "close_exposure"]], "faults": ["evidence_missing"], "playbook": "leaked_endpoint", "transcript": "T125"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["QUORUM_NOT_MET", "assemble_quorum"]], "faults": ["quorum_short"], "playbook": "compromised_key", "transcript": "T126"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T127"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T128"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T129"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["CONSENT_MISSING", "restart_container"]], "faults": ["no_consent"], "playbook": "rogue_container", "transcript": "T130"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "handoff_to_owner"]], "faults": ["identifier_transposed"], "playbook": "leaked_endpoint", "transcript": "T131"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["QUORUM_NOT_MET", "assemble_quorum"]], "faults": ["quorum_short"], "playbook": "compromised_key", "transcript": "T132"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_DESTROYED", "restart_container"], ["STEP_SKIPPED", "preserve_evidence"]], "faults": ["skip_preserve"], "playbook": "rogue_container", "transcript": "T133"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["ORDER_VIOLATED", "all_clear"]], "faults": ["all_clear_before_verify"], "playbook": "leaked_endpoint", "transcript": "T134"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T135"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T136"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["ORDER_VIOLATED", "all_clear"]], "faults": ["all_clear_before_verify"], "playbook": "leaked_endpoint", "transcript": "T137"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["STEP_SKIPPED", "inventory_usages"]], "faults": ["skip_inventory"], "playbook": "compromised_key", "transcript": "T138"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "declare_incident"], ["STEP_SKIPPED", "isolate_network"]], "faults": ["skip_isolate", "first_step_evidence_missing"], "playbook": "rogue_container", "transcript": "T139"}
+{"company": "lunaria", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T140"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "compromised_key", "transcript": "T141"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "rogue_container", "transcript": "T142"}
+{"company": "arvale", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T143"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["ORDER_VIOLATED", "rotate_key"]], "faults": ["rotate_before_quorum"], "playbook": "compromised_key", "transcript": "T144"}
+{"company": "brennero", "expected_verdict": "FAILED", "expected_violations": [["CONSENT_MISSING", "restart_container"], ["LOG_CHAIN_BROKEN", "preserve_evidence"]], "faults": ["no_consent", "chain_tampered"], "playbook": "rogue_container", "transcript": "T145"}
+{"company": "brennero", "expected_verdict": "PASSED", "expected_violations": [], "faults": [], "playbook": "leaked_endpoint", "transcript": "T146"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_MISSING", "revoke_old_key"]], "faults": ["evidence_missing"], "playbook": "compromised_key", "transcript": "T147"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["EVIDENCE_DESTROYED", "restart_container"], ["LOG_CHAIN_BROKEN", "verify_clean"], ["STEP_SKIPPED", "preserve_evidence"]], "faults": ["skip_preserve", "chain_tampered"], "playbook": "rogue_container", "transcript": "T148"}
+{"company": "lunaria", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "handoff_to_owner"]], "faults": ["identifier_transposed"], "playbook": "leaked_endpoint", "transcript": "T149"}
+{"company": "arvale", "expected_verdict": "FAILED", "expected_violations": [["IDENTIFIER_MISMATCH", "revoke_old_key"]], "faults": ["identifier_transposed"], "playbook": "compromised_key", "transcript": "T150"}

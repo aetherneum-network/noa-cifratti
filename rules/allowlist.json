@@ -1,0 +1,79 @@
+{
+  "file": "allowlist",
+  "version": "2.0.0",
+  "as_of": "2026-09-30",
+  "policy": "Exceptions for the scan of this repository itself, first match wins. Each entry pins one exact path and one exact fingerprint (or subject, or content hash) and gives a reason. Findings may be excepted only under corpus/ and scenarios/*/input/ (a test enforces it). An exception never yields CLEAN: the best verdict of a scan that used one is EXCEPTIONS_ONLY.",
+  "rules": [
+    {
+      "id": "AL-AVATAR",
+      "type": "not_covered",
+      "path": "avatar.jpg",
+      "sha256": "8011125d33ae169d6799a74c72d3d14aa5817f6b42a61d673c3adb842d09ff6a",
+      "reason": "profile picture: a binary image, pinned by content hash; the scanner abstains on it"
+    },
+    {
+      "id": "AL-S02-1",
+      "type": "finding",
+      "path": "scenarios/S02/input/tree/deploy/prod.env",
+      "class": "vendor_api_token",
+      "fingerprint": "5a28aa18917a5055",
+      "reason": "scenario S02 fixture: inert synthetic value generated from the scenario seed (see SYNTHETIC.md)"
+    },
+    {
+      "id": "AL-S02-2",
+      "type": "finding",
+      "path": "scenarios/S02/input/tree/config/integrations.json",
+      "class": "vendor_webhook_secret",
+      "fingerprint": "b11eca194d675a8e",
+      "reason": "scenario S02 fixture: inert synthetic value generated from the scenario seed (see SYNTHETIC.md)"
+    },
+    {
+      "id": "AL-S02-3",
+      "type": "finding",
+      "path": "scenarios/S02/input/tree/src/settings.py",
+      "class": "assigned_password",
+      "fingerprint": "4e621f580061c5c8",
+      "reason": "scenario S02 fixture: inert synthetic value generated from the scenario seed (see SYNTHETIC.md)"
+    },
+    {
+      "id": "AL-S02-4",
+      "type": "finding",
+      "path": "scenarios/S02/input/tree/deploy/values.yml",
+      "class": "connection_uri_password",
+      "fingerprint": "317d96b57afb3de0",
+      "reason": "scenario S02 fixture: inert synthetic value generated from the scenario seed (see SYNTHETIC.md)"
+    },
+    {
+      "id": "AL-S02-5",
+      "type": "finding",
+      "path": "scenarios/S02/input/tree/keys/deploy_key.txt",
+      "class": "armored_key_block",
+      "fingerprint": "96875de413c077c0",
+      "reason": "scenario S02 fixture: inert synthetic value generated from the scenario seed (see SYNTHETIC.md)"
+    },
+    {
+      "id": "AL-S02-6",
+      "type": "finding",
+      "path": "scenarios/S02/input/tree/src/settings.py",
+      "class": "wordlike_value_under_secret_key",
+      "fingerprint": "2cc27951cb658237",
+      "reason": "scenario S02 fixture: decoy 12, a label under a secret-looking key; kept to show the review verdict"
+    },
+    {
+      "id": "AL-S04-1",
+      "type": "finding",
+      "path": "scenarios/S04/input/after_fix/deploy/prod.env",
+      "class": "assigned_password",
+      "fingerprint": "1b17141aedbce3c6",
+      "reason": "scenario S04 fixture: inert synthetic value, the credential the 'fix' adds"
+    },
+    {
+      "id": "AL-S04-2",
+      "type": "finding",
+      "path": "scenarios/S04/input/after_fix/config/gateway/routes.json",
+      "class": "debug_route_public",
+      "subject": "debug",
+      "reason": "scenario S04 fixture: the debug route the 'fix' opens, in an invented configuration schema"
+    }
+  ]
+}

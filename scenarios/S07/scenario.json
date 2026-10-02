@@ -1,0 +1,10 @@
+{
+  "id": "S07",
+  "title": "Officina Brennero - tabletop 'rogue container': restart before the evidence is preserved",
+  "kind": "demonstration",
+  "run": [
+    "python",
+    "check.py"
+  ],
+  "timeout_s": 120
+}
