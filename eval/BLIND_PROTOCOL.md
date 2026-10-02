@@ -11,11 +11,17 @@ looked at by the author.
 
 ## What is frozen
 
-The tag `v2.0.2-freeze` (commit `a4492d8817e413ec23b1a8090c2ce064659c9ed9`). It is a code freeze:
+The tag `v2.0.2-freeze` (commit `74298c2b2c786e033a0282b30725251d8dda0b87`). It is a code freeze:
 version 2.0.2 changes the scanner so that it reads the header and the message of every commit and
 annotated-tag object (finding T19 of the evaluation of 2026-09-30; `CHANGELOG.md`, 2.0.2), and with
 it the harness and the seeds. The harness now compares with this tag itself: `eval/score.py`
 names `v2.0.2-freeze`, and a recorded run carries its commit as `freeze_commit`.
+
+The commit hashes of this repository changed on 2 October 2026, when its history was rewritten to
+replace an e-mail address in the author and committer fields; no file changed. Before that date the
+commit of `v2.0.2-freeze` was `a4492d8817e413ec23b1a8090c2ce064659c9ed9`. Hashes written before that
+date in the frozen records (`eval/history.json`, `CHANGELOG.md`, the files of the tags) keep their old
+value; the map from old to new hashes is published in the registry repository of the organization.
 
 A blind run is valid only if these paths are identical to the tag: `noascan`, `rules`,
 `playbooks`, `tabletop`, `threatmodel`, `corpus`, `eval/score.py`, `eval/manual.py`,
@@ -59,7 +65,7 @@ by the runner (for example `2026-10-05T10:00:00+02:00`): the programs never read
 
 ```
 # 0. the code is the frozen one
-git rev-parse "v2.0.2-freeze^{commit}"          # must print a4492d8817e413ec23b1a8090c2ce064659c9ed9
+git rev-parse "v2.0.2-freeze^{commit}"          # must print 74298c2b2c786e033a0282b30725251d8dda0b87
 git diff --name-only v2.0.2-freeze               # must print eval/BLIND_PROTOCOL.md and nothing else
 git status --short                               # must print nothing
 python tools/manifest.py --check                 # must say "0 differ" and "is the list of the tagged commit"
